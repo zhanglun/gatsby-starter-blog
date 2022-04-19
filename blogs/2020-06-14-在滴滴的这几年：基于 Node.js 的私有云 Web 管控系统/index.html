@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.waves.min.js"></script><meta data-react-helmet="true" name="twitter:description" content="欢迎来到张小伦的网络日志 
+		一个记录生活，分享心得的博客"/><meta data-react-helmet="true" name="twitter:title" content="在滴滴的这几年：基于 Node.js 的私有云 Web 管控系统"/><meta data-react-helmet="true" name="twitter:creator" content="asdf"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" property="og:description" content="欢迎来到张小伦的网络日志 
+		一个记录生活，分享心得的博客"/><meta data-react-helmet="true" property="og:title" content="在滴滴的这几年：基于 Node.js 的私有云 Web 管控系统"/><meta data-react-helmet="true" name="description" content="欢迎来到张小伦的网络日志 
+		一个记录生活，分享心得的博客"/><meta name="generator" content="Gatsby 4.11.2"/><style data-href="/styles.28ee8f1ff2550cd53998.css" data-identity="gatsby-global-css">@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/static/montserrat-latin-100-8d7d79679b70dbe27172b6460e7a7910.woff2) format("woff2"),url(/static/montserrat-latin-100-ec38980a9e0119a379e2a9b3dbb1901a.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/static/montserrat-latin-100italic-e279051046ba1286706adc886cf1c96b.woff2) format("woff2"),url(/static/montserrat-latin-100italic-3b325a3173c8207435cd1b76e19bf501.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/static/montserrat-latin-200-9d266fbbfa6cab7009bd56003b1eeb67.woff2) format("woff2"),url(/static/montserrat-latin-200-2d8ba08717110d27122e54c34b8a5798.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/static/montserrat-latin-200italic-6e5b3756583bb2263eb062eae992735e.woff2) format("woff2"),url(/static/montserrat-latin-200italic-a0d6f343e4b536c582926255367a57da.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/static/montserrat-latin-300-00b3e893aab5a8fd632d6342eb72551a.woff2) format("woff2"),url(/static/montserrat-latin-300-ea303695ceab35f17e7d062f30e0173b.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/static/montserrat-latin-300italic-56f34ea368f6aedf89583d444bbcb227.woff2) format("woff2"),url(/static/montserrat-latin-300italic-54b0bf2c8c4c12ffafd803be2466a790.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/static/montserrat-latin-400-b71748ae4f80ec8c014def4c5fa8688b.woff2) format("woff2"),url(/static/montserrat-latin-400-0659a9f4e90db5cf51b50d005bff1e41.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/static/montserrat-latin-400italic-6eed6b4cbb809c6efc7aa7ddad6dbe3e.woff2) format("woff2"),url(/static/montserrat-latin-400italic-7583622cfde30ae49086d18447ab28e7.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/static/montserrat-latin-500-091b209546e16313fd4f4fc36090c757.woff2) format("woff2"),url(/static/montserrat-latin-500-edd311588712a96bbf435fad264fff62.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/static/montserrat-latin-500italic-c90ced68b46050061d1a41842d6dfb43.woff2) format("woff2"),url(/static/montserrat-latin-500italic-5146cbfe02b1deea5dffea27a5f2f998.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/static/montserrat-latin-600-0480d2f8a71f38db8633b84d8722e0c2.woff2) format("woff2"),url(/static/montserrat-latin-600-b77863a375260a05dd13f86a1cee598f.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/static/montserrat-latin-600italic-cf46ffb11f3a60d7df0567f8851a1d00.woff2) format("woff2"),url(/static/montserrat-latin-600italic-c4fcfeeb057724724097167e57bd7801.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/static/montserrat-latin-700-7dbcc8a5ea2289d83f657c25b4be6193.woff2) format("woff2"),url(/static/montserrat-latin-700-99271a835e1cae8c76ef8bba99a8cc4e.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/static/montserrat-latin-700italic-c41ad6bdb4bd504a843d546d0a47958d.woff2) format("woff2"),url(/static/montserrat-latin-700italic-6779372f04095051c62ed36bc1dcc142.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/static/montserrat-latin-800-db9a3e0ba7eaea32e5f55328ace6cf23.woff2) format("woff2"),url(/static/montserrat-latin-800-4e3c615967a2360f5db87d2f0fd2456f.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/static/montserrat-latin-800italic-bf45bfa14805969eda318973947bc42b.woff2) format("woff2"),url(/static/montserrat-latin-800italic-fe82abb0bcede51bf724254878e0c374.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/static/montserrat-latin-900-e66c7edc609e24bacbb705175669d814.woff2) format("woff2"),url(/static/montserrat-latin-900-8211f418baeb8ec880b80ba3c682f957.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/static/montserrat-latin-900italic-4454c775e48152c1a72510ceed3603e2.woff2) format("woff2"),url(/static/montserrat-latin-900italic-efcaa0f6a82ee0640b83a0916e6e8d68.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/static/merriweather-latin-300-fc117160c69a8ea0851b26dd14748ee4.woff2) format("woff2"),url(/static/merriweather-latin-300-58b18067ebbd21fda77b67e73c241d3b.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/static/merriweather-latin-300italic-fe29961474f8dbf77c0aa7b9a629e4bc.woff2) format("woff2"),url(/static/merriweather-latin-300italic-23c3f1f88683618a4fb8d265d33d383a.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/static/merriweather-latin-400-d9479e8023bef9cbd9bf8d6eabd6bf36.woff2) format("woff2"),url(/static/merriweather-latin-400-040426f99ff6e00b86506452e0d1f10b.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/static/merriweather-latin-400italic-2de7bfeaf08fb03d4315d49947f062f7.woff2) format("woff2"),url(/static/merriweather-latin-400italic-79db67aca65f5285964ab332bd65f451.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/static/merriweather-latin-700-4b08e01d805fa35d7bf777f1b24314ae.woff2) format("woff2"),url(/static/merriweather-latin-700-22fb8afba4ab1f093b6ef9e28a9b6e92.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/static/merriweather-latin-700italic-cd92541b177652fffb6e3b952f1c33f1.woff2) format("woff2"),url(/static/merriweather-latin-700italic-f87f3d87cea0dd0979bfc8ac9ea90243.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/static/merriweather-latin-900-f813fc6a4bee46eda5224ac7ebf1b7be.woff2) format("woff2"),url(/static/merriweather-latin-900-5d4e42cb44410674acd99153d57df032.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/static/merriweather-latin-900italic-b7901d85486871c1779c0e93ddd85656.woff2) format("woff2"),url(/static/merriweather-latin-900italic-9647f9fdab98756989a8a5550eb205c3.woff) format("woff")}:root{--sans-font:"'Montserrat'","Noto Sans","Noto Sans TC","Noto Sans SC",sans-serif!important;--serif-font:"Noto Serif","Noto Serif TC","Noto Sans TC",serif!important;--inline-code-font:monospace!important;--mono-font:"JetBrains Mono",monospace!important;--content-font-size:16px;--maxWidth-none:"none";--maxWidth-xs:20rem;--maxWidth-sm:24rem;--maxWidth-md:28rem;--maxWidth-lg:32rem;--maxWidth-xl:36rem;--maxWidth-2xl:42rem;--maxWidth-3xl:48rem;--maxWidth-4xl:56rem;--maxWidth-full:"100%";--maxWidth-wrapper:var(--maxWidth-2xl);--main-max-width:1040px;--spacing-px:"1px";--spacing-0:0;--spacing-1:0.25rem;--spacing-2:0.5rem;--spacing-3:0.75rem;--spacing-4:1rem;--spacing-5:1.25rem;--spacing-6:1.5rem;--spacing-8:2rem;--spacing-10:2.5rem;--spacing-12:3rem;--spacing-16:4rem;--spacing-20:5rem;--spacing-24:6rem;--spacing-32:8rem;--main-spacing:100px;--fontFamily-sans:"Montserrat","Noto Serif SC",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--fontFamily-serif:"Noto Serif SC","Merriweather","Georgia",Cambria,"Times New Roman",Times,serif;--font-body:"Montserrat";--font-heading:"Montserrat";--fontWeight-normal:400;--fontWeight-medium:500;--fontWeight-semibold:600;--fontWeight-bold:700;--fontWeight-extrabold:800;--fontWeight-black:900;--fontSize-root:16px;--lineHeight-none:1;--lineHeight-tight:1.1;--lineHeight-normal:1.5;--lineHeight-relaxed:1.9;--fontSize-0:0.833rem;--fontSize-1:1rem;--fontSize-2:1.2rem;--fontSize-3:1.44rem;--fontSize-4:1.728rem;--fontSize-5:2.074rem;--fontSize-6:2.488rem;--fontSize-7:2.986rem;--color-primary:#005b99;--color-text:#1d2b36;--color-text-light:#4f5969;--color-heading:#45525b;--color-heading-black:#000;--color-accent:#d1dce5;--header-height:60px;--main-bg:#fff}*,:after,:before{box-sizing:border-box}html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:var(--fontSize-root);line-height:var(--lineHeight-normal)}body{background-color:#fafafa;color:var(--color-text);font-family:var(--font-body);font-size:var(--fontSize-1);margin:0}hr{background:var(--color-accent);border:0;height:1px}h1,h2,h3,h4,h5,h6{font-family:var(--font-heading);letter-spacing:-.025em;line-height:var(--lineHeight-normal);margin-bottom:var(--spacing-6);margin-top:var(--spacing-12)}h2,h3,h4,h5,h6{color:var(--color-heading);font-weight:var(--fontWeight-bold)}h1{color:var(--color-heading-black);font-size:var(--fontSize-6);font-weight:var(--fontWeight-black)}h2{font-size:var(--fontSize-5);font-size:25px;margin-top:80px;padding:40px 0 50px}h3{font-size:var(--fontSize-4)}h4{font-size:var(--fontSize-3)}h5{font-size:var(--fontSize-2)}h6{font-size:var(--fontSize-1)}h1>a,h2>a,h3>a,h4>a,h5>a,h6>a{color:inherit;text-decoration:none}p{--baseline-multiplier:0.179;--x-height-multiplier:0.35;line-height:var(--lineHeight-relaxed);margin:var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);padding:var(--spacing-0)}ol,ul{margin-bottom:0;margin-top:0}ol li,ul li{padding-left:var(--spacing-0)}li>p,ol li,ul li{margin-bottom:calc(var(--spacing-8)/2)}li :last-child{margin-bottom:var(--spacing-0)}li>ul{margin-left:var(--spacing-8);margin-top:calc(var(--spacing-8)/2)}blockquote{border-left:var(--spacing-1) solid var(--color-primary);color:var(--color-text-light);font-size:var(--fontSize-2);font-style:italic;margin-bottom:var(--spacing-8);margin-left:calc(var(--spacing-6)*-1);margin-right:var(--spacing-8);padding:var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-6)}blockquote>:last-child{margin-bottom:var(--spacing-0)}blockquote>ol,blockquote>ul{list-style-position:inside}table{border-collapse:collapse;border-spacing:.25rem;margin-bottom:var(--spacing-8);width:100%}table thead tr th{border-bottom:1px solid var(--color-accent)}p img{max-width:100%}a{color:var(--color-primary)}a:focus,a:hover{text-decoration:none}.global-wrapper{background-color:#fafafa}.global-header{margin-bottom:var(--spacing-12)}.main{margin:0 auto;max-width:760px;position:relative;z-index:1}@media screen and (max-width:999px){.main{max-width:100%;padding:0 20px}}.main-heading{font-size:var(--fontSize-7);margin:0}.header-link-home{font-family:var(--font-heading);font-size:var(--fontSize-2);font-weight:var(--fontWeight-bold);text-decoration:none}.blog-post{border-bottom:1px solid #1d2b36;line-height:1.9;margin-bottom:10px;padding-bottom:80px;position:relative}.blog-post:before{left:0}.blog-post:after,.blog-post:before{background:#1d2b36;bottom:-2px;content:"";height:3px;position:absolute;width:3px}.blog-post:after{right:0}.blog-post header{border-top:1px solid #1d2b36;margin-top:50px;position:relative}.blog-post header:before{left:0}.blog-post header:after,.blog-post header:before{background:#1d2b36;content:"";height:3px;position:absolute;top:-2px;width:3px}.blog-post header:after{right:0}.blog-post header h1{font-size:36px;font-weight:700;line-height:1.4;margin:60px 0}.blog-post header p{font-family:var(--font-heading);font-size:var(--fontSize-2)}.gatsby-highlight{margin-bottom:var(--spacing-8)}@media (max-width:42rem){blockquote{margin-left:var(--spacing-0);padding:var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-4)}ol,ul{list-style-position:inside}}.pagination{align-items:center;display:flex;justify-content:space-between;padding:50px 0}.hover-underline{display:inline-block;position:relative}.hover-underline:after{background-color:var(--color-text);bottom:0;content:"";height:2px;left:0;position:absolute;-webkit-transform:scaleX(0);transform:scaleX(0);-webkit-transform-origin:bottom right;transform-origin:bottom right;transition:-webkit-transform .25s ease-out;transition:transform .25s ease-out;transition:transform .25s ease-out,-webkit-transform .25s ease-out;width:100%}.hover-underline:hover:after{-webkit-transform:scaleX(1);transform:scaleX(1);-webkit-transform-origin:bottom left;transform-origin:bottom left}.page-title{color:var(--color-heading);font-size:var(--fontSize-6);margin-bottom:var(--spacing-5);padding-top:50px;text-align:center}.category-list{grid-row-gap:40px;display:grid;grid-template-columns:repeat(4,1fr);justify-items:center;padding:30px 0 60px}.category-img{background-color:rgba(0,0,0,.2);border-radius:100%;height:150px;margin-bottom:20px;padding:10px;transition:all .3s ease-in-out;width:150px}.category-img img{width:100%}.category-item{text-align:center;text-decoration:none}.category-item:hover{color:var(--color-text)}.category-item:hover .category-img{background-color:rgba(0,0,0,.35)}.category-page-header{display:grid;justify-items:center;padding:50px 0}.archive-item{margin-bottom:50px}.archive-year{font-size:26px}.archive-item-list{list-style-type:none;margin-left:0;padding-top:10px}.archive-item-list li{margin:8px 0}.archive-item-list a{text-decoration:none}.archive-item-list a:hover{text-decoration:underline}.archive-date{margin-right:20px}code[class*=language-],pre[class*=language-]{word-wrap:normal;background:none;color:#ccc;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;font-size:1em;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none;line-height:1.5;-o-tab-size:4;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}pre[class*=language-]{margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}.header{background-color:#fff;box-shadow:0 2px 7px -4px rgba(0,0,0,.5);position:-webkit-sticky;position:sticky;top:-1px;width:100%;z-index:10}.header-inner{display:flex;height:var(--header-height);justify-content:space-between;margin:0 auto;max-width:var(--main-max-width)}.header-title{color:#6e7278;font-size:20px;line-height:var(--header-height);margin-left:8px;padding:0 12px}.header-nav{display:flex}.nav-item{font-size:16px;font-weight:700;height:var(--header-height);line-height:var(--header-height);margin:0 8px;padding:0 12px;text-decoration:none;transition:all .3s}.nav-item,.nav-item:link{color:var(--color-text)}.nav-item:hover{color:var(--color-primary)}.header-title-link{color:var(--color-text);cursor:pointer;text-decoration:none}.header-title-link:hover{color:var(--color-heading-black)}.banner{align-items:center;background-color:#022;background-position:50%;background-size:cover;display:flex;height:560px;justify-content:center;margin-bottom:-80px;padding:10px}.banner-title{color:#fff;font-size:36px;height:120px;line-height:56px;margin-top:-22px;padding:2px 30px;text-align:center;width:600px}.footer{padding:80px 0 40px;text-align:center}.article-category-list{align-items:center;display:flex;justify-content:center;margin-bottom:var(--spacing-6)}.article-category{background-color:#636363;color:#fff;font-size:14px;line-height:20px;margin:0 4px;padding:4px 14px}.article-list{list-style-type:none;margin:0;padding:0}.article-list-item{border-bottom:1px solid #e2e2e2}.article-list-item p{font-size:var(--content-font-size);margin-bottom:var(--spacing-0);text-align:center}.article-list-item header{margin-bottom:var(--spacing-4);padding-top:50px;text-align:center}.article-list-item h2{color:var(--color-heading);font-size:var(--fontSize-6);margin-bottom:var(--spacing-5);margin-top:0}.article-list-item h2:hover{color:var(--color-heading-black)}.article-list-item section{margin:50px 0 20px}.article-list-item footer{padding:40px 0;text-align:center}.article-list-item .read-more{background-color:transparent;border:3px solid #636363;color:#636363;cursor:pointer;display:inline-block;font-size:13px;font-weight:var(--fontWeight-bold);height:50px;line-height:44px;outline:none;text-decoration:none;transition:.25s ease-in-out;width:176px}.article-list-item .read-more:link{color:#636363}.article-list-item .read-more:hover{border-color:var(--color-heading);color:var(--color-heading)}blockquote{color:#999;font-weight:400}.title{font-size:calc(var(--content-font-size)*2.5)}.desc{font-size:calc(var(--content-font-size)*1.2)}.content h2{border-top:1px solid #f0f0f0;font-size:25px;margin:80px 0 0;padding:40px 0 50px;position:relative}.content h2:before{left:0}.content h2:after,.content h2:before{background:#93a1b0;content:"";height:3px;position:absolute;top:-2px;width:3px}.content h2:after{right:0}</style><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){if(void 0===e.target.dataset.mainImage)return;if(void 0===e.target.dataset.gatsbyImageSsr)return;const t=e.target;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><link rel="preconnect" href="https://www.google-analytics.com"/><link rel="dns-prefetch" href="https://www.google-analytics.com"/><link rel="alternate" type="application/rss+xml" title="Gatsby Starter Blog RSS Feed" href="/rss.xml"/><link rel="icon" href="/favicon-32x32.png?v=25643e3cbe7be23b6c1bdad497608e85" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=25643e3cbe7be23b6c1bdad497608e85"/><title data-react-helmet="true">在滴滴的这几年：基于 Node.js 的私有云 Web 管控系统 | 张小伦的网络日志</title><link as="script" rel="preload" href="/webpack-runtime-56976d73dd51c672c28b.js"/><link as="script" rel="preload" href="/framework-b9923b3cceb493977198.js"/><link as="script" rel="preload" href="/app-11714ea12522d77ace84.js"/><link as="script" rel="preload" href="/0b98594fcddcff10f8b5f74aec797a56f6f99e07-3fb3a7c25cb9f18b58ba.js"/><link as="script" rel="preload" href="/component---src-templates-blog-post-js-8913e7153bf91b18d03b.js"/><link as="fetch" rel="preload" href="/page-data/blogs/2020-06-14-在滴滴的这几年：基于 Node.js 的私有云 Web 管控系统/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/sq/d/2841359383.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="global-wrapper" data-is-root-path="false"><section class="main"><article class="blog-post" itemscope="" itemType="http://schema.org/Article"><header><div class="article-category-list"></div><h1 itemProp="headline">在滴滴的这几年：基于 Node.js 的私有云 Web 管控系统</h1><p>June 14, 2020</p></header><section itemProp="articleBody" class="content"><p>在大概18年上半年，有幸被抽调到一个FT，参与云平台私有云项目的开发中。这个项目是一个产品化的IaaS解决方案，为企业提供管理包括计算，网络，存储在内的数据中心资源的能力。</p>
+<h2>私有云和IaaS</h2>
+<p>私有云(Private Clouds)是为一个客户单独使用而构建的，因而提供对数据、安全性和服务质量的最有效控制。该公司拥有基础设施，并可以控制在此基础设施上部署应用程序的方式。可由公司自己的 IT 机构，也可由云提供商进行构建。云计算提供商可以安装、配置和运营基础设施，以支持一个公司企业数据中心内的专用云。有时候也会称之为“内部云”</p>
+<p>核心点在于：利用虚拟化技术将源自物理硬件的资源组合到共享池中，使用时从共享池中按需获取所需资源。</p>
+<p>在云计算服务中，有下面三类，自下往上依次是：</p>
+<ol>
+<li>IaaS：基础设施即服务 (Infrastructure as a Service)把计算基础(服务器、网络技术、存储和数据中心空间)作为一项服务提供给客户。它也包括提供操作系统和虚拟化技术、来管理资源。消费者通过Internet可以从完善的计算机基础设施获得服务。</li>
+<li>PaaS：平台即服务(Platform as a Service）PaaS实际上是指将软件研发的平台作为一种服务，供应商提供超过基础设施的服务，一个作为软件开发和运行环境的整套解决方案，即以SaaS的模式提交给用户。因此，PaaS也是SaaS模式的一种应用。</li>
+<li>SaaS：软件即服务 (Software as a Service)SaaS是一种交付模式，主要还是面向企业的服务，国外比较有名的比如CRM起家的Salesforce等等，国内比较有名的比如做企业通讯的钉钉和企业销售管理的纷享销客等等</li>
+</ol>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/cc1ac5b52c9e90e38da245de98a081be/d48f1/visual-uaas.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 61.39240506329114%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAIAAADtbgqsAAAACXBIWXMAAAsTAAALEwEAmpwYAAACeUlEQVQoz22Q/UtTYRTH9w/1U0aZK3XOamzNNEmIgcyXIZFR0A+GvTCEQC1EC0oISaGp2+7MmLYlabrpxsw5dLr7mu3lumzb1d293We79z5x1UKhw/nlOZzP+X54ZIG9fdNWZAqPWbGjjiL4ro2II8SujYwjGH00R7CobSc5jeF0moEQiqIIIZTRbKFuarnc5KqZcCkmFmsm3ZXvnZfe2StHnfLh6eoPC4pJl2J8UWl2nR2aftDfyUT9h7AgwQBmX+JjTeY5DbJ83erWfvReHbFXPB2QGwfLu/tVYw7tlEeLuFXW1e6uMtuTy2vrwd8pJpvJSDBVTATJid23LY2T8yqrT2P1qC0e1bhLZVpSjS+pLR6NxXvN5r1h/ro6VLXyWh8idgDgOI6T4CKE/pmHXkdXJ/qoGdW1Y21tWKuBMnREDIYf7dKTbL0daDbTn2CWz+cKJZ6Hf0sGc0z8S4+P2dpg1+7SDbpf1U0eudpc1vjtotpcpsOrWjaVFos+n6KyXPHggAEAiP8+TMgxpQAiHl7y7883Y+dvoUrtgvyK9YJ6Vt5AVvTiPd5RfSw4EiJjy24XQRAnkiEEEb9YLEh8YMYRMvYQDX1ofS9e34/fNG4q/QcLgdgKnvRDAXIcBwA4BQsFliU9AsgXo+t8Ks4ON5UGFfwbTeZFLfjcAWLPRfj/ksFD+xy9HZ0dwMfuf398zv2s1tlVbb9zxmmsy6P3CmF9Kbcewn6SJIFhOIqiGIomksnjZAglns+zadLHUr5CPkNvLEZe1aHbW71zQaPD5Iug+4kERVHhcJggCIqijuRlxwZS/gk7oQRze5wAt1O8nUpjqezxymntP8b4LaBKI37yAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="visual-uaas.png"
+        title="visual-uaas.png"
+        src="/static/cc1ac5b52c9e90e38da245de98a081be/f058b/visual-uaas.png"
+        srcset="/static/cc1ac5b52c9e90e38da245de98a081be/c26ae/visual-uaas.png 158w,
+/static/cc1ac5b52c9e90e38da245de98a081be/6bdcf/visual-uaas.png 315w,
+/static/cc1ac5b52c9e90e38da245de98a081be/f058b/visual-uaas.png 630w,
+/static/cc1ac5b52c9e90e38da245de98a081be/d48f1/visual-uaas.png 796w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<h2>三件小事</h2>
+<p>对于私有云项目，简而言之就是我们自己做产品，然后买给企业，帮助部署。交付形式是实施的同学大家背后的实体物理机器，然后将整个软件部署在机子上(通过U盘复制项目代码，进入企业机房，拷贝安装，然后部署。后续的运维和管理操作，则在配套的Web管控系统中完成。我主要负责了Web管控系统从0到1的所有工作，期间有几个比较有意思的点，可以和大家分享一下。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/7fa16fe598d5fa0b2943864b8cb4f26c/0a344/picture1.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 52.53164556962025%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAC+0lEQVQozzWK209bdQDHzx+h/4KXREOyRRN9ND6qMT4YDerGTGYCeMmCwfngEmI0youEDZ7cWM18YFgKLb3QwmnPtXda2tLCYL2c3mgPg0zcIMf8PgYWHz7JJ9/PV5qci/476VIcNd9zekc4Vt9xWn3H6RycON0zHp06tfbfTnG76ZR2Wud+tp21jn3itO1n3j88dZLlA0cadG/ysXsLV7FIcT9Jbj9Nvp9Ha9aJ1qoYrRpGc5tAZYtgpYzRrKC3/m9V4p095OpDdKvOwnYF6RXzES/ox2KmsSR2u+Ni7/GE2PtnSngeJoQrrwpfXRfRjl/cK+jiXkETStcvlqqGuJtTRcBShNwNizsbMXG/Ehd/WBEhverO8+L9kvi9tkzL/oH28S+0n86wbsVZLMrEWhoZO4R/N06wmiRrB4g2DXw7JnpHIdUL4SnFCD5QWLAiSAPhGi+H2uJ2Y5lGe5zu8Y/sn0yz1jBYLKwj12U2DkJ4yyr+Bya5gwDrNQX3pozejpLcjzCfU/CVdf5qriENxLq8JB+KOw0PfXsc+8kE9ulvxBoK3uIqSj1M4dCPv7zO6q5C8XCFaG2NxVwQsx1h+2geZc9NylrE1/EivWH0uageiTlrhZZ9g86TX2mfzBKxUrhLGtFWnIwdwVM2WN5JsHEQJlzTWSiqyJbGkfMzj8VPPGWCqD2HdNG3wOshj/jQXGPUjDCaWOdKOsrVtMJwXOaLlMKVrMpIIsZIMnbuw1mNkfizz9WCyWhG5cuszqW8jvSc5y7P+/4Ub6VkPs9qDGVU3s/pDG6aDCVkPivEeW9D5VM9zKAW4p2swic5nUtGhI82VD4opricNhjKmry7mUC6vXoN19qYWElP4kvMsmzeJJCewp+6ide8hTc+TSAzhT85e86ZBzMzLOnTBNIzBOM38MnjeKPfETC/R8q7BtiZvyBs7TLbkTFKwW/oaMNU5a/YWr1GJTRCzxilpl6nrl2nb45gaWMUg19jad+yH36byvwFyvOv0Qu9yX9h88EDsZngagAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="项目整体架构图"
+        title="项目整体架构图"
+        src="/static/7fa16fe598d5fa0b2943864b8cb4f26c/f058b/picture1.png"
+        srcset="/static/7fa16fe598d5fa0b2943864b8cb4f26c/c26ae/picture1.png 158w,
+/static/7fa16fe598d5fa0b2943864b8cb4f26c/6bdcf/picture1.png 315w,
+/static/7fa16fe598d5fa0b2943864b8cb4f26c/f058b/picture1.png 630w,
+/static/7fa16fe598d5fa0b2943864b8cb4f26c/40601/picture1.png 945w,
+/static/7fa16fe598d5fa0b2943864b8cb4f26c/78612/picture1.png 1260w,
+/static/7fa16fe598d5fa0b2943864b8cb4f26c/0a344/picture1.png 1741w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<h3>一、BFF架构的全栈开发</h3>
+<p>当时的需求中要求管控系统要维护用户登录状态之外，还需要对写入操作进行操作记录。FT中没有可分配的人力来提供这些后端能力，而我有使用Node做Web开发的经验，于是果断采用了Node作为中间层来满足这些需求。事实证明这个选择没有错。操作日志模块后续还增加了批量导出为excel的能力。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/9fd7eea657a8f8fe7fbe74eeff5c59d8/373e5/bff.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 39.87341772151899%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAACV0lEQVQoz1XRX0hTcRQH8J+LZQmZVjoKtIxUsliBthKZ5063Vu1eN5tFbfkHXGFQZI899K4IXRzUKhAp0821TTFrzrxCDp9ida1NQpY5MwtaY5fMdHdxYmVCDx/4cr4v53CI2EmfEztp8/90ZtF2xizeqfubreudSeykGxNWRst2OyWjY5xUXV21HQD2r8kjyDICskwCWWYFWWZ13d36FbSZVvEWvYpszb/5MrIMIqufuGcf2Pyot09WW0NnK5XKfIqicgAgnbgd1Em3g6LdDkrncVA6lx1oV3/FKZv1UN3DrjK9016hc9spXapfo/c4Ksv7eu+Tnp4HZG9BTppard5gMpkIABBi4RTfLZwiaeEUiWbuiHhpvFy87j8htk5ok9cmNGKr/3jCwh0VLZwiZcXCKfAid8zv7B7McPY/zmUMdJZSqdypUqk2AkAaaRguZBqGio1N3mJDk7dI3/SkxNjiKzVcHi3VtzwrM14ZUxgah4trz7sLTjf7SvT1g0VnLwztqxxxvZAMeAalVdVVuQBwAAAOAkAmQUQZfsQCRMxExC0YxTxE3PXHIuYjYgYi7sAlLETEdPyEuzGJsg8zEdLe1p46UwYAhwGgEAAkhJ96nRjxeXH63fTL97PhqVR+G3yTDLwK/BrjnmN4NuyPxqLh+fkI/vi55Pn8ZTEZ/fZ1hhCSWoZoNJptqe8CwB4AyCKhUGh8cnISFxYWbkcikZuBQMDD8/xyMBiM8jzvmpubuyEIQnssFnsqCMLVeDzeFY/H2+RyOeno6CBarXYTAGwFgGwAkP4GEYNXoATsB4wAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="bff"
+        title="bff"
+        src="/static/9fd7eea657a8f8fe7fbe74eeff5c59d8/f058b/bff.png"
+        srcset="/static/9fd7eea657a8f8fe7fbe74eeff5c59d8/c26ae/bff.png 158w,
+/static/9fd7eea657a8f8fe7fbe74eeff5c59d8/6bdcf/bff.png 315w,
+/static/9fd7eea657a8f8fe7fbe74eeff5c59d8/f058b/bff.png 630w,
+/static/9fd7eea657a8f8fe7fbe74eeff5c59d8/40601/bff.png 945w,
+/static/9fd7eea657a8f8fe7fbe74eeff5c59d8/78612/bff.png 1260w,
+/static/9fd7eea657a8f8fe7fbe74eeff5c59d8/373e5/bff.png 3432w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p>当时参考了一些社区解决方案和当前项目现状(主要是不能用公司内部代码)，决定采用Koa作为框架，利用Koa的生态来打造一个功能健全的Web服务。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/c7f81cfa8e5197c12dafe5c6fd84bc80/7e11a/koa.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 72.78481012658227%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAA7EAAAOxAGVKw4bAAADxklEQVQ4y22RWUycVRiGj6m4XOiNMS7xwhu9cYmtNiSGuqSxiUnbNFalQFlboNDFMkyHtTPQYZPVUEpThq1Q1ilDB6QUCDhQpNjQqnUGZmHYaWwxjTExMf7zn8f8QzUmevHkfO9zvnz5co4IHTwf2DFcp3wwbFH2OVqD7BxpUHYM1SnbB2uVg5PdivPXe8qusSbl3eELSthwXbD+dKJN2etoUd4bsQTZOlijlLjGFSG60hHWDB7vzeXFrwt4tv8MT10xIqwGRKeOV66VM3l/kSe7chBt6Yg2Pc/Z8nmhx8xLvWZCOjMR7QbExePE3uhCNPQ7ab7qkq2Dc9LUPSlPdXwjW67OSs3V9ztlr2Nebvz+h2z3r8lGz4ps8q7IRu+KNP4wLatcs7LFtyabvSvS4l6SN+49kKIi0k9ltF9eOLpEi36NVv0alhPLVMX4KYvw06pfZu6uyq4rsPMy7LZDaCdY7kD8EIR1w147bO+AopsgiuPdlCZ6ZEWKl7O6+SCVqV7NURjnpjHLj+/nAFHDkshrKkmjKnv6VCxOlRMOlf0Dm253n8q5HyWiOMZNaYJHViR5qTnpp1bnp/KIT3MURbupNyyw9kuAmjtQfktScRtKZ2BsVdI8K4N15W0omYGhJYkwR8xRHOuRBZFuKpJ9fJXqozDKrTnyD8xRr/fjXA+wtRPeapOEdUteboLCm5KP7fBmm+Qjm+Yk2VMgyhO92hBZleL7Z0NtqEbZYS8XTy+yvBHA+B1kTEpypiTpE2D3b26rvy7JnZKkTUisPu0NE9yUJXtkaZKH6jQfNfp5LQcpinfTkO1n6X6A3GkVw/UAWd+qpE2o2OZVym6p6CZUsqdUvhhX6fKqiKqIBaqjF2VN3BL1R1dpPLZK7aFlzVFxYIH29FVm1yVhl+FDK+yxw+utUP09hA9s/q7mXmuB/GkQx4vH0JU6pK7cgeHsOIZz46RXOkgrdXCsaIySumm8G78R55gjfMRJ5KiLz4Zd5M44SZxw8vmIi6jRWfYN/cR51zpCdOkQ1lNS9GQS0mdmi/0Moidbc4jOkzwzVM7Yg7uIzixEaxrikg7RrucRqwnRlY24lBbMoimVT6Y6EBHWbGJ6jDLWZuSI3UyK3Uy8LY/oHiPh1hwMA1/icQ9xyJ5PpO00B21GontNJPeZgy7KZiSmN4/93RlcmLEhyBWQ95jEFAKmR8G0ZfPMe5gLnobi5yH/iX/5v3sfZu0uU0BvAkKpfgOl9m2pnNvGf9mKcj4UaXkfpfYd/r9nG0rtdv6sepXAqIm/ALD/UtsckIvsAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="koa"
+        title="koa"
+        src="/static/c7f81cfa8e5197c12dafe5c6fd84bc80/f058b/koa.png"
+        srcset="/static/c7f81cfa8e5197c12dafe5c6fd84bc80/c26ae/koa.png 158w,
+/static/c7f81cfa8e5197c12dafe5c6fd84bc80/6bdcf/koa.png 315w,
+/static/c7f81cfa8e5197c12dafe5c6fd84bc80/f058b/koa.png 630w,
+/static/c7f81cfa8e5197c12dafe5c6fd84bc80/40601/koa.png 945w,
+/static/c7f81cfa8e5197c12dafe5c6fd84bc80/7e11a/koa.png 1235w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<h3>二、构建和打包</h3>
+<p>因为私有化部署的关系，我们最终交付的软件包是通过U盘拷贝的形式来部署代码的，部署和运行的过程不能依赖外部网络。这意味着我需要我所有的运行时依赖都打包在一起，能到达到解压即可运行的程度。</p>
+<p>在我最终产出的压缩包中有一个 <code class="language-text">control.sh</code> 脚本，提供了 <code class="language-text">start</code>，<code class="language-text">stop</code> 之类的几个命令，后端同学只要能调用这个脚本，就能在项目部署阶段将管控系统给部署起来。</p>
+<p>在具体构建过程中，前端通过 <code class="language-text">Webpack</code> 已经全部构建好输出到指定目录了，浏览器端的代码很好解决。Node 中间层这边稍稍不一样，运行除了依赖 <code class="language-text">node_modules</code> 中的包，还依赖 <code class="language-text">Node</code>的可执行文件。、在构建阶段我把 <code class="language-text">node_modules</code> 下载好，将 <code class="language-text">node</code> 可执行文件也放入其中，随代码一起打包输出。最后交付的压缩包就包含了所有的运行依赖。</p>
+<p>这个是构建过程。具体过程大概是：</p>
+<ol>
+<li>获取 <code class="language-text">package.json</code> 里面设置的 `version 和指定的操作系统</li>
+<li>构建完成之后从镜像网站下载对应的node文件，放到临时目录。如果临时目录已经有存在的版本，跳过下载，已提高打包速度</li>
+<li>完成之后将 <code class="language-text">node</code> 文件复制到 <code class="language-text">node_modules</code> 中</li>
+<li>在 <code class="language-text">control.sh</code> 启动脚本中指定node程序的目录</li>
+</ol>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/e72467ce31f8db7747c075aba06b08a8/a4f52/flow.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 65.18987341772153%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABwgAAAcIAHND5ueAAAB6ElEQVQoz41SXW8SQRTdv2pifPfd+JFGrdKqqRjSpCQ28GB88KUWXdZEW4pAlzbVADEg5UNZWZYubHf2Yz7uXLO7SPtQjTfzMPfk3Jxz7oyCiFJKRDTc6XVt7caH9Wvqo74zXuL/KGVJcn3yrlbcrbwvVFXHO09wCZAcjDkXSNwqC3RinutHtfT2YfpldX3Tt87+TzlmQKdNdL1Z/PTlzdvGjuo7kTILgkHtuF+pD6pH/jxCZj9G/XK9V9aNr0152Taxph+fZ8ub2wcvsjPDlIiOZe9vZPY3MqV01uoNELFT+qw9Tu09y+i515wLJTGQGGyaoeGIqP1jjPmjMAySZIjoMbPQusm4vFjYsgCY8BqcB5fCArgHNLQBFhJh0AJSZxwQ5XI4pksf7TVCJiCXCENni7hDGqnFsH8sJnl75sbDkktBJSIPqdU+tTo/rXaPer6QMvADq9s3u9a0O/RdIiQIIUBKWFiSyrfDnZO9V4g4N8bq/Sfa6tPdO6tmvB5ncqbeS2krqcKtB+Pvp4BIGWOMMhZGF86VX8ZoOOhDkklICDgCQiQQFSWe53BGgsTyFT8MYiOz0M23tFyjmG9p85AgooA4J20y5sLfhpN3HhP7bin7sJK7XdoyiZ1sTEqKxsp80qT0iuHfwY3RRFLTivcAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="flow.png"
+        title="flow.png"
+        src="/static/e72467ce31f8db7747c075aba06b08a8/f058b/flow.png"
+        srcset="/static/e72467ce31f8db7747c075aba06b08a8/c26ae/flow.png 158w,
+/static/e72467ce31f8db7747c075aba06b08a8/6bdcf/flow.png 315w,
+/static/e72467ce31f8db7747c075aba06b08a8/f058b/flow.png 630w,
+/static/e72467ce31f8db7747c075aba06b08a8/40601/flow.png 945w,
+/static/e72467ce31f8db7747c075aba06b08a8/78612/flow.png 1260w,
+/static/e72467ce31f8db7747c075aba06b08a8/a4f52/flow.png 2024w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<h3>三、异步API的处理</h3>
+<p>这里面还有一个比较有意思的是后端接口异步API的请求。底层API基于分为同步API和异步API两种：</p>
+<ul>
+<li>
+<p>同步API</p>
+<p>所有使用GET方法的API都是同步API，调用方收到的HTTP Response中直接包含了API的结果。例如：</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">GET zstack/v1/zones/f3fa7671894a40f6a73f5bfc7d90c126 <span class="token punctuation">{</span> <span class="token string">"inventory"</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span> <span class="token string">"uuid"</span><span class="token builtin class-name">:</span> <span class="token string">"f3fa7671894a40f6a73f5bfc7d90c126"</span>, <span class="token string">"name"</span><span class="token builtin class-name">:</span> <span class="token string">"zone1"</span>, <span class="token string">"description"</span><span class="token builtin class-name">:</span> <span class="token string">"test"</span>, <span class="token string">"state"</span><span class="token builtin class-name">:</span> <span class="token string">"Enabled"</span>, <span class="token string">"type"</span><span class="token builtin class-name">:</span> <span class="token string">"zstack"</span>, <span class="token string">"createDate"</span><span class="token builtin class-name">:</span> <span class="token string">"Jan 6, 2017 3:51:16 AM"</span>, <span class="token string">"lastOpDate"</span><span class="token builtin class-name">:</span> <span class="token string">"Jan 6, 2017 3:51:16 AM"</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span></code></pre></div>
+</li>
+<li>
+<p>异步API</p>
+<p>除了登录相关的API外，所有不使用GET方法的API都为异步API。用户调用一个异步API成功后会收到202返回码以及 Body中包含的一个轮询地址（location字段），用户需要周期性的GET该轮询地址以获得API的执行结果。例如:</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">Status Code: <span class="token number">202</span> Body: <span class="token punctuation">{</span> <span class="token string">"location"</span><span class="token builtin class-name">:</span> <span class="token string">"http://localhost:8080/v1/api-jobs/967a26b7431c49c0b1d50d709ef1aef3"</span> <span class="token punctuation">}</span></code></pre></div>
+</li>
+</ul>
+<p>为什么说有意思呢？那如果按照浏览器轮询Node层，Node层再去轮询后端，一来二去这个消耗就大了，接口请求慢不说，在一定程度上可以说增加了服务器的压力。那怎么办呢？首先每次创建一个异步任务，我就在redis这边保存一份job相关的数据，每次浏览器轮询的时候，通过jobUuid直接查redis，速度快。然后在Node层提供一个webhook接口，每次任务执行完成时，后端调用这个接口，将任务执行返回的结果同步更新到redis中。这样当异步任务完成之后，浏览器端的轮询也能很快地得到返回的结果。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/74edeb2980782f1b9b4408b96d49e9b4/7e318/loop.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 54.43037974683544%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAABwgAAAcIAHND5ueAAAB4klEQVQoz6WS3UvbYBTG+2eOXawWqROq3cVgV2NYsFo6Badbadq6pjY6FWRmS0O7Iuqm88K2ylbHKhtMBmZ2TZqPN2+aNDlnNOo+Lrzaw3NxeOBwfgeeAP6HAgiAwjTmgrg0iuwIsmHwjfkwcuO4HB0M7MhVyIaxcBcXQ7jxEB0rgOBBecZjwy43BsvjuBLFF/dwJQrFCKzeH7gYAW4MrnO3GIHCKPAxfxkRfAZKLE3RiUZ01SA6+RvPMi1N0bqdrqERu9f/gw0AwteDzLGQbQjZo9dMnU/XeKbOs80yd1LlPlXZZjl3LDA1Pn24ydT57JGQ+yButN46Xj/gAcT28rc2H4XEqTvCZFCIh8SpoVJ8WExEq3ORyuywOB0UJodK8d++/WriwXbK6tsDbNrvaT2iUF21yFlbOpfbsqkpVO8Q9UJXFMvoUl23TcOhukNlUzccShwKAIFLegD0PADEn+2OIst+AqZBiWGahNo9x7H7nushom07//zcWH25lVzYnc/spfL7qef7zxa3Hy/8+HzaUVVJkmRZdl3XRfzWOqmkEztLT6uZ5NnH2tXyYWHtTWxmZzb1bj67O8dsJZ5UJpIXrS+D+553SYGIXen7+7Vso7R+sJ47P236JblZcK2bGvYL0Vsq/FWISSMAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="loop.png"
+        title="loop.png"
+        src="/static/74edeb2980782f1b9b4408b96d49e9b4/f058b/loop.png"
+        srcset="/static/74edeb2980782f1b9b4408b96d49e9b4/c26ae/loop.png 158w,
+/static/74edeb2980782f1b9b4408b96d49e9b4/6bdcf/loop.png 315w,
+/static/74edeb2980782f1b9b4408b96d49e9b4/f058b/loop.png 630w,
+/static/74edeb2980782f1b9b4408b96d49e9b4/40601/loop.png 945w,
+/static/74edeb2980782f1b9b4408b96d49e9b4/78612/loop.png 1260w,
+/static/74edeb2980782f1b9b4408b96d49e9b4/7e318/loop.png 1892w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<h2>其他</h2>
+<p>除了上面的“三件小事”之外，针对项目的优化也做了不少。开发测试和项目打包巨慢，浏览器端代码的体积巨大。针对这些问题，在构建流程上做了一些优化，总结下来无非就是：</p>
+<ol>
+<li>优化Webpack的编译速度。优化 Loader 配置，合理设置文件路径，增加 Cache 之类的</li>
+<li>打包拆分模块，按需加载。结合Vue的异步组件和 Webpack 的 Code Split 功能，实现路由组件的懒加载</li>
+<li>抽离公共组件，适当减低源码体积。</li>
+<li>优化压缩输出文件的体积。</li>
+</ol>
+<h2>结束</h2>
+<p>从18年5月开始到19年6月，差不多一年的时间一直全职在跟这个项目。上面提到的一些技术点，大方向是一开始就明确的，但是具体实现的细节是在整个项目过程中不断演进和优化的。合作过程中也认识了不少人，算是一个还不错的回忆吧</p></section></article><nav class="pagination"><a class="prev" rel="prev" href="/blogs/2020-09-20-Zen Reborn 计划/">← <!-- -->Zen Reborn 计划</a><a class="next" rel="next" href="/blogs/2020-05-05-在滴滴的这几年：组件库的设计和开发/">在滴滴的这几年：组件库的设计和开发<!-- --> →</a></nav></section></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
+  
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'UA-50406624-2', 'auto', {});
+      
+      
+      
+      
+      
+      }</script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blogs/2020-06-14-在滴滴的这几年：基于 Node.js 的私有云 Web 管控系统/";window.___webpackCompilationHash="e3ab2eb941621e1bec58";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-67664a8ccc6c9f02b880.js"],"app":["/app-11714ea12522d77ace84.js"],"component---src-pages-404-js":["/component---src-pages-404-js-496ea80c391da9d7aa7a.js"],"component---src-pages-about-tsx":["/component---src-pages-about-tsx-c5325dd7b1ccc88a2f2f.js"],"component---src-pages-archives-tsx":["/component---src-pages-archives-tsx-2f215b4ec97f44f39dbe.js"],"component---src-pages-categories-tsx":["/component---src-pages-categories-tsx-0b3a853bed39b99b2c8a.js"],"component---src-pages-index-js":["/component---src-pages-index-js-fb82b2e7f3af4cbc7524.js"],"component---src-pages-using-typescript-tsx":["/component---src-pages-using-typescript-tsx-5626664c8a8e66696c50.js"],"component---src-templates-blog-list-js":["/component---src-templates-blog-list-js-15d1c761a17aabce716b.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-8913e7153bf91b18d03b.js"],"component---src-templates-categories-js":["/component---src-templates-categories-js-44bfbf405e382c059b5b.js"]};/*]]>*/</script><script src="/polyfill-67664a8ccc6c9f02b880.js" nomodule=""></script><script src="/component---src-templates-blog-post-js-8913e7153bf91b18d03b.js" async=""></script><script src="/0b98594fcddcff10f8b5f74aec797a56f6f99e07-3fb3a7c25cb9f18b58ba.js" async=""></script><script src="/app-11714ea12522d77ace84.js" async=""></script><script src="/framework-b9923b3cceb493977198.js" async=""></script><script src="/webpack-runtime-56976d73dd51c672c28b.js" async=""></script></body></html>

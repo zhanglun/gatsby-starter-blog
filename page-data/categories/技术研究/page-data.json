@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-categories-js",
+    "path": "/categories/技术研究",
+    "result": {"data":{"site":{"siteMetadata":{"title":"张小伦的网络日志","description":"欢迎来到张小伦的网络日志 \n\t\t一个记录生活，分享心得的博客","menu":[{"id":"home","name":"首页","url":"/"},{"id":"category","name":"分类","url":"/categories"},{"id":"archive","name":"归档","url":"/archives"},{"id":"about","name":"关于我","url":"/about"}]}},"allMarkdownRemark":{"nodes":[{"fields":{"slug":"/blogs/2020-11-28-如何在项目中接入single-spa/"},"frontmatter":{"date":"November 28, 2020","title":"如何在项目中接入single-spa","description":null,"draft":false}},{"fields":{"slug":"/blogs/2020-11-05-使用Single-SPA实现微前端/"},"frontmatter":{"date":"November 05, 2020","title":"使用 single-spa 实现微前端","description":null,"draft":false}}]}},"pageContext":{"category":"技术研究","count":2}},
+    "staticQueryHashes": ["2841359383"]}

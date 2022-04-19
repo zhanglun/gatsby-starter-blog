@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkgatsby_starter_blog=self.webpackChunkgatsby_starter_blog||[]).push([[49],{5666:function(t,e,r){function n(){return"Hello world"}r.r(e),r.d(e,{default:function(){return n}})}}]);
+//# sourceMappingURL=component---src-pages-about-tsx-c5325dd7b1ccc88a2f2f.js.map

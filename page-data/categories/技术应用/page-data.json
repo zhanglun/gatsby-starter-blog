@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-categories-js",
+    "path": "/categories/技术应用",
+    "result": {"data":{"site":{"siteMetadata":{"title":"张小伦的网络日志","description":"欢迎来到张小伦的网络日志 \n\t\t一个记录生活，分享心得的博客","menu":[{"id":"home","name":"首页","url":"/"},{"id":"category","name":"分类","url":"/categories"},{"id":"archive","name":"归档","url":"/archives"},{"id":"about","name":"关于我","url":"/about"}]}},"allMarkdownRemark":{"nodes":[{"fields":{"slug":"/blogs/2019-01-26-巧用-webpack-loader-实现项目的定制化/"},"frontmatter":{"date":"January 26, 2019","title":"巧用 webpack loader 实现项目的定制化","description":null,"draft":null}}]}},"pageContext":{"category":"技术应用","count":1}},
+    "staticQueryHashes": ["2841359383"]}

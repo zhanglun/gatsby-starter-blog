@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-categories-js",
+    "path": "/categories/全栈",
+    "result": {"data":{"site":{"siteMetadata":{"title":"张小伦的网络日志","description":"欢迎来到张小伦的网络日志 \n\t\t一个记录生活，分享心得的博客","menu":[{"id":"home","name":"首页","url":"/"},{"id":"category","name":"分类","url":"/categories"},{"id":"archive","name":"归档","url":"/archives"},{"id":"about","name":"关于我","url":"/about"}]}},"allMarkdownRemark":{"nodes":[{"fields":{"slug":"/blogs/2019-03-09-浅谈-HTTP-缓存/"},"frontmatter":{"date":"March 09, 2019","title":"浅谈 HTTP 缓存","description":null,"draft":null}},{"fields":{"slug":"/blogs/2018-02-04-个人服务器常用基础配置/"},"frontmatter":{"date":"March 09, 2018","title":"个人服务器常用基础配置","description":null,"draft":null}}]}},"pageContext":{"category":"全栈","count":2}},
+    "staticQueryHashes": ["2841359383"]}

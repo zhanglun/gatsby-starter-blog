@@ -1,0 +1,1 @@
+{"version":3,"file":"component---src-pages-about-tsx-c5325dd7b1ccc88a2f2f.js","mappings":"8HAEe,SAASA,IACtB,MAAO,c","sources":["webpack://gatsby-starter-blog/./src/pages/about.tsx"],"sourcesContent":["import * as React from \"react\"\n\nexport default function Component () {\n  return \"Hello world\"\n}"],"names":["Component"],"sourceRoot":""}

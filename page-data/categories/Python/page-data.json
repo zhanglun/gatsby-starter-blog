@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-categories-js",
+    "path": "/categories/Python",
+    "result": {"data":{"site":{"siteMetadata":{"title":"张小伦的网络日志","description":"欢迎来到张小伦的网络日志 \n\t\t一个记录生活，分享心得的博客","menu":[{"id":"home","name":"首页","url":"/"},{"id":"category","name":"分类","url":"/categories"},{"id":"archive","name":"归档","url":"/archives"},{"id":"about","name":"关于我","url":"/about"}]}},"allMarkdownRemark":{"nodes":[{"fields":{"slug":"/blogs/定时将图片保存在SAE的Storage中/"},"frontmatter":{"date":"November 10, 2014","title":"定时将图片保存在SAE的Storage中","description":null,"draft":null}},{"fields":{"slug":"/blogs/使用python抓取知乎日报的api数据/"},"frontmatter":{"date":"October 08, 2014","title":"使用python抓取知乎日报的API数据","description":null,"draft":null}},{"fields":{"slug":"/blogs/利用pip安装django/"},"frontmatter":{"date":"July 12, 2014","title":"利用pip安装Django","description":null,"draft":null}}]}},"pageContext":{"category":"Python","count":3}},
+    "staticQueryHashes": ["2841359383"]}

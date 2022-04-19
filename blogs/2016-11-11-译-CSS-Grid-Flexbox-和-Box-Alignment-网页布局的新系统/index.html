@@ -1,0 +1,592 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.waves.min.js"></script><meta data-react-helmet="true" name="twitter:description" content="欢迎来到张小伦的网络日志 
+		一个记录生活，分享心得的博客"/><meta data-react-helmet="true" name="twitter:title" content="【译】CSS Grid, Flexbox 和 Box Alignment:网页布局的新系统"/><meta data-react-helmet="true" name="twitter:creator" content="asdf"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" property="og:description" content="欢迎来到张小伦的网络日志 
+		一个记录生活，分享心得的博客"/><meta data-react-helmet="true" property="og:title" content="【译】CSS Grid, Flexbox 和 Box Alignment:网页布局的新系统"/><meta data-react-helmet="true" name="description" content="欢迎来到张小伦的网络日志 
+		一个记录生活，分享心得的博客"/><meta name="generator" content="Gatsby 4.11.2"/><style data-href="/styles.28ee8f1ff2550cd53998.css" data-identity="gatsby-global-css">@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/static/montserrat-latin-100-8d7d79679b70dbe27172b6460e7a7910.woff2) format("woff2"),url(/static/montserrat-latin-100-ec38980a9e0119a379e2a9b3dbb1901a.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/static/montserrat-latin-100italic-e279051046ba1286706adc886cf1c96b.woff2) format("woff2"),url(/static/montserrat-latin-100italic-3b325a3173c8207435cd1b76e19bf501.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/static/montserrat-latin-200-9d266fbbfa6cab7009bd56003b1eeb67.woff2) format("woff2"),url(/static/montserrat-latin-200-2d8ba08717110d27122e54c34b8a5798.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/static/montserrat-latin-200italic-6e5b3756583bb2263eb062eae992735e.woff2) format("woff2"),url(/static/montserrat-latin-200italic-a0d6f343e4b536c582926255367a57da.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/static/montserrat-latin-300-00b3e893aab5a8fd632d6342eb72551a.woff2) format("woff2"),url(/static/montserrat-latin-300-ea303695ceab35f17e7d062f30e0173b.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/static/montserrat-latin-300italic-56f34ea368f6aedf89583d444bbcb227.woff2) format("woff2"),url(/static/montserrat-latin-300italic-54b0bf2c8c4c12ffafd803be2466a790.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/static/montserrat-latin-400-b71748ae4f80ec8c014def4c5fa8688b.woff2) format("woff2"),url(/static/montserrat-latin-400-0659a9f4e90db5cf51b50d005bff1e41.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/static/montserrat-latin-400italic-6eed6b4cbb809c6efc7aa7ddad6dbe3e.woff2) format("woff2"),url(/static/montserrat-latin-400italic-7583622cfde30ae49086d18447ab28e7.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/static/montserrat-latin-500-091b209546e16313fd4f4fc36090c757.woff2) format("woff2"),url(/static/montserrat-latin-500-edd311588712a96bbf435fad264fff62.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/static/montserrat-latin-500italic-c90ced68b46050061d1a41842d6dfb43.woff2) format("woff2"),url(/static/montserrat-latin-500italic-5146cbfe02b1deea5dffea27a5f2f998.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/static/montserrat-latin-600-0480d2f8a71f38db8633b84d8722e0c2.woff2) format("woff2"),url(/static/montserrat-latin-600-b77863a375260a05dd13f86a1cee598f.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/static/montserrat-latin-600italic-cf46ffb11f3a60d7df0567f8851a1d00.woff2) format("woff2"),url(/static/montserrat-latin-600italic-c4fcfeeb057724724097167e57bd7801.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/static/montserrat-latin-700-7dbcc8a5ea2289d83f657c25b4be6193.woff2) format("woff2"),url(/static/montserrat-latin-700-99271a835e1cae8c76ef8bba99a8cc4e.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/static/montserrat-latin-700italic-c41ad6bdb4bd504a843d546d0a47958d.woff2) format("woff2"),url(/static/montserrat-latin-700italic-6779372f04095051c62ed36bc1dcc142.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/static/montserrat-latin-800-db9a3e0ba7eaea32e5f55328ace6cf23.woff2) format("woff2"),url(/static/montserrat-latin-800-4e3c615967a2360f5db87d2f0fd2456f.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/static/montserrat-latin-800italic-bf45bfa14805969eda318973947bc42b.woff2) format("woff2"),url(/static/montserrat-latin-800italic-fe82abb0bcede51bf724254878e0c374.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/static/montserrat-latin-900-e66c7edc609e24bacbb705175669d814.woff2) format("woff2"),url(/static/montserrat-latin-900-8211f418baeb8ec880b80ba3c682f957.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/static/montserrat-latin-900italic-4454c775e48152c1a72510ceed3603e2.woff2) format("woff2"),url(/static/montserrat-latin-900italic-efcaa0f6a82ee0640b83a0916e6e8d68.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/static/merriweather-latin-300-fc117160c69a8ea0851b26dd14748ee4.woff2) format("woff2"),url(/static/merriweather-latin-300-58b18067ebbd21fda77b67e73c241d3b.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/static/merriweather-latin-300italic-fe29961474f8dbf77c0aa7b9a629e4bc.woff2) format("woff2"),url(/static/merriweather-latin-300italic-23c3f1f88683618a4fb8d265d33d383a.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/static/merriweather-latin-400-d9479e8023bef9cbd9bf8d6eabd6bf36.woff2) format("woff2"),url(/static/merriweather-latin-400-040426f99ff6e00b86506452e0d1f10b.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/static/merriweather-latin-400italic-2de7bfeaf08fb03d4315d49947f062f7.woff2) format("woff2"),url(/static/merriweather-latin-400italic-79db67aca65f5285964ab332bd65f451.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/static/merriweather-latin-700-4b08e01d805fa35d7bf777f1b24314ae.woff2) format("woff2"),url(/static/merriweather-latin-700-22fb8afba4ab1f093b6ef9e28a9b6e92.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/static/merriweather-latin-700italic-cd92541b177652fffb6e3b952f1c33f1.woff2) format("woff2"),url(/static/merriweather-latin-700italic-f87f3d87cea0dd0979bfc8ac9ea90243.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/static/merriweather-latin-900-f813fc6a4bee46eda5224ac7ebf1b7be.woff2) format("woff2"),url(/static/merriweather-latin-900-5d4e42cb44410674acd99153d57df032.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/static/merriweather-latin-900italic-b7901d85486871c1779c0e93ddd85656.woff2) format("woff2"),url(/static/merriweather-latin-900italic-9647f9fdab98756989a8a5550eb205c3.woff) format("woff")}:root{--sans-font:"'Montserrat'","Noto Sans","Noto Sans TC","Noto Sans SC",sans-serif!important;--serif-font:"Noto Serif","Noto Serif TC","Noto Sans TC",serif!important;--inline-code-font:monospace!important;--mono-font:"JetBrains Mono",monospace!important;--content-font-size:16px;--maxWidth-none:"none";--maxWidth-xs:20rem;--maxWidth-sm:24rem;--maxWidth-md:28rem;--maxWidth-lg:32rem;--maxWidth-xl:36rem;--maxWidth-2xl:42rem;--maxWidth-3xl:48rem;--maxWidth-4xl:56rem;--maxWidth-full:"100%";--maxWidth-wrapper:var(--maxWidth-2xl);--main-max-width:1040px;--spacing-px:"1px";--spacing-0:0;--spacing-1:0.25rem;--spacing-2:0.5rem;--spacing-3:0.75rem;--spacing-4:1rem;--spacing-5:1.25rem;--spacing-6:1.5rem;--spacing-8:2rem;--spacing-10:2.5rem;--spacing-12:3rem;--spacing-16:4rem;--spacing-20:5rem;--spacing-24:6rem;--spacing-32:8rem;--main-spacing:100px;--fontFamily-sans:"Montserrat","Noto Serif SC",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--fontFamily-serif:"Noto Serif SC","Merriweather","Georgia",Cambria,"Times New Roman",Times,serif;--font-body:"Montserrat";--font-heading:"Montserrat";--fontWeight-normal:400;--fontWeight-medium:500;--fontWeight-semibold:600;--fontWeight-bold:700;--fontWeight-extrabold:800;--fontWeight-black:900;--fontSize-root:16px;--lineHeight-none:1;--lineHeight-tight:1.1;--lineHeight-normal:1.5;--lineHeight-relaxed:1.9;--fontSize-0:0.833rem;--fontSize-1:1rem;--fontSize-2:1.2rem;--fontSize-3:1.44rem;--fontSize-4:1.728rem;--fontSize-5:2.074rem;--fontSize-6:2.488rem;--fontSize-7:2.986rem;--color-primary:#005b99;--color-text:#1d2b36;--color-text-light:#4f5969;--color-heading:#45525b;--color-heading-black:#000;--color-accent:#d1dce5;--header-height:60px;--main-bg:#fff}*,:after,:before{box-sizing:border-box}html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:var(--fontSize-root);line-height:var(--lineHeight-normal)}body{background-color:#fafafa;color:var(--color-text);font-family:var(--font-body);font-size:var(--fontSize-1);margin:0}hr{background:var(--color-accent);border:0;height:1px}h1,h2,h3,h4,h5,h6{font-family:var(--font-heading);letter-spacing:-.025em;line-height:var(--lineHeight-normal);margin-bottom:var(--spacing-6);margin-top:var(--spacing-12)}h2,h3,h4,h5,h6{color:var(--color-heading);font-weight:var(--fontWeight-bold)}h1{color:var(--color-heading-black);font-size:var(--fontSize-6);font-weight:var(--fontWeight-black)}h2{font-size:var(--fontSize-5);font-size:25px;margin-top:80px;padding:40px 0 50px}h3{font-size:var(--fontSize-4)}h4{font-size:var(--fontSize-3)}h5{font-size:var(--fontSize-2)}h6{font-size:var(--fontSize-1)}h1>a,h2>a,h3>a,h4>a,h5>a,h6>a{color:inherit;text-decoration:none}p{--baseline-multiplier:0.179;--x-height-multiplier:0.35;line-height:var(--lineHeight-relaxed);margin:var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);padding:var(--spacing-0)}ol,ul{margin-bottom:0;margin-top:0}ol li,ul li{padding-left:var(--spacing-0)}li>p,ol li,ul li{margin-bottom:calc(var(--spacing-8)/2)}li :last-child{margin-bottom:var(--spacing-0)}li>ul{margin-left:var(--spacing-8);margin-top:calc(var(--spacing-8)/2)}blockquote{border-left:var(--spacing-1) solid var(--color-primary);color:var(--color-text-light);font-size:var(--fontSize-2);font-style:italic;margin-bottom:var(--spacing-8);margin-left:calc(var(--spacing-6)*-1);margin-right:var(--spacing-8);padding:var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-6)}blockquote>:last-child{margin-bottom:var(--spacing-0)}blockquote>ol,blockquote>ul{list-style-position:inside}table{border-collapse:collapse;border-spacing:.25rem;margin-bottom:var(--spacing-8);width:100%}table thead tr th{border-bottom:1px solid var(--color-accent)}p img{max-width:100%}a{color:var(--color-primary)}a:focus,a:hover{text-decoration:none}.global-wrapper{background-color:#fafafa}.global-header{margin-bottom:var(--spacing-12)}.main{margin:0 auto;max-width:760px;position:relative;z-index:1}@media screen and (max-width:999px){.main{max-width:100%;padding:0 20px}}.main-heading{font-size:var(--fontSize-7);margin:0}.header-link-home{font-family:var(--font-heading);font-size:var(--fontSize-2);font-weight:var(--fontWeight-bold);text-decoration:none}.blog-post{border-bottom:1px solid #1d2b36;line-height:1.9;margin-bottom:10px;padding-bottom:80px;position:relative}.blog-post:before{left:0}.blog-post:after,.blog-post:before{background:#1d2b36;bottom:-2px;content:"";height:3px;position:absolute;width:3px}.blog-post:after{right:0}.blog-post header{border-top:1px solid #1d2b36;margin-top:50px;position:relative}.blog-post header:before{left:0}.blog-post header:after,.blog-post header:before{background:#1d2b36;content:"";height:3px;position:absolute;top:-2px;width:3px}.blog-post header:after{right:0}.blog-post header h1{font-size:36px;font-weight:700;line-height:1.4;margin:60px 0}.blog-post header p{font-family:var(--font-heading);font-size:var(--fontSize-2)}.gatsby-highlight{margin-bottom:var(--spacing-8)}@media (max-width:42rem){blockquote{margin-left:var(--spacing-0);padding:var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-4)}ol,ul{list-style-position:inside}}.pagination{align-items:center;display:flex;justify-content:space-between;padding:50px 0}.hover-underline{display:inline-block;position:relative}.hover-underline:after{background-color:var(--color-text);bottom:0;content:"";height:2px;left:0;position:absolute;-webkit-transform:scaleX(0);transform:scaleX(0);-webkit-transform-origin:bottom right;transform-origin:bottom right;transition:-webkit-transform .25s ease-out;transition:transform .25s ease-out;transition:transform .25s ease-out,-webkit-transform .25s ease-out;width:100%}.hover-underline:hover:after{-webkit-transform:scaleX(1);transform:scaleX(1);-webkit-transform-origin:bottom left;transform-origin:bottom left}.page-title{color:var(--color-heading);font-size:var(--fontSize-6);margin-bottom:var(--spacing-5);padding-top:50px;text-align:center}.category-list{grid-row-gap:40px;display:grid;grid-template-columns:repeat(4,1fr);justify-items:center;padding:30px 0 60px}.category-img{background-color:rgba(0,0,0,.2);border-radius:100%;height:150px;margin-bottom:20px;padding:10px;transition:all .3s ease-in-out;width:150px}.category-img img{width:100%}.category-item{text-align:center;text-decoration:none}.category-item:hover{color:var(--color-text)}.category-item:hover .category-img{background-color:rgba(0,0,0,.35)}.category-page-header{display:grid;justify-items:center;padding:50px 0}.archive-item{margin-bottom:50px}.archive-year{font-size:26px}.archive-item-list{list-style-type:none;margin-left:0;padding-top:10px}.archive-item-list li{margin:8px 0}.archive-item-list a{text-decoration:none}.archive-item-list a:hover{text-decoration:underline}.archive-date{margin-right:20px}code[class*=language-],pre[class*=language-]{word-wrap:normal;background:none;color:#ccc;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;font-size:1em;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none;line-height:1.5;-o-tab-size:4;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}pre[class*=language-]{margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}.header{background-color:#fff;box-shadow:0 2px 7px -4px rgba(0,0,0,.5);position:-webkit-sticky;position:sticky;top:-1px;width:100%;z-index:10}.header-inner{display:flex;height:var(--header-height);justify-content:space-between;margin:0 auto;max-width:var(--main-max-width)}.header-title{color:#6e7278;font-size:20px;line-height:var(--header-height);margin-left:8px;padding:0 12px}.header-nav{display:flex}.nav-item{font-size:16px;font-weight:700;height:var(--header-height);line-height:var(--header-height);margin:0 8px;padding:0 12px;text-decoration:none;transition:all .3s}.nav-item,.nav-item:link{color:var(--color-text)}.nav-item:hover{color:var(--color-primary)}.header-title-link{color:var(--color-text);cursor:pointer;text-decoration:none}.header-title-link:hover{color:var(--color-heading-black)}.banner{align-items:center;background-color:#022;background-position:50%;background-size:cover;display:flex;height:560px;justify-content:center;margin-bottom:-80px;padding:10px}.banner-title{color:#fff;font-size:36px;height:120px;line-height:56px;margin-top:-22px;padding:2px 30px;text-align:center;width:600px}.footer{padding:80px 0 40px;text-align:center}.article-category-list{align-items:center;display:flex;justify-content:center;margin-bottom:var(--spacing-6)}.article-category{background-color:#636363;color:#fff;font-size:14px;line-height:20px;margin:0 4px;padding:4px 14px}.article-list{list-style-type:none;margin:0;padding:0}.article-list-item{border-bottom:1px solid #e2e2e2}.article-list-item p{font-size:var(--content-font-size);margin-bottom:var(--spacing-0);text-align:center}.article-list-item header{margin-bottom:var(--spacing-4);padding-top:50px;text-align:center}.article-list-item h2{color:var(--color-heading);font-size:var(--fontSize-6);margin-bottom:var(--spacing-5);margin-top:0}.article-list-item h2:hover{color:var(--color-heading-black)}.article-list-item section{margin:50px 0 20px}.article-list-item footer{padding:40px 0;text-align:center}.article-list-item .read-more{background-color:transparent;border:3px solid #636363;color:#636363;cursor:pointer;display:inline-block;font-size:13px;font-weight:var(--fontWeight-bold);height:50px;line-height:44px;outline:none;text-decoration:none;transition:.25s ease-in-out;width:176px}.article-list-item .read-more:link{color:#636363}.article-list-item .read-more:hover{border-color:var(--color-heading);color:var(--color-heading)}blockquote{color:#999;font-weight:400}.title{font-size:calc(var(--content-font-size)*2.5)}.desc{font-size:calc(var(--content-font-size)*1.2)}.content h2{border-top:1px solid #f0f0f0;font-size:25px;margin:80px 0 0;padding:40px 0 50px;position:relative}.content h2:before{left:0}.content h2:after,.content h2:before{background:#93a1b0;content:"";height:3px;position:absolute;top:-2px;width:3px}.content h2:after{right:0}</style><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){if(void 0===e.target.dataset.mainImage)return;if(void 0===e.target.dataset.gatsbyImageSsr)return;const t=e.target;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><link rel="preconnect" href="https://www.google-analytics.com"/><link rel="dns-prefetch" href="https://www.google-analytics.com"/><link rel="alternate" type="application/rss+xml" title="Gatsby Starter Blog RSS Feed" href="/rss.xml"/><link rel="icon" href="/favicon-32x32.png?v=25643e3cbe7be23b6c1bdad497608e85" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=25643e3cbe7be23b6c1bdad497608e85"/><title data-react-helmet="true">【译】CSS Grid, Flexbox 和 Box Alignment:网页布局的新系统 | 张小伦的网络日志</title><link as="script" rel="preload" href="/webpack-runtime-56976d73dd51c672c28b.js"/><link as="script" rel="preload" href="/framework-b9923b3cceb493977198.js"/><link as="script" rel="preload" href="/app-11714ea12522d77ace84.js"/><link as="script" rel="preload" href="/0b98594fcddcff10f8b5f74aec797a56f6f99e07-3fb3a7c25cb9f18b58ba.js"/><link as="script" rel="preload" href="/component---src-templates-blog-post-js-8913e7153bf91b18d03b.js"/><link as="fetch" rel="preload" href="/page-data/blogs/2016-11-11-译-CSS-Grid-Flexbox-和-Box-Alignment-网页布局的新系统/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/sq/d/2841359383.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="global-wrapper" data-is-root-path="false"><section class="main"><article class="blog-post" itemscope="" itemType="http://schema.org/Article"><header><div class="article-category-list"><span class="article-category">博客译文</span></div><h1 itemProp="headline">【译】CSS Grid, Flexbox 和 Box Alignment:网页布局的新系统</h1><p>November 11, 2016</p></header><section itemProp="articleBody" class="content"><blockquote>
+<p>原文标题：CSS Grid, Flexbox And Box Alignment: Our New System For Web Layout<br>
+原文链接：<a href="https://www.smashingmagazine.com/2016/11/css-grids-flexbox-and-box-alignment-our-new-system-for-web-layout/">https://www.smashingmagazine.com/2016/11/css-grids-flexbox-and-box-alignment-our-new-system-for-web-layout/</a></p>
+</blockquote>
+<!--more-->
+<p>Layout on the web is hard. The reason it is so hard is that the layout methods we’ve relied on ever since using CSS for layout became possible were not really designed for complex layout. While we were able to achieve quite a lot in a fixed-width world with hacks such as faux columns, these methods fell apart with responsive design. Thankfully, we have hope, in the form of flexbox — which many readers will already be using — CSS grid layout and the box alignment module.</p>
+<p>**在网页上布局是很费劲的。**布局如此艰难的原因是因为，自从使用 CSS 进行布局成为可能之后，我们所依赖的那些布局方法并不是真正为复杂布局而设计的。尽管我们能够通过一些 hack 来实现很多固定宽度的世界，比如仿制的栏。但是这些方法在响应式的设计中要崩溃了。谢天谢地，我们还是有希望的。，CSS Grid, Flexbox 和 Box Alignment就是我们的希望。</p>
+<p>In this article, I’m going to explain how these fit together, and you’ll discover that by understanding flexbox you are very close to understanding much of grid layout.</p>
+<p>在这篇文章中，我将要阐明如何将这些组合在一起，同时你将会发现，理解了 flexbox 之后，更加明白网格布局。</p>
+<h2>A Note On Browser Support 浏览器支持的一个注记</h2>
+<p>CSS grid layout is currently behind a flag or available in the developer and nightly builds of Firefox, Safari, Chrome and Opera. Everything you see here can be seen to be working if you use a developer or nightly browser or enable the flag in a mainstream browser that has flagged support. I am trying to keep an up-to-date list of support for grid layouts.</p>
+<p>CSS 网格布局目前在 Firefox 的开发者版本和 nightly 版，Safari，Chrome 和 Opera中支持，或者在一个标志之后（。。。。）。如果使用的是你开发者版本或者 nightly版的浏览器或者激活了支持标记的主流浏览器（比如Chrome），你在这所看到的一切都能生效。 我尽量保持一个最新的<a href="http://gridbyexample.com/browsers/"> list of support for grid layouts</a>。</p>
+<h2>New Values For Display  Display 的新值</h2>
+<p>Both grid and flexbox are new values for the display property. To make an element a flex container, we use display: flex; to make it a grid container, we use display: grid.</p>
+<p>grid 和 flexbox 都是 display 属性的新值。我们可以使用<code class="language-text">display: flex</code> 将一个元素变成 flex 容器；可以使用<code class="language-text">display: grid</code>将一个元素变成 grid 容器。</p>
+<p>As soon as we do so, the immediate children of our flex or grid container become flex or grid items. Those immediate children take on the initial values of flex or grid items.</p>
+<p>一旦我们这么做之后， flex 或者 grid 容器当前的子元素变成 flex 或者 grid 项。这些子元素拥有 flex 或者 grid 项的初始值。</p>
+<h3>DISPLAY: FLEX LINK</h3>
+<p>In the first example, we have three elements in a wrapper element set to display: flex. That’s all we need to do to start using flexbox.</p>
+<p>在第一个例子中，在一个设置了<code class="language-text">dispaly: flex</code>的包装元素中有三个子元素。这就是我们开始使用 flexbox 所需要做的。</p>
+<p>Unless we add the following properties with different values, the initial values for the flex container are:</p>
+<p>如果我们不添加下面这些不同值的属性，flex 容器的初始值是：</p>
+<ul>
+<li>flex-direction: row</li>
+<li>flex-wrap: no-wrap</li>
+<li>align-items: stretch</li>
+<li>justify-content: flex-start</li>
+</ul>
+<p>The initial values for our flex items are:</p>
+<p>flex 项的初始值是：</p>
+<ul>
+<li>flex-grow: 0</li>
+<li>flex-shrink: 1</li>
+<li>flex-basis: auto</li>
+</ul>
+<p>We’ll look at how these properties and values work later in this article. For now, all you need to do is set display: flex on a parent, and flexbox will begin to work.</p>
+<p>稍后在文章我们将看看这些属性值是如何工作的。目前，你所要做的是在父元素上设置<code class="language-text">display: flex</code>，flexbox 将会开始生效。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="ZOpOqB" data-default-tab="css,result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Flexbox Defaults" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/ZOpOqB/">Flexbox Defaults</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<h3>DISPLAY: GRID LINK</h3>
+<p>To lay out items on a grid, we use display: grid. In order that we can see the grid’s behavior, this example has five cards to lay out.</p>
+<p>为了在网格中布置项，我们使用<code class="language-text">display: grid</code>。这个例子有五个卡片来布局，以便我们能够看到网格的行为。</p>
+<p>Adding display: grid won’t make a dramatic change; however, our child items are all now grid items. They have fallen into a single-column track grid, displaying one below the other, the grid creating implicit row tracks to hold each item.</p>
+<p>添加<code class="language-text">display: flex</code>不会制造一个戏剧性的变化；然而，所有的子元素现在都是 grid 项。它们都在一个单列的通道网格中，一个接一个的往下排列，网格创建了一个隐式的行轨道保持它们。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="QEKGNm" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Grid Defaults" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/QEKGNm/">Grid Defaults</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>Once again, we have some default behavior in evidence. We haven’t positioned any of these grid items, but they are placing themselves onto our grid, one per cell of the grid. The initial values of the grid container are:</p>
+<p>再一次，很明显地看到，（布局）有一些默认的行为。我们没有摆放任何 grid 项，但它们都把自己放到我们的网格之中，每一个 grid 项占据一个网格单元。grid 容器的初始值是：</p>
+<ul>
+<li>grid-auto-flow: row</li>
+<li>grid-auto-rows: auto</li>
+<li>align-items: stretch</li>
+<li>justify-items: stretch</li>
+<li>grid-gap: 0</li>
+</ul>
+<p>These initial values mean that our grid items are placed one into each cell of the grid, working across the rows. Because we have a three-column track grid, after filling the grid cell of the third column, a new row is created for the rest of the items. This row is auto-sized, so will expand to fit the content. Items stretch in both directions, horizontal and vertical, filling the grid area.</p>
+<p>这些初始值表示的意思是：在每一行中，每一个 grid 项都被放在网格中的一个单元格中。因为我们有一个三栏的通道网格，所以在第三栏填满之后，剩下的 grid 项会创建新的一行。这个新行是大小是自适应的，所以将会拓展以适应内容。网格中的元素在水平和垂直两个方向上伸展填充网格区域。</p>
+<h2>Box Alignment</h2>
+<p>In both of these simple examples, we are already seeing values defined in the box alignment module in use. “Box Alignment Module Level 3” essentially takes all of the alignment and space distribution defined in flexbox and makes it available to other modules. So, if you already use flexbox, then you are already using box alignment.
+Let’s look at how box alignment works in flexbox and grid, and the problems that it helps us solve.</p>
+<p>在这些简单的例子中，我们已经使用了一些在 box alignment 模块中定义的值。“Box Alignment Module Level 3”基本上拥有所有 flexbox 中定义的的对齐和空白分配能力，并且让它能够在其他模块中使用。所以，如果你已经使用了 flexbox，那么你已经在使用 box alignment。让我们来看看 box alignment 是如何在 flexbox 和 grid 中工作的，和一些 box alignment 可以帮我们解决的难题。</p>
+<h3>EQUAL-HEIGHT COLUMNS 等高列</h3>
+<p>Something that was very easy to create with old-school table-based layouts, yet fiendishly difficult using positioning and floats, is equal-height columns. In the floated example below, our cards contain unequal amounts of content. We have no way of indicating to the other cards that they should visually take on the same height as the first card — they have no relationship to each other.</p>
+<p>有一种布局使用老式的表单布局来创建是非常简单的，但是使用定位和浮动确实极其困难，这就是等高列布局。在下面的浮动例子中，我们的卡片包含不相同的内容。我们无法告知其他的卡片在视觉上和第一个卡片保持高度一致——他们彼此之间没有关联。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="YWGrPy" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Floated Columns" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/YWGrPy/">Floated Columns</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>As soon as we set the display property to grid or flex on a parent, we give the children a relationship to each other. That relationship enables the box-alignment properties to work, making equal-height columns simple.</p>
+<p>一旦我们为父元素设置display属性为 <code class="language-text">grid</code> 或者 <code class="language-text">flex</code>，便给子元素彼此之间赋予了关联性。这种关联性使得box-alignment 属性能够生效，让登高栏的实现变得简单。</p>
+<p>In the flex example below, our items have unequal amounts of content. While the background on each lines up, it doesn’t sit behind the content as it would for floated elements. Because these items are displayed in a row, the property that controls this behavior is align-items. Creating equal-height columns requires that the value be stretch — the initial value for this property.</p>
+<p>在下面的 flex 例子中，flex 子项有不同数量的内容。当每一项都加上背景色时，背景色不像在浮动元素中一样在内容区域的后面。因为这些项都是在一行中显示。控制这个行为的属性是<code class="language-text">align-items</code>。创建等高列需要将<code class="language-text">align-items</code>的值设置成<code class="language-text">stretch</code>——它的初始值。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="ZOpXEM" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Flexbox Equal Height Columns" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/ZOpXEM/">Flexbox Equal Height Columns</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>We see the same with grid layouts. Below is the simplest of grid layouts, two columns with a sidebar and main content. I’m using those fraction units again; the sidebar has 1 fraction of the available space, and the main content 3 fractions. The background color on the sidebar runs to the bottom of the content. Once again, the default value of <code class="language-text">align-items</code> is <code class="language-text">stretch</code>.</p>
+<p>在网格布局中我们可以看到相同的效果。下面是最简单的网格布局例子，两列，一列侧边栏，一列主要内容。我再次使用这些分数单位；侧边栏是可用空间中的1份，主体内容是可用空间中的3份。侧边栏的背景色跑到了内容的底部（对齐在底部）。再说一次，<code class="language-text">align-items</code>的默认值是<code class="language-text">stretch</code>。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="GqjMJj" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Grid Equal Height Columns" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/GqjMJj/">Grid Equal Height Columns</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<h3>ALIGNMENT IN FLEXBOX Flexbox 中的对齐</h3>
+<p>We’ve seen how the default value of <code class="language-text">align-items</code> for both <code class="language-text">grid</code> and <code class="language-text">flexbox</code> is <code class="language-text">stretch</code>.</p>
+<p>我们已经看到了 <code class="language-text">align-items</code>在 flex 和 grid 中的默认值都是<code class="language-text">stretch</code>。</p>
+<p>For flexbox, when we use <code class="language-text">align-items</code>, we are aligning them inside the flex container, on the cross axis. The main axis is the one defined by the <code class="language-text">flex-direction</code> property. In this first example, the main axis is the row; we are then stretching the items on the cross axis to the height of the flex container. The height of the flex container is, in this case, determined by the item with the most content.</p>
+<p>对于 flexbox，当我们使用<code class="language-text">align-itmes</code>时，我们是将它们在 flex 容器中的十字轴上对齐。主轴由 <code class="language-text">flex-direction</code>属性定义。在这个例子中，主轴是 row；然后我们十字轴上的项目延伸到容器的高度。在这种情况下，flex 容器的高度由 flex 项的最大高度决定。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 10.126582278481013%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAIAAADXZGvcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAdklEQVQI12MwBgETQ0MDG88kc78KI49CC99Sc79SHZf81r4FZ8+cPHjw0GEwOHjw4JkzZ/r6+nR1dU1MTIyNjRlAWk1MDA307X0zXGPadd1K9DzKDLwqlO0Lu6auunfn5vkLFy6BwYULF+7cuTNjxgwdHR2IZgACmTYVbPKSgQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/01-flex-row-opt.png"
+        title="./images/01-flex-row-opt.png"
+        src="/static/cb7958c5e86ed672d9d3eeabdf0f17a3/f058b/01-flex-row-opt.png"
+        srcset="/static/cb7958c5e86ed672d9d3eeabdf0f17a3/c26ae/01-flex-row-opt.png 158w,
+/static/cb7958c5e86ed672d9d3eeabdf0f17a3/6bdcf/01-flex-row-opt.png 315w,
+/static/cb7958c5e86ed672d9d3eeabdf0f17a3/f058b/01-flex-row-opt.png 630w,
+/static/cb7958c5e86ed672d9d3eeabdf0f17a3/40601/01-flex-row-opt.png 945w,
+/static/cb7958c5e86ed672d9d3eeabdf0f17a3/c1b63/01-flex-row-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>I could give the wrapper a height, and in this case the height of the flex container would be defined by that height.</p>
+<p>我可以给包装器添加一个高度，在这种情况下，这个高度将定义flex 容器的高度。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 22.78481012658228%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAIAAADKYVtkAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA70lEQVQY02MwNjYxNjIwtXK28CnUdc628Cm08C208ivSdc6uaJp69PCBHTt27oKB7du3Hz16NDc3V1NT09TUlAGk2VDf2NrLO2OuZcQkDa9OLd8uPf8eSdvGyUsO//////efv/9h4Pfv3////+/q6lJRUTEzMwNpNjHSN7Bw1/Bo1vRsVnNrUnNv0vJqEbWo7J23+////5+/fP0OA58/f/7//397ezuaZg81j3Y1j3Z1z3Y1z3Ytn05Rq9qJiw4RttnYyMDQ3EnLuUAbhvTciuQsMytb51y7cuHYseMnYeDYsWNXr14tLi7W0NAA+hkAYSWZcKzmhNIAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/02-flex-row-height-opt.png"
+        title="./images/02-flex-row-height-opt.png"
+        src="/static/363fe81f67994c2ee167524d3a3a25cc/f058b/02-flex-row-height-opt.png"
+        srcset="/static/363fe81f67994c2ee167524d3a3a25cc/c26ae/02-flex-row-height-opt.png 158w,
+/static/363fe81f67994c2ee167524d3a3a25cc/6bdcf/02-flex-row-height-opt.png 315w,
+/static/363fe81f67994c2ee167524d3a3a25cc/f058b/02-flex-row-height-opt.png 630w,
+/static/363fe81f67994c2ee167524d3a3a25cc/40601/02-flex-row-height-opt.png 945w,
+/static/363fe81f67994c2ee167524d3a3a25cc/c1b63/02-flex-row-height-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>We can use other values, instead of the default <code class="language-text">stretch</code>:</p>
+<p>我们可以设置其他的值来取代默认的<code class="language-text">stretch</code>:</p>
+<ul>
+<li><code class="language-text">flex-start</code></li>
+<li><code class="language-text">flex-end</code></li>
+<li><code class="language-text">baseline</code></li>
+<li><code class="language-text">stretch</code></li>
+</ul>
+<p>To control the alignment on the main axis, use the <code class="language-text">justify-content</code>property. The default value is <code class="language-text">flex-start</code>, which is why our items are all aligned against the left margin. We could instead use any of the following values:</p>
+<p>要控制在主轴上的对齐，使用 <code class="language-text">justify-content</code>。默认值是<code class="language-text">flex-start</code>，这就是为什么 flex 项全部对齐做外边距的原因。我们可以使用下面的任意值来替代：</p>
+<ul>
+<li><code class="language-text">flex-start</code></li>
+<li><code class="language-text">flex-end</code></li>
+<li><code class="language-text">center</code></li>
+<li><code class="language-text">space-around</code></li>
+<li><code class="language-text">space-between</code></li>
+</ul>
+<p>The <code class="language-text">space-between</code> and <code class="language-text">space-around</code> keywords are especially interesting. With <code class="language-text">space-between</code>, the space left over after the flex items have been displayed is distributed evenly between the items.</p>
+<p><code class="language-text">space-between</code>和<code class="language-text">space-around</code>关键字尤其有趣。使用<code class="language-text">space-between</code>，flex 容器中剩余的空白位置会平均分布在 flex 项之间。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 21.51898734177215%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAIAAAABPYjBAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA40lEQVQI12MwBgETY0N9C3sfk5D+WauOP37xoWbitq/ff3lnzPr241dF7+a7j95MX35019Ebe0/cUTf2NDXWNzYxMTY2ZoBoNjEyMLbyEDGv6J23+/b9Z8Uda9+8/eAUP/Htuw/5rasu33zUP2/3xj3nN++7rGbobmpsALIPSbO+iY2XqHX95CVHnr78WNm37dv3X67JM77/+F3aveXuo7dTlx3ZeeTG7mN3VI08EDYbQYGhkamllom7X3BMWnqWu29Edk6uhYN/Tk6um094SmqGf0hMZGxSVGyynpGFsZEhRA8AqONrcn+nYpQAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/03-flex-space-between-opt.png"
+        title="./images/03-flex-space-between-opt.png"
+        src="/static/cf5a602ad08e198b566162deeb47d30e/f058b/03-flex-space-between-opt.png"
+        srcset="/static/cf5a602ad08e198b566162deeb47d30e/c26ae/03-flex-space-between-opt.png 158w,
+/static/cf5a602ad08e198b566162deeb47d30e/6bdcf/03-flex-space-between-opt.png 315w,
+/static/cf5a602ad08e198b566162deeb47d30e/f058b/03-flex-space-between-opt.png 630w,
+/static/cf5a602ad08e198b566162deeb47d30e/40601/03-flex-space-between-opt.png 945w,
+/static/cf5a602ad08e198b566162deeb47d30e/c1b63/03-flex-space-between-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>Using <code class="language-text">space-around</code> is similar except that the space left over is distributed on both sides of the items. You get a half-sized gap on each end.</p>
+<p>使用<code class="language-text">space-around</code>，flex 容器中剩余的空白位置会平均分布在 flex 项两边。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 21.51898734177215%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAIAAAABPYjBAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA3klEQVQI12MwNjY2NTXV1NTKykzvmL3XInzC7YevayZse/TsXULlsjuP3uS3rrv3+G1V/9bbD193ztmXm5OtqalpampqbGzMgKQ5rbB1tZx97ZWbj4vb19y48zS8YO6lG4/Sa5Zeufm4qH3NxesPG6dszcrKRNesoamZl5NV1rtV3qn57uO3FX1bHz59F1269M6jt9lNIJvLe7fcuv+qfda+vNwcDWTNJiYmBgYGLs5Obj4RuuZeKakZ7r4RqWkZdm7Byanpzl5hIBGfiOSUdO+AaGdnZwMDAxMTE6BmAKVHa2O3mlUcAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/04-flex-space-around-opt.png"
+        title="./images/04-flex-space-around-opt.png"
+        src="/static/9c45994c6dcf8ed4febe59c053cd52b1/f058b/04-flex-space-around-opt.png"
+        srcset="/static/9c45994c6dcf8ed4febe59c053cd52b1/c26ae/04-flex-space-around-opt.png 158w,
+/static/9c45994c6dcf8ed4febe59c053cd52b1/6bdcf/04-flex-space-around-opt.png 315w,
+/static/9c45994c6dcf8ed4febe59c053cd52b1/f058b/04-flex-space-around-opt.png 630w,
+/static/9c45994c6dcf8ed4febe59c053cd52b1/40601/04-flex-space-around-opt.png 945w,
+/static/9c45994c6dcf8ed4febe59c053cd52b1/c1b63/04-flex-space-around-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>You can see these properties and values in the CodePen below.</p>
+<p>你可以在下面的 CodePen中看到这些属性和值。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="PzGJzm" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Flexbox Alignment flex-direction: row" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/PzGJzm/">Flexbox Alignment flex-direction: row</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>We can display flex items as a column rather than a row. If we change the value of <code class="language-text">flex-direction</code> to <code class="language-text">column</code>, then the main axis becomes the column, and the cross axis is along the row — <code class="language-text">align-items</code> is still <code class="language-text">stretch</code> by default, and so stretches the items across row-wise.</p>
+<p>我们可以将 flex 项按照列摆放而不是行。如果我们将<code class="language-text">flex-direction</code>的值设置成<code class="language-text">column</code>，然后主轴变成column，横轴沿着 row——<code class="language-text">align-items</code>依旧是默认值<code class="language-text">stretch</code>，所以在每一行上拓展 flex 项。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 27.21518987341772%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAIAAADKYVtkAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAiElEQVQY02MwNjY2MTEx0NdzDClzTZmj7tGq7tGGA7WqeXbrOGaaGBkYG5sYGxszGIOAiZGhvoVPnrZvt5p7o7pHMw7UpObZoeOYjkWzpU++rh/Zmn0LtXx71Txa1D3bcKBWNa9uHSd0ZxsbGxma2AfqOSTq2sXq2sXhQLG69okG1v7GxkYQTQAzZ1IxdVEXWwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/05-flex-column-opt.png"
+        title="./images/05-flex-column-opt.png"
+        src="/static/d84aa5009d3616bb2cd99a8f25940efe/f058b/05-flex-column-opt.png"
+        srcset="/static/d84aa5009d3616bb2cd99a8f25940efe/c26ae/05-flex-column-opt.png 158w,
+/static/d84aa5009d3616bb2cd99a8f25940efe/6bdcf/05-flex-column-opt.png 315w,
+/static/d84aa5009d3616bb2cd99a8f25940efe/f058b/05-flex-column-opt.png 630w,
+/static/d84aa5009d3616bb2cd99a8f25940efe/40601/05-flex-column-opt.png 945w,
+/static/d84aa5009d3616bb2cd99a8f25940efe/c1b63/05-flex-column-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>If instead we want them to align to the start of the flex container, we use <code class="language-text">flex-start</code>.</p>
+<p>如果我们想要 flex 项在 flex容器的开始位置对齐，我们使用<code class="language-text">flex-start</code>。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 36.708860759493675%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAIAAACHqfpvAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAz0lEQVQY05XQoW7CQBzH8T5PQw/u/tcEPUMyTEnonuAIzYIaco/Ag+BX01YUg9rUJocAi13Suytp+SGakIzdBF//MV+PiKSUg37wMF0+LdfvnwcAbXvGn5qmAVCWJWNMSklEXocFZ8PHRbb9PtXWGOtMaw0gz/NbTKJPo+fNxx6AsfXJlTEGQFEUt5gP2HC8+NodgdbW9+EwCHovr6ufqrZGa+OuqioAWZb9wmEY+r6fpm/XK87cw4iIcx5Fk/k8UUrN/kkplSRJHMdCiE5dAJlaDYjUM52bAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/06-flex-column-start-opt.png"
+        title="./images/06-flex-column-start-opt.png"
+        src="/static/d474dafaec29a02ab7167d65127b1e93/f058b/06-flex-column-start-opt.png"
+        srcset="/static/d474dafaec29a02ab7167d65127b1e93/c26ae/06-flex-column-start-opt.png 158w,
+/static/d474dafaec29a02ab7167d65127b1e93/6bdcf/06-flex-column-start-opt.png 315w,
+/static/d474dafaec29a02ab7167d65127b1e93/f058b/06-flex-column-start-opt.png 630w,
+/static/d474dafaec29a02ab7167d65127b1e93/40601/06-flex-column-start-opt.png 945w,
+/static/d474dafaec29a02ab7167d65127b1e93/c1b63/06-flex-column-start-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>We can use <code class="language-text">justify-items</code>, too, including <code class="language-text">space-between</code> and <code class="language-text">space-around</code>. The container needs to have enough height for you to see each in action, though!</p>
+<p>我们也可以使用<code class="language-text">justify-items</code>，包括<code class="language-text">space-between</code>和<code class="language-text">space-around</code>。但是要看到这些效果，容器需要足够的高度！</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 42.405063291139236%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAIAAAB2/0i6AAAACXBIWXMAAAsTAAALEwEAmpwYAAABB0lEQVQY02MwNjY2MTHR09MJS6nPad3smTrDM20WdpQ60ytzgVNopZGRgbGxibGxMQNcc2FVz4yVJ/rn7524cD9WNGHB3mnLjxfXTTI00Dc2Qdasq1NQ1TNpydGOmTu7Zu/Gijpn7exfeCivagJIszGq5qLq3mnLT3TO2tk9Zw9W1DV714RFhwuqMTXr6eRVdk9YdKR1+o72mbuworYZO3rmH8yp7EfXrK+nm1HS3jF7f/2kLY1TtmFFDZO3tM7cm1Hag6bZVFdXp7p50qLNF6cvPzJz5TGsaMaKI/PXn6tsnm6AHGDGxiZGhga2nvHWgZUWvsWWfiU4ULGlf4W5W4KxkSFYlzEAKmzWzYZhDKYAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/07-flex-column-space-between-opt.png"
+        title="./images/07-flex-column-space-between-opt.png"
+        src="/static/feab158b3fe494f659a9ae0904bd7723/f058b/07-flex-column-space-between-opt.png"
+        srcset="/static/feab158b3fe494f659a9ae0904bd7723/c26ae/07-flex-column-space-between-opt.png 158w,
+/static/feab158b3fe494f659a9ae0904bd7723/6bdcf/07-flex-column-space-between-opt.png 315w,
+/static/feab158b3fe494f659a9ae0904bd7723/f058b/07-flex-column-space-between-opt.png 630w,
+/static/feab158b3fe494f659a9ae0904bd7723/40601/07-flex-column-space-between-opt.png 945w,
+/static/feab158b3fe494f659a9ae0904bd7723/c1b63/07-flex-column-space-between-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p data-height="265" data-theme-id="light" data-slug-hash="JKRrvY" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Flexbox Alignment flex-direction: column" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/JKRrvY/">Flexbox Alignment flex-direction: column</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<h3>ALIGNMENT IN GRID LAYOUT 网格布局中的对齐</h3>
+<p>In a grid layout, the behavior is similar, except that we are aligning items within the defined grid area. In flexbox, we talk about the main and cross axis; with grids, we use the terms “block” or “column axis” to describe the axis defining our columns, and “inline” or “row axis” to describe the axis defining our rows, as <a href="https://www.w3.org/TR/css-grid-1/#grid-concepts">defined in the specification</a>.</p>
+<p>在网格布局中，对齐的行为是相似的，除了在定义的网格区域对去 grid 项。在 flexbox 中，我们讨论的是主轴和横轴；在网格中，我们用“block”或者“column axis（列轴）”的说法来描述列中定义的轴，用“inline”和“row axis（横轴）”的说法来描述行中定义的轴，比如<a href="https://www.w3.org/TR/css-grid-1/#grid-concepts">defined in the specification</a></p>
+<p>We can align content inside a grid area using the properties and values described in the box alignment specification.</p>
+<p>我们可以使用 box alignment 中定义的属性和值来对齐一个网格区域中的内容。</p>
+<p>A grid area is one or more grid cells. In the example below, we have a four-column and four-row track grid. The tracks are separated by a grid gap of 10 pixels, and I have created three grid areas using line-based positioning. We’ll look at this positioning properly later in this guide, but the value before the <code class="language-text">/</code> is the line that the content starts on, and the value after where it ends.</p>
+<p>一个网格区域可以是一个或者更多网络单元格。在下面的例子中，我们有四行四列的通道网格。这些轨道之间有一个10像素的分割间隙，同时以线为基础创建了是三个网格区域，并放在合适的位置。稍后我们会在这个指南中看看这个正确的位置。<code class="language-text">/</code>前面的数字表示的是内容在这一行的起点，后面的数字表示的是内容在何处结束（译者注：千万别当做五分之一来看待，这里的意思是，内容从第一列开始，到第五列结束）。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="EygpMv" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Grid Alignment: align-items and justify-items" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/EygpMv/">Grid Alignment: align-items and justify-items</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>The dotted border is on a background image, to help us see the defined areas. So, in the first example, each area uses the defaults of <code class="language-text">stretch</code> for both <code class="language-text">align-items</code> on the column axis and <code class="language-text">justify-items</code>on the row axis. This means that the content stretches to completely fill the defined area.</p>
+<p>虚线边框是背景图中的，帮助我们看到定义的区域。那么，在第一个例子中，每个区域在列轴上使用<code class="language-text">stretch</code>作为<code class="language-text">align-items</code>的默认值，在行轴上使用<code class="language-text">justify-items</code>。这意味着内容会延伸到完全填充定义的区域。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 55.69620253164557%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAAsTAAALEwEAmpwYAAABd0lEQVQoz23SyU7CUBQGYF6ItqZ9Hd2IKyNQIKgMFhEXSqEDbRmEXqB0CBQCQVdY5tIiavCNTCREQpt8ubs//zkn14OiKIZhCAKf+fDofRFP0KFkIXxX2L2HQkk2mi6f+kInCIJiGIqinl0Yhrx4nC61P1lpwasrQbWceNms9rYRgkdgCDsKX10/C6pNiQZdn7iigMErVjBGuYT9N2RRW9NgzDSmTmxjSoOxoNp4nHZtzvKqnRcNqj5xyoNJXjQ4xQo4myHIG0uzyttPrWMC3QLdA7pV79nqcAP0lfy6jT3wsLMZj5GCsqLrY06ac61/BWlW0patwZoSRyXNjiQZl7EDt2Sl/VFoTncZfo+TZmVtCbpW9mXEK3bQufPf2Iw8/K62l6K+OlTrmFLfbg3Wudp7UbWCcfdr5zjZpsCElRaHmOZcUM1mf8M0ZpXOVzjJHocRGDq/jD+yXYJspUiFIJXUHpGVM5SWFfTEk5Rh9As/gSDw7of9AqX6ROATF7teAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/08-grid-default-align-opt.png"
+        title="./images/08-grid-default-align-opt.png"
+        src="/static/f9a02f37e17d75b843a5dd9ce2704659/f058b/08-grid-default-align-opt.png"
+        srcset="/static/f9a02f37e17d75b843a5dd9ce2704659/c26ae/08-grid-default-align-opt.png 158w,
+/static/f9a02f37e17d75b843a5dd9ce2704659/6bdcf/08-grid-default-align-opt.png 315w,
+/static/f9a02f37e17d75b843a5dd9ce2704659/f058b/08-grid-default-align-opt.png 630w,
+/static/f9a02f37e17d75b843a5dd9ce2704659/40601/08-grid-default-align-opt.png 945w,
+/static/f9a02f37e17d75b843a5dd9ce2704659/c1b63/08-grid-default-align-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>In the second example, I have changed the value of <code class="language-text">align-items</code> on the grid container to <code class="language-text">center</code>. We can also change this value on an individual grid item using the <code class="language-text">align-self</code> property. In this case, I have set all items to <code class="language-text">center</code>, but item two to <code class="language-text">stretch</code>.</p>
+<p>在第二个例子中，我将 grid 容器的<code class="language-text">align-items</code>的值修改成<code class="language-text">center</code>。我们也可以修改一个单独的 gird 项上的<code class="language-text">align-self</code>属性的值。此时，我把所有的项都设置成<code class="language-text">center</code>，但是第二个项设置成 <code class="language-text">stretch</code>。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 55.69620253164557%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAAsTAAALEwEAmpwYAAABf0lEQVQoz32QX0vCYBSH+zpr27uL9/VLddFVF30BqSizsqJyS7QiqCC9SabO0kZtTlf4J6dlaepmWkSJETF8I4Jqszo8nJvDw/nxG4IQIoRomnY6nYlEguf5aCz2K3wkciyKs243wzAIIQjhEITQ4XAME0QoFMIYm6aJ/5jPUzweB4C2yCRJzi9x2dKdqJRP1MqviOlLtWgse7cYAGzy8Arrr+nPOa1+cakPUrwyCuVmtfnk39oDNpkgiGAw+G/svmm+YYxjsShND8ReWvWVqg+Z7M1ZoWZDzVdb7cder4cxPgiHLTJCiAH0yNiEy5ecWuNnOOEnrnVhci2aK96+vnQ/PkcjdhkAanR82rureAKHi5tJGwsbCfn8utbotO572zv7YKAwkuUCRqdbqRnVevuDxveu651CuXEkaXK27lnZZBirTJGky8PJWf1QKh9nbkQrSaXSfuhi3McYC4JgL4yiKPfcfC5fPJFSUiotyRZOZUVJZ1RV1bQSy7Jfsd8BWAKb9fyZmhAAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/09-grid-align-items-opt.png"
+        title="./images/09-grid-align-items-opt.png"
+        src="/static/d3e4524e1592f7b553f999633c835d20/f058b/09-grid-align-items-opt.png"
+        srcset="/static/d3e4524e1592f7b553f999633c835d20/c26ae/09-grid-align-items-opt.png 158w,
+/static/d3e4524e1592f7b553f999633c835d20/6bdcf/09-grid-align-items-opt.png 315w,
+/static/d3e4524e1592f7b553f999633c835d20/f058b/09-grid-align-items-opt.png 630w,
+/static/d3e4524e1592f7b553f999633c835d20/40601/09-grid-align-items-opt.png 945w,
+/static/d3e4524e1592f7b553f999633c835d20/c1b63/09-grid-align-items-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>In the third example, I have changed the value of <code class="language-text">justify-items</code> and <code class="language-text">justify-self</code> again, setting these to <code class="language-text">center</code> and <code class="language-text">stretch</code>.</p>
+<p>在第三个例子中，我再次修改了<code class="language-text">justify-items</code>和<code class="language-text">justify-self</code>的值，将这些设置成<code class="language-text">center</code>和<code class="language-text">stretch</code>。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 55.69620253164557%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB50lEQVQoz22Q3W/SYBTG9/fAO7joy5+lt3rPjSwjBhaTgYJjOKIxAbUfhnbUAm4wJ0wYtPIxoEKqm/uIi6UvLe0xDGcC7sm5eXLyO+fJs0JRFMbY4/H4/X5BEGiaZmfiBD4biaU2n6UEPjvzHMcwjCiKgUDA6/VijCmKWqEoyufzuVwumqYBYDqdAoDtOABwpGhVWftn5yue5xFCy3A6nQYAXdcJIWPDALBL1ZP9ShfAHhsGIUTXdQBgGOYOOJPJAMB4PJ5MJgYhAE75S7901ANwDEJM0zRmF4HjuDtg+t3bm2wmgG07s4Sf6oODWh8AHGdqWZY5IQDAsuwCjLEPIXckluwNr2qyevx1VFdGSkcTPip8UVa6Wk3+dnl1rf24uPxF3i99xhh7Pav3Hqw93iqsPeWDcTEYF9djYighhRJSMC4+igqdviaVmvnDfm6Xd7v/g+8/XN98eRDaEsPb+Y1k/smLQnhbCiekjWQhGBcHw7P9SrfweXADu5dio+eJndPz6576faidN1sjVjpWRz/n01NPCTGKh+1iRc3tZhfgWWHuv4VZlgUAZxe/6Q9NuJVt2wCwV+2V61peyrkWP2OEUDQaVVW10Wi02629ciWSZJVbNZrySaf16k3uNV1M7SQRWp3DfwCFYKN3+Vkp/QAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/10-grid-justify-items-opt.png"
+        title="./images/10-grid-justify-items-opt.png"
+        src="/static/c7edf2a9086bee77270e1bcb37427df9/f058b/10-grid-justify-items-opt.png"
+        srcset="/static/c7edf2a9086bee77270e1bcb37427df9/c26ae/10-grid-justify-items-opt.png 158w,
+/static/c7edf2a9086bee77270e1bcb37427df9/6bdcf/10-grid-justify-items-opt.png 315w,
+/static/c7edf2a9086bee77270e1bcb37427df9/f058b/10-grid-justify-items-opt.png 630w,
+/static/c7edf2a9086bee77270e1bcb37427df9/40601/10-grid-justify-items-opt.png 945w,
+/static/c7edf2a9086bee77270e1bcb37427df9/c1b63/10-grid-justify-items-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>In all of the examples above, I have aligned the content of the grid areas, the areas defined by the start and end grid lines.</p>
+<p>上面的所有例子，我将网格区域中的内容对齐，这些网格区域由起点网格线和终点网格线定义。</p>
+<p>We can also align the entire grid inside the container, if our grid tracks are sized so that they take up less space than the container that has been set to <code class="language-text">display: grid</code>. In this case, we use the <code class="language-text">align-content</code>and <code class="language-text">justify-content</code> properties, as with flexbox.</p>
+<p>我们也可以将容器中的网格整个对齐，如果我们的网格轨道是有固定大小的，那么它们将会比设置了<code class="language-text">display: grid</code>的容器占据更小的空间。此时，我们使用 <code class="language-text">align-content</code> 和 <code class="language-text">justify-content</code>，就像 flexbox。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="aZBozX" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Grid Alignment: aligning the grid" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/aZBozX/">Grid Alignment: aligning the grid</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>In the first example, we see the default alignment of a grid where the columns and rows have been defined in absolute units and take up less space than the fixed-sized wrapper allows for. The default values for both are <code class="language-text">start</code>.</p>
+<p>在第一个例子中，我们可以看到网格的默认布局，行和列都被定义在绝对大小单位中，占据的空间比固定大小的包装器允许的空间更小。<code class="language-text">align-content</code>和<code class="language-text">justify-content</code>的默认值都是<code class="language-text">start</code>。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 69.62025316455697%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAIAAACgpqunAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB0ElEQVQoz32TX0/aUBiH/TCY0NZdwKGlH2jJLly2ZcmMSHYxMRtsWQsao6C2VBQpIH8US6YddExgFudmQBL4Do6h1mACvAtZ5moDnDw5d09+5/zyvhMIIRtJPpoiHk87Fnwx57vga8+mAadbWGDDpbJar9fT6TRFUVar1WazTSCESJKcws3PHR83EudLW1+XwyUDS1tFPlG5ue0AQKPRoGn6oUxg06/cK5EThvvsDeYNMFzOHzm+bLUBoFqt2u12o/x0xrMqqiyf8wmKnsVNheXzAbHY+n0NALVabYg8SBZVhs95BUUPO0geJ1M4bp6b98YP60KiHEqpehKffoZSalQ6a1/djEx+Nvt+VVQZTjZ8OLx/uigoa2OeTeDmF44PwdSPlXDBHzm+JyAWt/cqDJcbI1MEbp59441kaxvRIh//dk9w90Q8+M7y+fVoqdUeJg+GhMCevHzLhkpu/6FnTdbDxcvuwNHyduHXmMKc8769fGMnUxGlMz3ZwsXO/mnq6Hx4YRRFmSYnY7EYANxq2l2no6fz79Y0rd/vG4dkIJtMyWQSALrdLow4vV4PAJrNJk3TFovlf9sYhrlcLkX5kskcSFJ2BJIsyxzH/V0MhNAfVNvjZ0FbI9QAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/11-grid-align-start-opt.png"
+        title="./images/11-grid-align-start-opt.png"
+        src="/static/ff12759b72f9a6f55de5434a0500cc00/f058b/11-grid-align-start-opt.png"
+        srcset="/static/ff12759b72f9a6f55de5434a0500cc00/c26ae/11-grid-align-start-opt.png 158w,
+/static/ff12759b72f9a6f55de5434a0500cc00/6bdcf/11-grid-align-start-opt.png 315w,
+/static/ff12759b72f9a6f55de5434a0500cc00/f058b/11-grid-align-start-opt.png 630w,
+/static/ff12759b72f9a6f55de5434a0500cc00/40601/11-grid-align-start-opt.png 945w,
+/static/ff12759b72f9a6f55de5434a0500cc00/c1b63/11-grid-align-start-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>To move the tracks to the bottom right, we change the values to <code class="language-text">end</code>.</p>
+<p>为了将轨道移动到右下角，我们可以把值变成<code class="language-text">end</code>。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 69.62025316455697%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAIAAACgpqunAAAACXBIWXMAAAsTAAALEwEAmpwYAAABrElEQVQoz4XTa0vCUBjA8b6ML3w99Qv1NoIuEBhekLAoM5u3cps23Y5OQ7O7m7q56bYMakVE0ddI3RI9UetioPbwe3n+8Bw4ZwZBELvdbrVafT6fLMssy1YnDMdxoihiGIZ8zwyCIA6Hw2KxMAwDIez3+3DCDAYDCKGmaWZps9l+Y5qmIYSdTqfb63W7Y7y+doZDqKrqmBgAACE0dF1sv5ClK3ByTR//QZWv8hf3m5HsmLXN+M3QDy9v/XvcdpIPEPVRW3gtlG6urBHT4hKnBYhaOCOi6caoXZKPZZXV9dTUmNW28NrnaWFU6KAeBfI/cZHVAngtnG6gpDBqJ2XGyYmxYei8+pw6VKhyO3P0iyq3i5Xb3PndBgqmr323kajuHAjBFG/aTvIhUqDK7QgtO6esbRj6ufAQoyU8r2CMbErk5GRBSZfUMNUaf2eK+ngkvV6XbT7GgYjnmxjzJZFrEoUWWVTQjOT0ExOfJ4TD08ZTkJRiWTUKFFOEVuI5FZxp+4UbT4D+E5sfw+v1ipJUqVyuB4l5Z2jJjS66viy40GV32OWPL3tis3OrP/E7JKzex5tIvKoAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/12-grid-align-end-opt.png"
+        title="./images/12-grid-align-end-opt.png"
+        src="/static/555650eee23cb7b00eb1f8ee500e7334/f058b/12-grid-align-end-opt.png"
+        srcset="/static/555650eee23cb7b00eb1f8ee500e7334/c26ae/12-grid-align-end-opt.png 158w,
+/static/555650eee23cb7b00eb1f8ee500e7334/6bdcf/12-grid-align-end-opt.png 315w,
+/static/555650eee23cb7b00eb1f8ee500e7334/f058b/12-grid-align-end-opt.png 630w,
+/static/555650eee23cb7b00eb1f8ee500e7334/40601/12-grid-align-end-opt.png 945w,
+/static/555650eee23cb7b00eb1f8ee500e7334/c1b63/12-grid-align-end-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>Just as with flexbox, we can use <code class="language-text">space-around</code> and <code class="language-text">space-between</code>. This might cause some behavior that we don’t want as the grid gaps essentially become wider. However, as you can see from the image below and in the third example in the CodePen, we get the same space between or around the tracks as we see with flexbox.</p>
+<p>就像 flexbox 一样，我们可以使用<code class="language-text">space-around</code>和<code class="language-text">sapce-between</code>。这可能会引发一些我们不希望看到的行为，我们不想网格间隙变得更宽。然而，正如下图和 CodePen 中的第三个例子中你看到的一样，在轨道之间或者周围有相同的空间，就像在 flexbox 中一样。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 69.62025316455697%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAIAAACgpqunAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB3klEQVQoz23TaW/SYADA8X0ZOVpf0dIvpDEuTgyLcWqcQ3CsdjCOCoWS3g666lTYkunSAhtsrevQjXhkK5lHsmxilMRr+M6MRBOe9snv7T/PPYIgiN/vh2EoEJwQ5WWKkfOc4ijHLjDSk8hMEkVRZDBGBjEGQ+7ABM5XXmeKG5RsOMqW9MLiy3BCPo19vv+x/yzsvXDlTrZkxBk1wVUdzbEaKTVv4fxg5qHYczEYzi2YCU5LCXVHSb6Wmd+cJASHeDQYoZXtFF8lxTVHaaFOFfWpWdEee88HQilpE8+vEgXVLsZoREGNc+vXp9mhGMMwj9sVJcj2/pfmtqW/OrBrmFbDtFpvDkuLz1EU9fmG45lZcme/u7a112x1AOum9ev3ifX+2Nj9NP9wZShGB8s+dzkU5zfuZlai1CogfP/Z4fG3itbGC7UbUQ7YMwZ53eM38cfquwdlo7hkAqTyi6+9H8vVdlJohGISuGeX6wyZpbu9/t7BUedjF2B9+HzS/1NWdxNC47b9tGHIc+lqJK+Yc6ya5GuAOKMddXsVbSfG1ifvgfd8+jzHruHi0tucrNPKFoAqGd9/9lW9Qymt6bRif57Q6Ng4zT9KZQUyJwHSlPi0XGFFOUMXp8LEv3+B/AWKn73qj3WNzgAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/13-grid-align-space-opt.png"
+        title="./images/13-grid-align-space-opt.png"
+        src="/static/d754374680e5b355dce2245b16276470/f058b/13-grid-align-space-opt.png"
+        srcset="/static/d754374680e5b355dce2245b16276470/c26ae/13-grid-align-space-opt.png 158w,
+/static/d754374680e5b355dce2245b16276470/6bdcf/13-grid-align-space-opt.png 315w,
+/static/d754374680e5b355dce2245b16276470/f058b/13-grid-align-space-opt.png 630w,
+/static/d754374680e5b355dce2245b16276470/40601/13-grid-align-space-opt.png 945w,
+/static/d754374680e5b355dce2245b16276470/c1b63/13-grid-align-space-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>The fixed-sized tracks will gain additional space if they span more than one track. Element two and four in our example are wider and three is taller because they are given the extra space assigned to the gap they span over.</p>
+<p>如果固定大小的轨道跨度超过一个轨道的宽度，它将会获得额外的空间。在我们例子中的例子二和四更宽，例子三更高，因为他们有额外的空间分配给他们跨过的间隙。</p>
+<p>We can completely center the grid by setting both values to <code class="language-text">center</code>, as shown in the last example.</p>
+<p>我们可以通过将两个值设置成<code class="language-text">center</code>来完全地将网格居中，就像最后一个例子中展示的一样。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 69.62025316455697%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAIAAACgpqunAAAACXBIWXMAAAsTAAALEwEAmpwYAAABk0lEQVQoz33TSU/CQBiAYf8LXjjKBP4c4WaIyqIRldIF6NQF63ZCoRttpYAHlHIgmrhFMYgQDW4goGOUaGqhTp7rm28y+WYMAOB0Ou12u8fj0TRN4LmMJI4kiYKqKDiOg58zBgBwuVw2m41hIEKoetu6uXsa6arWQgiVdR0A4HA4jPE4pOPtLgpQvJ8UA5RZMCp6w6nKab10VJz4Lk2T6U4PBShhHsrDQozsI/mTi4ZeOhoVQ/qth4JRYZ6Wh4Wg7CP+iRnY6SEfwc/GMsPm4pmpCHd80SjrFpO77whbVUk2Z0Jt5KiN/NKyenZ9r5cOHcMxhHT/A5Fsllj/U0YS2USyyO4eLjDKuVU8uPYMzgWjkpGPFAhWw9ay3nDa8tqDybGtPL19YBTbLLDJIpHQpiPcyWXT8rW7fbTAyIsrqlGIUeidArH+bwxh/KXzMYWl/KRgNI1zeGI/vKJOLu5VziyXhPlaz3rrtvliVGs8Nx/ajfvXav1xxHoOPobb7VZVJZ3e4/m0GfeF41KSJGIY9vsxPgGMx99/O5gsfQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="./images/14-grid-align-center-opt.png"
+        title="./images/14-grid-align-center-opt.png"
+        src="/static/ceb8faed964e3a8e22af3547d04230d9/f058b/14-grid-align-center-opt.png"
+        srcset="/static/ceb8faed964e3a8e22af3547d04230d9/c26ae/14-grid-align-center-opt.png 158w,
+/static/ceb8faed964e3a8e22af3547d04230d9/6bdcf/14-grid-align-center-opt.png 315w,
+/static/ceb8faed964e3a8e22af3547d04230d9/f058b/14-grid-align-center-opt.png 630w,
+/static/ceb8faed964e3a8e22af3547d04230d9/40601/14-grid-align-center-opt.png 945w,
+/static/ceb8faed964e3a8e22af3547d04230d9/c1b63/14-grid-align-center-opt.png 1200w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>We have very nice alignment abilities in both flexbox and grid, and they work in a generally consistent way. We can align individual items and groups of items in a way that is responsive and prevents overlap — something the web has lacked until now!</p>
+<p>在 flexbox 和 grid 中我们有非常完美的对齐能力，同时它们以一种普遍一直的方式工作。我们可以对齐单独的项也可以对齐一组项，这反应迅速，同时放置部分重叠——直到现在，web 一直都缺乏的东西。</p>
+<h2>Responsive By Default 默认反应</h2>
+<p>In the last section, we looked at alignment. The box-alignment properties as used in grid and flexbox layouts are one area where we see how these specifications have emerged in a world where responsive design is just how things are done. Values such as <code class="language-text">space-between</code>, <code class="language-text">space-around</code> and <code class="language-text">stretch</code> allow for responsiveness, distributing content equally among or between items.</p>
+<p>在最后一节中，我们看看 alignment。在 flexbox 和网格布局中使用的box-alignment 属性作用在一个区域，在这个区域我们看到了这些参数是如何形成一个世界的，而这个世界就是响应式设计需要做的。像<code class="language-text">space-betweem</code>，<code class="language-text">space-around</code>和<code class="language-text">stretch</code>这些值都允许响应，在项之间或者周围平均的分配内容。</p>
+<p>There is more, however. Responsive design is often about maintaining proportion. When we calculate columns for a responsive design using the <code class="language-text">target ÷ context</code> approach introduced in Ethan Marcotte’s original <a href="http://alistapart.com/article/fluidgrids">article on fluid grids</a>, we maintain the proportions of the original absolute-width design. Flexbox and grid layouts give us far simpler ways to deal with proportions in our designs.</p>
+<p>但是，还有很多。响应式设计经常需要维护比例。当我们使用<a href="http://alistapart.com/article/fluidgrids">Ethan Marcotte’s 的文章</a>中介绍的<code class="language-text">target除以 context</code>方法为响应式设计计算列时，我们维持原来绝对宽度设计的比例。Flexbox 和网格布局给了我们很简单的方法来处理设计中 的比例。</p>
+<p>Flexbox gives us a <strong>content-out</strong> approach to flexibility. We see this when we use a keyword value of <code class="language-text">space-between</code> to space our items evenly. First, the amount of space taken up by our items is calculated, and then the remaining space in the container is divided up and used evenly to space out the items. We can get more control of content distribution by way of properties that we apply to the flex items themselves:</p>
+<p>Flexbox给了我们一种从内容外部入手实现弹性的方法。当我们使用<code class="language-text">space-between</code>来平均分配空间时，我们可以看到这种方式。首先，一些空间呗计算过之后的项占据，然后容器中剩余的空间被分割开，平均地分配在项外面。我们可以通过在 flex 项自身上应用属性来得到更多的内容分配的控制权。</p>
+<ul>
+<li><code class="language-text">flex-grow</code></li>
+<li><code class="language-text">flex-shrink</code></li>
+<li><code class="language-text">flex-basis</code></li>
+</ul>
+<p>These three properties are more usually described by the shorthand <code class="language-text">flex</code> property. If we add <code class="language-text">flex: 1 1 300px</code> to an item, we are stating that <code class="language-text">flex-grow</code> should be <code class="language-text">1</code> so that items can grow, <code class="language-text">flex-shrink</code>should be <code class="language-text">1</code> so that items can shrink, and the <code class="language-text">flex-basis</code> should be 300 pixels. Applying this to our cards layout gives us the example below.</p>
+<p>这些属性通常更多地是用简单的 flex 属性来描述。如果我们对一个项添加<code class="language-text">flex: 1 1 300px</code>，我们来陈述一遍，<code class="language-text">flex-grow</code>是1，项可以扩大，<code class="language-text">flex-shrink</code>是1，项可以收缩，并且<code class="language-text">flex-basis</code>是300像素。把这个应用到我们的卡片不居中，可以得到下面的这个例子。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="gMLrEG" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Flexbox: flex properties" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/gMLrEG/">Flexbox: flex properties</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>Our <code class="language-text">flex-basis</code> here is 300 pixels, and we have three cards in a row. If the flex container is wider than 900 pixels, then the remaining space is divided into three and distributed between the items equally. This is because we have set <code class="language-text">flex-grow</code> to <code class="language-text">1</code> so that our items can grow from the <code class="language-text">flex-basis</code>. We have also set <code class="language-text">flex-shrink</code> to <code class="language-text">1</code>, which means that, where we don’t have space for three 300-pixel columns, space will be removed equally.</p>
+<p><code class="language-text">flex-basis</code>在这里是300像素，我们三个卡片是在一行的。如果 flex 容器比900像素宽，那么剩下的空间会平均分配三个卡片之。这是因为我们设置了<code class="language-text">flex-grow</code>为<code class="language-text">1</code>，所以项会在<code class="language-text">flex-basis</code>的基础上扩大。我们也设置了<code class="language-text">flex-shrink</code>为<code class="language-text">1</code>，这一位置如果三个300像素的列之间没有足够的空间，项之间的空间会被移除。</p>
+<p>If we want these items to grow in different proportions, then we can change the <code class="language-text">flex-grow</code> value on one or more items. If we would like the first item to get three times the available space distributed to it, we would set <code class="language-text">flex-grow</code> to <code class="language-text">3</code>.</p>
+<p>如果我们想这些项以不同的比例扩大，我们可以修改一个或者更多项的<code class="language-text">flex-grow</code>，如果我们想第一个项在空间足够时变成三倍，我们将设置 <code class="language-text">flex-grow</code>为<code class="language-text">3</code>。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="NrbNmz" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Flexbox: flex properties" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/NrbNmz/">Flexbox: flex properties</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>The available space is distributed <em>after</em> the amount needed for <code class="language-text">flex-basis</code> has been taken into account. This is why our first item is not three times the size of our other items, but instead gets a share of three parts of the remaining space. You will see a bigger change by setting the value for <code class="language-text">flex-basis</code> to <code class="language-text">0</code>, in which case we wouldn’t have a starting value to remove from the overall container. Then, the entire width of the container could be distributed in proportion to our items.</p>
+<p>可用空间是在<code class="language-text">flex-basis</code>被考虑需要的空间大小之后分配的。这就是为什么我们的第一项不是扩大原来的三倍，而是三个卡片的剩余空间。将 <code class="language-text">flex-basis</code>设置成<code class="language-text">0</code>你将看到一个更大的变化。在这种情况下，我们没有一个从整个容器中移除的初始值。然后整个容器的宽度都将按比例分配给各项。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="jrVqoQ" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Flexbox: flex properties" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/jrVqoQ/">Flexbox: flex properties</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>A very useful tool to help you understand these values is <a href="https://madebymike.com.au/demos/flexbox-tester/">Flexbox Tester</a>. Pop the different values into the tester, and it calculates the actual sizes at which your items will end up, and explains why they end up at that size.</p>
+<p>Flexbox Tester 是一个帮助你理解这些值的非常好用的工具。</p>
+<p>If you use <code class="language-text">auto</code> as your <code class="language-text">flex-basis</code> value, it will use any size set on the flex item as the <code class="language-text">flex-basis</code> value. If there is no size, then it defaults to be the same as the value of <code class="language-text">content</code>, which is the content’s width. Using <code class="language-text">auto</code> is, therefore, very useful for reusable components that might need to have a set size on an item. You can use <code class="language-text">auto</code> and be sure that if the item needs to be around a size defined on it, flexbox will respect it.</p>
+<p>如果你使用<code class="language-text">auto</code>作为<code class="language-text">flex-basis</code>的值，这将会使用任何大小来设置 flex 项，就像<code class="language-text">flex-basis</code>的值。如果没有大小，那么默认值是内容的宽度。对于那些没有定义大小的可复用组件，使用<code class="language-text">auto</code>非常有用的。你可以使用<code class="language-text">auto</code>来确保项的大小是否和定义的差不多。</p>
+<p>In the next example, I have set the <code class="language-text">flex-basis</code> on all cards to <code class="language-text">auto</code>. I then gave the first card a width of 350 pixels. So, the <code class="language-text">flex-basis</code> of that first card is now 350 pixels, which is used to work out how to distribute space. The other two cards have a <code class="language-text">flex-basis</code> based on their content’s width.</p>
+<p>在下一个例子中，我把所有的卡片的<code class="language-text">flex-basis</code>设置成<code class="language-text">auto</code>。然后我给第一个卡片设置宽度为350像素。那么第一个卡片的<code class="language-text">flex-basis</code>现在是350像素，用来解决如何分配空间。其他两个卡片的<code class="language-text">flex-basis</code>基于他们的内容的宽度。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="mEOPZM" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Flexbox: flex properties" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/mEOPZM/">Flexbox: flex properties</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>If we go back to our original <code class="language-text">flex: 1 1 300px</code>, add more items to our example and set <code class="language-text">flex-wrap: wrap</code> on the container, the items will wrap in order to maintain as near as possible the <code class="language-text">flex-basis</code> value. If we have five images and three fit onto one row, then the next two will wrap onto a new row. As the items are allowed to grow, they both grow equally, and so we get two equal-sized items on the bottom row and three in the row above.</p>
+<p>如果我们回到<code class="language-text">flex: 1 1 300px</code>，在我们的例子中添加更多项，并且在容器上设置<code class="language-text">flex-wrap: wrap</code>，这些项为了尽可能地维持 <code class="language-text">flex-basis</code>的值而换行。如果我们有五个项，三个占据一行，那么接下来的两个将会换行到行的一行中。因为这些项都是允许扩大的，所以他们也会平均地扩大。所以在底部一行我们会有两个相同大小的项，上面一行有三个。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="QEGNeZ" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Flexbox: wrapping" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/QEGNeZ/">Flexbox: wrapping</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>The question then asked is often, “How can I get the items on the bottom row to line up with the ones on the top, leaving a gap at the end?” The answer is that you don’t, not with flexbox. For that kind of behavior you need a grid layout.</p>
+<p>那么问题来了，“我怎么做才能让最后一行像顶部一样排列，在末尾留下空隙？”这个回答是，你别，别用 flexbox。对于这种行为，你需要网格布局（译者注：其实可以在后面加上n个看不见不占据空间的卡片，n为每行的卡片个数）。</p>
+<h4>KEEPING THINGS IN PROPORTION WITH GRID LAYOUT</h4>
+<p>Grid layouts, as we have already seen, have a concept of creating column and row <strong>tracks</strong> into which items can be positioned. When we create a flexible grid layout, we set the proportions when defining the tracks on the grid container — rather than on the items, as with flexbox. We encountered the <code class="language-text">fr</code> unit when we created our grids earlier. This unit works in a similar way to <code class="language-text">flex-grow</code> when you have a <code class="language-text">flex-basis</code>of <code class="language-text">0</code>. It assigns a fraction of the available space in the grid container.</p>
+<p>网格布局，正如我们所见，有这个概念：创建列和行轨道，项可以在里面定位。当我们创建一个弹性的网格布局时，我们在 grid 容器中定义轨道时设置比例——而不是在项上，就像 flexbox 一样。在我们之前创建网格时，遇到了<code class="language-text">fr</code>单位，这个单位以和 <code class="language-text">flex-grow</code>相似的方式工作，就像 <code class="language-text">flex-basis: 0</code>。它分配grid 容器中可用空间的一部分。</p>
+<p>In this code example, the first column track has been given <code class="language-text">2fr</code>, the other two <code class="language-text">1fr</code>. So, we divide the space into four and assign two parts to the first track and one part each to the remaining two.</p>
+<p>在这个例子中，第一列轨道分配了<code class="language-text">2fr</code>，其他两个<code class="language-text">1fr</code>。所以，我们将空间分成四份，两份分配第一列轨道，其他的轨道每个分配一份。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="xOROVO" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Simple grid show fraction units" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/xOROVO/">Simple grid show fraction units</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>Mixing absolute units and <code class="language-text">fr</code> units is valid. In this next example, we have a <code class="language-text">2fr</code> track, a <code class="language-text">1fr</code> track and a 300-pixel track. First, the absolute width is taken away, and then the remaining space is divided into three and assigned three parts to track 1 and one part to track 2.</p>
+<p>混合使用绝对单位和 <code class="language-text">fr</code>是有效的。在接下来的例子中，我们有一个<code class="language-text">2fr</code>的轨道，一个<code class="language-text">1fr</code>的轨道和一个300像素的轨道。首先，绝对宽度被占据，然后剩下的空间分成三份，两份给轨道1，一份给轨道2。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="rLWLLa" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Grid: Mixing absolute and  fraction units" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/rLWLLa/">Grid: Mixing absolute and  fraction units</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>What you can also see from this example is that our items fit into the defined tracks — they don’t distribute across the row, as they do in the flexbox example. This is because, with grid layouts, we are creating a two-dimensional layout, then putting items into it. With flexbox, we get our content and work out how much will fit in a single dimension in a row or column, treating additional rows or columns as entirely new flex containers.</p>
+<p>在这个例子中你还可以看到，我们的项刚好放入定义的轨道中——他们没有跨行分配，就像在 flexbox 的例子一样。这是因为，使用 grid 布局是，我们创建一个二维布局，然后将项放在里面。使用 flexbox 时，我们解决了在一维空间中的行和列中内容如何适应，对待额外的行或者列就像是一个完整的新的 flex 容器。</p>
+<p>What would be nice, however, is to still have a way to create <strong>as many columns of a certain size as will fit into the container</strong>. We can do this with <code class="language-text">grid</code> and the <code class="language-text">repeat</code> syntax.</p>
+<p>这很 nice，然而依然有方法来创建很多确定大小的列填满容器。我们可以使用 <code class="language-text">grid</code>和<code class="language-text">repeat</code>语法来做这个。</p>
+<p>In the next example, I will use the <code class="language-text">repeat</code> syntax to create as many 200-pixel columns as will fit in our container. I am using the <code class="language-text">repeat</code>syntax for the track listing, with a keyword value of <code class="language-text">auto-fill</code> and then the size that I want the repeated tracks to be.</p>
+<p>在下面例子中，我将使用<code class="language-text">repeat</code>语法来创建很多200像素的列来填入我们的容器。</p>
+<p>(At the time of writing, this was not implemented in Chrome, but works in Firefox Developer Edition.)</p>
+<p>在写文章的时候 Chrome 不支持，但是在 Firefx 的开发者版本中有效。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="Pzbzze" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Grid: As many 200 pixel tracks as will fit" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/Pzbzze/">Grid: As many 200 pixel tracks as will fit</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>We can go a step further than that and combine fraction units and an absolute width to tell the grid to create as many 200-pixel tracks as will fit in the container and to distribute the remainder equally.</p>
+<p>我们可以更远的一步，结合fr 单位和绝对宽度来告诉网格创建很多200像素的轨道填充容器同时平均分配剩下的空间。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="EyNyNK" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Grid: As many 200 pixel tracks as will fit, distribute remain space evenly" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/EyNyNK/">Grid: As many 200 pixel tracks as will fit, distribute remain space evenly</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>In this way, we get the benefits of a two-dimensional layout but still have flexible quantities of tracks — all without using any media queries. What we also see here is the grid and flexbox specifications diverging. Where flexbox ends with distributing items in one dimension, grid is just getting started.</p>
+<p>在这种方式下，我们既得到了二维布局的好处同时依旧拥有弹性的轨道——所有的这些都没有使用任何的媒体查询。同时我们还看到grid he flexbox 规格的区别。flexbox 在一维上以分配项目而结束，grid 则是刚刚开始。</p>
+<h4>A SEPARATION OF SOURCE ORDER AND VISUAL DISPLAY</h4>
+<p>With flexbox, we can’t do a lot in terms of positioning our flex items. We can choose the direction in which they flow, by setting <code class="language-text">flex-direction</code>to <code class="language-text">row</code>, <code class="language-text">row-reverse</code> or <code class="language-text">column</code>, <code class="language-text">column-reverse</code>, and we can set an order, which controls the visual order in which the items display.</p>
+<p>在 flexbox 在 flex项的定位上不能做太多的声明。我们可以通过设置<code class="language-text">flex-direction</code>成<code class="language-text">row</code>，<code class="language-text">row-reverse</code>或者<code class="language-text">column</code>，<code class="language-text">column-reverse</code>，并且我们可以设置顺序，控制他们在视觉上的呈现顺序。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="YWpWVE" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Flexbox: order" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/YWpWVE/">Flexbox: order</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>With grid layouts, we get to properly position child items onto the grid we have defined. In most of the examples above, we have been relying on grid auto-placement, the rules that define how items we have not positioned are laid out. In the example below, I am using line-based positioning to position the items on the grid.</p>
+<p>在网格布局中，我们实现了网格中子项的正确定位。在上面大多数的例子中，我们依赖网格的自动布局，这个规则是如何定义我们没有定位的项的我们并没有展开。在下面的例子中，我使用基于行的定位来定位网格中的项。</p>
+<p>The <code class="language-text">grid-column</code> and <code class="language-text">grid-row</code> properties are a shorthand for <code class="language-text">grid-column-start</code>, <code class="language-text">grid-row-start</code>, <code class="language-text">grid-column-end</code> and <code class="language-text">grid-row-end</code>. The value before the <code class="language-text">/</code> is the line that the content starts on, while the value after is the line it ends on.</p>
+<p><code class="language-text">grid-colum</code> 和 <code class="language-text">grid-row</code> 属性是 <code class="language-text">grid-column-start</code>，<code class="language-text">grid-row-start</code>，<code class="language-text">grid-column-end</code> 和 <code class="language-text">grid-row-end</code> 的简写形式。<code class="language-text">/</code>前面的值是线中内容开始的地方，后面的值是线结束的地方。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="rLWLwO" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Grid: line-based positioning" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/rLWLwO/">Grid: line-based positioning</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>You can also name your lines. This happens when you create your grid on the grid container. Name the lines in brackets, and then position the items as before but using the names instead of the line index.</p>
+<p>你也可以命名你的线。当你在 gird 容器中创建你的网格时会发生。在方括号中给线命名，然后想之前一样定位项，但是使用名字而不是线的索引。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="aZBZEB" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Grid: line-based positioning, named lines" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/aZBZEB/">Grid: line-based positioning, named lines</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<p>You can have multiple lines with the same name, and then target them by line name and index.</p>
+<p>你可以有很多重名的线，然后通过线的名字和索引指向它们。</p>
+<p>You can use a span keyword, spanning a number of lines or, for example, to the third line named col. This type of positioning is useful for creating components that sit in various places in the layout. In the example below, I want some elements to span six column tracks and others to span three. I am using auto-placement to lay out the items, but when the grid encounters an item with a class of wide, the start value will be auto and the end value will be span 2; so, it will start on the line it would normally start on based on the auto-placement rules, but span two lines.</p>
+<p>你可以使用一个 <code class="language-text">span</code> 关键字，来跨过一定数量的线，比如，第三条线名字叫做 col，这种类型的定位用来创建在布局中不同地方的组件是十分有用的。在下面的例子中，我希望一些元素横跨六列轨道其他的元素横跨三列。我使用自动布局来放置项，但是当网格遇到一个带有 <code class="language-text">wide</code> 类的项时，开始的值将会变成自 <code class="language-text">auto</code>，并且结束值将会是 <code class="language-text">span2</code>。所以它会基于自动布局从线的起点开始，但是横跨两条线。</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="LZbZdj" data-default-tab="result" data-user="rachelandrew" data-embed-version="2" data-pen-title="Grid: multiple lines with the same name" class="codepen">See the Pen <a href="http://codepen.io/rachelandrew/pen/LZbZdj/">Grid: multiple lines with the same name</a> by rachelandrew (<a href="http://codepen.io/rachelandrew">@rachelandrew</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script></section></article><nav class="pagination"><a class="prev" rel="prev" href="/blogs/2016-12-14-使用Firebase构建云端应用-创建项目和用户管理/">← <!-- -->使用Firebase构建云端应用:创建项目和用户管理</a><a class="next" rel="next" href="/blogs/2016-10-30-使用-React-Router-创建单页应用/">使用 React-Router 创建单页应用<!-- --> →</a></nav></section></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
+  
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'UA-50406624-2', 'auto', {});
+      
+      
+      
+      
+      
+      }</script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blogs/2016-11-11-译-CSS-Grid-Flexbox-和-Box-Alignment-网页布局的新系统/";window.___webpackCompilationHash="e3ab2eb941621e1bec58";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-67664a8ccc6c9f02b880.js"],"app":["/app-11714ea12522d77ace84.js"],"component---src-pages-404-js":["/component---src-pages-404-js-496ea80c391da9d7aa7a.js"],"component---src-pages-about-tsx":["/component---src-pages-about-tsx-c5325dd7b1ccc88a2f2f.js"],"component---src-pages-archives-tsx":["/component---src-pages-archives-tsx-2f215b4ec97f44f39dbe.js"],"component---src-pages-categories-tsx":["/component---src-pages-categories-tsx-0b3a853bed39b99b2c8a.js"],"component---src-pages-index-js":["/component---src-pages-index-js-fb82b2e7f3af4cbc7524.js"],"component---src-pages-using-typescript-tsx":["/component---src-pages-using-typescript-tsx-5626664c8a8e66696c50.js"],"component---src-templates-blog-list-js":["/component---src-templates-blog-list-js-15d1c761a17aabce716b.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-8913e7153bf91b18d03b.js"],"component---src-templates-categories-js":["/component---src-templates-categories-js-44bfbf405e382c059b5b.js"]};/*]]>*/</script><script src="/polyfill-67664a8ccc6c9f02b880.js" nomodule=""></script><script src="/component---src-templates-blog-post-js-8913e7153bf91b18d03b.js" async=""></script><script src="/0b98594fcddcff10f8b5f74aec797a56f6f99e07-3fb3a7c25cb9f18b58ba.js" async=""></script><script src="/app-11714ea12522d77ace84.js" async=""></script><script src="/framework-b9923b3cceb493977198.js" async=""></script><script src="/webpack-runtime-56976d73dd51c672c28b.js" async=""></script></body></html>

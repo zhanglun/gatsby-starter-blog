@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-categories-js",
+    "path": "/categories/重构",
+    "result": {"data":{"site":{"siteMetadata":{"title":"张小伦的网络日志","description":"欢迎来到张小伦的网络日志 \n\t\t一个记录生活，分享心得的博客","menu":[{"id":"home","name":"首页","url":"/"},{"id":"category","name":"分类","url":"/categories"},{"id":"archive","name":"归档","url":"/archives"},{"id":"about","name":"关于我","url":"/about"}]}},"allMarkdownRemark":{"nodes":[{"fields":{"slug":"/blogs/规范之路-normal flow/"},"frontmatter":{"date":"October 02, 2014","title":"规范之路-Normal Flow","description":null,"draft":null}},{"fields":{"slug":"/blogs/规范之路-css中的定位简介/"},"frontmatter":{"date":"September 12, 2014","title":"规范之路-CSS中的定位简介","description":null,"draft":null}},{"fields":{"slug":"/blogs/规范之路-visual formatting model概述 /"},"frontmatter":{"date":"August 21, 2014","title":"规范之路-visual formatting model 概述","description":null,"draft":null}}]}},"pageContext":{"category":"重构","count":3}},
+    "staticQueryHashes": ["2841359383"]}

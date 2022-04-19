@@ -1,0 +1,634 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.waves.min.js"></script><meta data-react-helmet="true" name="twitter:description" content="欢迎来到张小伦的网络日志 
+		一个记录生活，分享心得的博客"/><meta data-react-helmet="true" name="twitter:title" content="浅谈 HTTP 缓存"/><meta data-react-helmet="true" name="twitter:creator" content="asdf"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" property="og:description" content="欢迎来到张小伦的网络日志 
+		一个记录生活，分享心得的博客"/><meta data-react-helmet="true" property="og:title" content="浅谈 HTTP 缓存"/><meta data-react-helmet="true" name="description" content="欢迎来到张小伦的网络日志 
+		一个记录生活，分享心得的博客"/><meta name="generator" content="Gatsby 4.11.2"/><style data-href="/styles.28ee8f1ff2550cd53998.css" data-identity="gatsby-global-css">@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/static/montserrat-latin-100-8d7d79679b70dbe27172b6460e7a7910.woff2) format("woff2"),url(/static/montserrat-latin-100-ec38980a9e0119a379e2a9b3dbb1901a.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/static/montserrat-latin-100italic-e279051046ba1286706adc886cf1c96b.woff2) format("woff2"),url(/static/montserrat-latin-100italic-3b325a3173c8207435cd1b76e19bf501.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/static/montserrat-latin-200-9d266fbbfa6cab7009bd56003b1eeb67.woff2) format("woff2"),url(/static/montserrat-latin-200-2d8ba08717110d27122e54c34b8a5798.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/static/montserrat-latin-200italic-6e5b3756583bb2263eb062eae992735e.woff2) format("woff2"),url(/static/montserrat-latin-200italic-a0d6f343e4b536c582926255367a57da.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/static/montserrat-latin-300-00b3e893aab5a8fd632d6342eb72551a.woff2) format("woff2"),url(/static/montserrat-latin-300-ea303695ceab35f17e7d062f30e0173b.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/static/montserrat-latin-300italic-56f34ea368f6aedf89583d444bbcb227.woff2) format("woff2"),url(/static/montserrat-latin-300italic-54b0bf2c8c4c12ffafd803be2466a790.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/static/montserrat-latin-400-b71748ae4f80ec8c014def4c5fa8688b.woff2) format("woff2"),url(/static/montserrat-latin-400-0659a9f4e90db5cf51b50d005bff1e41.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/static/montserrat-latin-400italic-6eed6b4cbb809c6efc7aa7ddad6dbe3e.woff2) format("woff2"),url(/static/montserrat-latin-400italic-7583622cfde30ae49086d18447ab28e7.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/static/montserrat-latin-500-091b209546e16313fd4f4fc36090c757.woff2) format("woff2"),url(/static/montserrat-latin-500-edd311588712a96bbf435fad264fff62.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/static/montserrat-latin-500italic-c90ced68b46050061d1a41842d6dfb43.woff2) format("woff2"),url(/static/montserrat-latin-500italic-5146cbfe02b1deea5dffea27a5f2f998.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/static/montserrat-latin-600-0480d2f8a71f38db8633b84d8722e0c2.woff2) format("woff2"),url(/static/montserrat-latin-600-b77863a375260a05dd13f86a1cee598f.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/static/montserrat-latin-600italic-cf46ffb11f3a60d7df0567f8851a1d00.woff2) format("woff2"),url(/static/montserrat-latin-600italic-c4fcfeeb057724724097167e57bd7801.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/static/montserrat-latin-700-7dbcc8a5ea2289d83f657c25b4be6193.woff2) format("woff2"),url(/static/montserrat-latin-700-99271a835e1cae8c76ef8bba99a8cc4e.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/static/montserrat-latin-700italic-c41ad6bdb4bd504a843d546d0a47958d.woff2) format("woff2"),url(/static/montserrat-latin-700italic-6779372f04095051c62ed36bc1dcc142.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/static/montserrat-latin-800-db9a3e0ba7eaea32e5f55328ace6cf23.woff2) format("woff2"),url(/static/montserrat-latin-800-4e3c615967a2360f5db87d2f0fd2456f.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/static/montserrat-latin-800italic-bf45bfa14805969eda318973947bc42b.woff2) format("woff2"),url(/static/montserrat-latin-800italic-fe82abb0bcede51bf724254878e0c374.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/static/montserrat-latin-900-e66c7edc609e24bacbb705175669d814.woff2) format("woff2"),url(/static/montserrat-latin-900-8211f418baeb8ec880b80ba3c682f957.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/static/montserrat-latin-900italic-4454c775e48152c1a72510ceed3603e2.woff2) format("woff2"),url(/static/montserrat-latin-900italic-efcaa0f6a82ee0640b83a0916e6e8d68.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/static/merriweather-latin-300-fc117160c69a8ea0851b26dd14748ee4.woff2) format("woff2"),url(/static/merriweather-latin-300-58b18067ebbd21fda77b67e73c241d3b.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/static/merriweather-latin-300italic-fe29961474f8dbf77c0aa7b9a629e4bc.woff2) format("woff2"),url(/static/merriweather-latin-300italic-23c3f1f88683618a4fb8d265d33d383a.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/static/merriweather-latin-400-d9479e8023bef9cbd9bf8d6eabd6bf36.woff2) format("woff2"),url(/static/merriweather-latin-400-040426f99ff6e00b86506452e0d1f10b.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/static/merriweather-latin-400italic-2de7bfeaf08fb03d4315d49947f062f7.woff2) format("woff2"),url(/static/merriweather-latin-400italic-79db67aca65f5285964ab332bd65f451.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/static/merriweather-latin-700-4b08e01d805fa35d7bf777f1b24314ae.woff2) format("woff2"),url(/static/merriweather-latin-700-22fb8afba4ab1f093b6ef9e28a9b6e92.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/static/merriweather-latin-700italic-cd92541b177652fffb6e3b952f1c33f1.woff2) format("woff2"),url(/static/merriweather-latin-700italic-f87f3d87cea0dd0979bfc8ac9ea90243.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/static/merriweather-latin-900-f813fc6a4bee46eda5224ac7ebf1b7be.woff2) format("woff2"),url(/static/merriweather-latin-900-5d4e42cb44410674acd99153d57df032.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/static/merriweather-latin-900italic-b7901d85486871c1779c0e93ddd85656.woff2) format("woff2"),url(/static/merriweather-latin-900italic-9647f9fdab98756989a8a5550eb205c3.woff) format("woff")}:root{--sans-font:"'Montserrat'","Noto Sans","Noto Sans TC","Noto Sans SC",sans-serif!important;--serif-font:"Noto Serif","Noto Serif TC","Noto Sans TC",serif!important;--inline-code-font:monospace!important;--mono-font:"JetBrains Mono",monospace!important;--content-font-size:16px;--maxWidth-none:"none";--maxWidth-xs:20rem;--maxWidth-sm:24rem;--maxWidth-md:28rem;--maxWidth-lg:32rem;--maxWidth-xl:36rem;--maxWidth-2xl:42rem;--maxWidth-3xl:48rem;--maxWidth-4xl:56rem;--maxWidth-full:"100%";--maxWidth-wrapper:var(--maxWidth-2xl);--main-max-width:1040px;--spacing-px:"1px";--spacing-0:0;--spacing-1:0.25rem;--spacing-2:0.5rem;--spacing-3:0.75rem;--spacing-4:1rem;--spacing-5:1.25rem;--spacing-6:1.5rem;--spacing-8:2rem;--spacing-10:2.5rem;--spacing-12:3rem;--spacing-16:4rem;--spacing-20:5rem;--spacing-24:6rem;--spacing-32:8rem;--main-spacing:100px;--fontFamily-sans:"Montserrat","Noto Serif SC",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--fontFamily-serif:"Noto Serif SC","Merriweather","Georgia",Cambria,"Times New Roman",Times,serif;--font-body:"Montserrat";--font-heading:"Montserrat";--fontWeight-normal:400;--fontWeight-medium:500;--fontWeight-semibold:600;--fontWeight-bold:700;--fontWeight-extrabold:800;--fontWeight-black:900;--fontSize-root:16px;--lineHeight-none:1;--lineHeight-tight:1.1;--lineHeight-normal:1.5;--lineHeight-relaxed:1.9;--fontSize-0:0.833rem;--fontSize-1:1rem;--fontSize-2:1.2rem;--fontSize-3:1.44rem;--fontSize-4:1.728rem;--fontSize-5:2.074rem;--fontSize-6:2.488rem;--fontSize-7:2.986rem;--color-primary:#005b99;--color-text:#1d2b36;--color-text-light:#4f5969;--color-heading:#45525b;--color-heading-black:#000;--color-accent:#d1dce5;--header-height:60px;--main-bg:#fff}*,:after,:before{box-sizing:border-box}html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:var(--fontSize-root);line-height:var(--lineHeight-normal)}body{background-color:#fafafa;color:var(--color-text);font-family:var(--font-body);font-size:var(--fontSize-1);margin:0}hr{background:var(--color-accent);border:0;height:1px}h1,h2,h3,h4,h5,h6{font-family:var(--font-heading);letter-spacing:-.025em;line-height:var(--lineHeight-normal);margin-bottom:var(--spacing-6);margin-top:var(--spacing-12)}h2,h3,h4,h5,h6{color:var(--color-heading);font-weight:var(--fontWeight-bold)}h1{color:var(--color-heading-black);font-size:var(--fontSize-6);font-weight:var(--fontWeight-black)}h2{font-size:var(--fontSize-5);font-size:25px;margin-top:80px;padding:40px 0 50px}h3{font-size:var(--fontSize-4)}h4{font-size:var(--fontSize-3)}h5{font-size:var(--fontSize-2)}h6{font-size:var(--fontSize-1)}h1>a,h2>a,h3>a,h4>a,h5>a,h6>a{color:inherit;text-decoration:none}p{--baseline-multiplier:0.179;--x-height-multiplier:0.35;line-height:var(--lineHeight-relaxed);margin:var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);padding:var(--spacing-0)}ol,ul{margin-bottom:0;margin-top:0}ol li,ul li{padding-left:var(--spacing-0)}li>p,ol li,ul li{margin-bottom:calc(var(--spacing-8)/2)}li :last-child{margin-bottom:var(--spacing-0)}li>ul{margin-left:var(--spacing-8);margin-top:calc(var(--spacing-8)/2)}blockquote{border-left:var(--spacing-1) solid var(--color-primary);color:var(--color-text-light);font-size:var(--fontSize-2);font-style:italic;margin-bottom:var(--spacing-8);margin-left:calc(var(--spacing-6)*-1);margin-right:var(--spacing-8);padding:var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-6)}blockquote>:last-child{margin-bottom:var(--spacing-0)}blockquote>ol,blockquote>ul{list-style-position:inside}table{border-collapse:collapse;border-spacing:.25rem;margin-bottom:var(--spacing-8);width:100%}table thead tr th{border-bottom:1px solid var(--color-accent)}p img{max-width:100%}a{color:var(--color-primary)}a:focus,a:hover{text-decoration:none}.global-wrapper{background-color:#fafafa}.global-header{margin-bottom:var(--spacing-12)}.main{margin:0 auto;max-width:760px;position:relative;z-index:1}@media screen and (max-width:999px){.main{max-width:100%;padding:0 20px}}.main-heading{font-size:var(--fontSize-7);margin:0}.header-link-home{font-family:var(--font-heading);font-size:var(--fontSize-2);font-weight:var(--fontWeight-bold);text-decoration:none}.blog-post{border-bottom:1px solid #1d2b36;line-height:1.9;margin-bottom:10px;padding-bottom:80px;position:relative}.blog-post:before{left:0}.blog-post:after,.blog-post:before{background:#1d2b36;bottom:-2px;content:"";height:3px;position:absolute;width:3px}.blog-post:after{right:0}.blog-post header{border-top:1px solid #1d2b36;margin-top:50px;position:relative}.blog-post header:before{left:0}.blog-post header:after,.blog-post header:before{background:#1d2b36;content:"";height:3px;position:absolute;top:-2px;width:3px}.blog-post header:after{right:0}.blog-post header h1{font-size:36px;font-weight:700;line-height:1.4;margin:60px 0}.blog-post header p{font-family:var(--font-heading);font-size:var(--fontSize-2)}.gatsby-highlight{margin-bottom:var(--spacing-8)}@media (max-width:42rem){blockquote{margin-left:var(--spacing-0);padding:var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-4)}ol,ul{list-style-position:inside}}.pagination{align-items:center;display:flex;justify-content:space-between;padding:50px 0}.hover-underline{display:inline-block;position:relative}.hover-underline:after{background-color:var(--color-text);bottom:0;content:"";height:2px;left:0;position:absolute;-webkit-transform:scaleX(0);transform:scaleX(0);-webkit-transform-origin:bottom right;transform-origin:bottom right;transition:-webkit-transform .25s ease-out;transition:transform .25s ease-out;transition:transform .25s ease-out,-webkit-transform .25s ease-out;width:100%}.hover-underline:hover:after{-webkit-transform:scaleX(1);transform:scaleX(1);-webkit-transform-origin:bottom left;transform-origin:bottom left}.page-title{color:var(--color-heading);font-size:var(--fontSize-6);margin-bottom:var(--spacing-5);padding-top:50px;text-align:center}.category-list{grid-row-gap:40px;display:grid;grid-template-columns:repeat(4,1fr);justify-items:center;padding:30px 0 60px}.category-img{background-color:rgba(0,0,0,.2);border-radius:100%;height:150px;margin-bottom:20px;padding:10px;transition:all .3s ease-in-out;width:150px}.category-img img{width:100%}.category-item{text-align:center;text-decoration:none}.category-item:hover{color:var(--color-text)}.category-item:hover .category-img{background-color:rgba(0,0,0,.35)}.category-page-header{display:grid;justify-items:center;padding:50px 0}.archive-item{margin-bottom:50px}.archive-year{font-size:26px}.archive-item-list{list-style-type:none;margin-left:0;padding-top:10px}.archive-item-list li{margin:8px 0}.archive-item-list a{text-decoration:none}.archive-item-list a:hover{text-decoration:underline}.archive-date{margin-right:20px}code[class*=language-],pre[class*=language-]{word-wrap:normal;background:none;color:#ccc;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;font-size:1em;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none;line-height:1.5;-o-tab-size:4;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}pre[class*=language-]{margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}.header{background-color:#fff;box-shadow:0 2px 7px -4px rgba(0,0,0,.5);position:-webkit-sticky;position:sticky;top:-1px;width:100%;z-index:10}.header-inner{display:flex;height:var(--header-height);justify-content:space-between;margin:0 auto;max-width:var(--main-max-width)}.header-title{color:#6e7278;font-size:20px;line-height:var(--header-height);margin-left:8px;padding:0 12px}.header-nav{display:flex}.nav-item{font-size:16px;font-weight:700;height:var(--header-height);line-height:var(--header-height);margin:0 8px;padding:0 12px;text-decoration:none;transition:all .3s}.nav-item,.nav-item:link{color:var(--color-text)}.nav-item:hover{color:var(--color-primary)}.header-title-link{color:var(--color-text);cursor:pointer;text-decoration:none}.header-title-link:hover{color:var(--color-heading-black)}.banner{align-items:center;background-color:#022;background-position:50%;background-size:cover;display:flex;height:560px;justify-content:center;margin-bottom:-80px;padding:10px}.banner-title{color:#fff;font-size:36px;height:120px;line-height:56px;margin-top:-22px;padding:2px 30px;text-align:center;width:600px}.footer{padding:80px 0 40px;text-align:center}.article-category-list{align-items:center;display:flex;justify-content:center;margin-bottom:var(--spacing-6)}.article-category{background-color:#636363;color:#fff;font-size:14px;line-height:20px;margin:0 4px;padding:4px 14px}.article-list{list-style-type:none;margin:0;padding:0}.article-list-item{border-bottom:1px solid #e2e2e2}.article-list-item p{font-size:var(--content-font-size);margin-bottom:var(--spacing-0);text-align:center}.article-list-item header{margin-bottom:var(--spacing-4);padding-top:50px;text-align:center}.article-list-item h2{color:var(--color-heading);font-size:var(--fontSize-6);margin-bottom:var(--spacing-5);margin-top:0}.article-list-item h2:hover{color:var(--color-heading-black)}.article-list-item section{margin:50px 0 20px}.article-list-item footer{padding:40px 0;text-align:center}.article-list-item .read-more{background-color:transparent;border:3px solid #636363;color:#636363;cursor:pointer;display:inline-block;font-size:13px;font-weight:var(--fontWeight-bold);height:50px;line-height:44px;outline:none;text-decoration:none;transition:.25s ease-in-out;width:176px}.article-list-item .read-more:link{color:#636363}.article-list-item .read-more:hover{border-color:var(--color-heading);color:var(--color-heading)}blockquote{color:#999;font-weight:400}.title{font-size:calc(var(--content-font-size)*2.5)}.desc{font-size:calc(var(--content-font-size)*1.2)}.content h2{border-top:1px solid #f0f0f0;font-size:25px;margin:80px 0 0;padding:40px 0 50px;position:relative}.content h2:before{left:0}.content h2:after,.content h2:before{background:#93a1b0;content:"";height:3px;position:absolute;top:-2px;width:3px}.content h2:after{right:0}</style><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){if(void 0===e.target.dataset.mainImage)return;if(void 0===e.target.dataset.gatsbyImageSsr)return;const t=e.target;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><link rel="preconnect" href="https://www.google-analytics.com"/><link rel="dns-prefetch" href="https://www.google-analytics.com"/><link rel="alternate" type="application/rss+xml" title="Gatsby Starter Blog RSS Feed" href="/rss.xml"/><link rel="icon" href="/favicon-32x32.png?v=25643e3cbe7be23b6c1bdad497608e85" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=25643e3cbe7be23b6c1bdad497608e85"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=25643e3cbe7be23b6c1bdad497608e85"/><title data-react-helmet="true">浅谈 HTTP 缓存 | 张小伦的网络日志</title><link as="script" rel="preload" href="/webpack-runtime-56976d73dd51c672c28b.js"/><link as="script" rel="preload" href="/framework-b9923b3cceb493977198.js"/><link as="script" rel="preload" href="/app-11714ea12522d77ace84.js"/><link as="script" rel="preload" href="/0b98594fcddcff10f8b5f74aec797a56f6f99e07-3fb3a7c25cb9f18b58ba.js"/><link as="script" rel="preload" href="/component---src-templates-blog-post-js-8913e7153bf91b18d03b.js"/><link as="fetch" rel="preload" href="/page-data/blogs/2019-03-09-浅谈-HTTP-缓存/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/sq/d/2841359383.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="global-wrapper" data-is-root-path="false"><section class="main"><article class="blog-post" itemscope="" itemType="http://schema.org/Article"><header><div class="article-category-list"><span class="article-category">全栈</span></div><h1 itemProp="headline">浅谈 HTTP 缓存</h1><p>March 09, 2019</p></header><section itemProp="articleBody" class="content"><p>说到缓存大家可能觉得很简单。“不就是检查资源是否有缓存，如果有就加以利用”，“可以节约服务器资源呗”。如果再深入一点，有的cache-control, last-modified, etag 之类的名词，但如果真的考究一下这些字段的细节，恐怕大多数人也说不清楚。遂做了一番整理，希望对大家有所帮助</p>
+<!--more-->
+<h2>HTTP 缓存</h2>
+<p>HTTP 缓存是一种保存资源副本并在下次请求时直接使用该副本的技术。最为常见的是，浏览器在本地缓存 HTML 页面、图片等静态资源文件静态文件。</p>
+<blockquote>
+<p>A HTTP cache is an information technology for the temporary storage (caching) of web documents, such as HTML pages and images, to reduce server lag. A web cache system stores copies of documents passing through it; subsequent requests may be satisfied from the cache if certain conditions are met. A web cache system can refer either to an appliance, or to a computer program.
+摘自 Wiki百科 <a href="https://www.wikiwand.com/en/Web_cache">Web cache - Wikiwand</a></p>
+</blockquote>
+<p>合理利用缓存可以实现：</p>
+<ol>
+<li>减少冗余数据的传输，节约网络费用</li>
+<li>缓解了网络瓶颈的问题，节约带宽</li>
+<li>降低服务器压力，服务器可以更快的响应</li>
+<li>减少网络延迟，提升站点的访问速度</li>
+</ol>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 508px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/cc0bd3461d2bf5d74d186b9346754f15/2fd48/1.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 53.79746835443038%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAABzklEQVQoz31Sy47TQBD0RyNx5IYQH8Bt4cCNExJ7Qoq0HFbhwkIikjireMkmtuPHzPgdJ3HiQtXsRJFAjNSye7q7pqq7HWMMfN+H53lIkgRlWaJtW2y32/9aXddQSiGKIriui81mA2I5DBJwNBqhqipkWYaiKJDnuRj9S7P3cRwLIEGGwyG01nLvEMSe4/GIMAwlmYk0gtgvjYUEohLeXx5hSOo8fd9jv99LEYFpu91OWNtv0zTnGO2fgGeGfY9d2+KSMaWnSYLvd3fIjBFmp9PpHGfP2fvJZIIgCMR3mm17TuhOEElkxMHwn+V5tZW4HVjXdTgcDtKe2WyGwWCA1WolA3Li0Ed0/w2b2VeEv1wobaSQ0oMgROp76PQSZbyU3pI1Y2RDQD5Kn+zTNIXz+OMGyacXePzwHOGXt1iFMTKjpV9MuP/4Cj/fP4N//RLL+RhKczhGVocyF4sFptOpSOcDTuSNYW7fIRi8gRp/RpRoVE/S+Gpwc4Xl9WsUt1fwH1wUZSV9ZpwA6/Ua8/lcwLmLjlJ/AKoyh9L6r6FkRmFf52jrUh7gNthj18uuFn2naWrUTSMSCcZm2yLKMlz0skKeF9JbxmycLLl21uj/BtKHPafmUCEGAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="59818e08.png"
+        title="59818e08.png"
+        src="/static/cc0bd3461d2bf5d74d186b9346754f15/2fd48/1.png"
+        srcset="/static/cc0bd3461d2bf5d74d186b9346754f15/c26ae/1.png 158w,
+/static/cc0bd3461d2bf5d74d186b9346754f15/6bdcf/1.png 315w,
+/static/cc0bd3461d2bf5d74d186b9346754f15/2fd48/1.png 508w"
+        sizes="(max-width: 508px) 100vw, 508px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p>如图所示HTTP缓存存在于浏览器和Web代理中。当然在服务器内部，也存在着各种缓存，比如本地缓存GuavaCache/Ehcache，分布式缓存Memcached/Redis等，但这不是本文要讨论的HTTP缓存。</p>
+<p><strong>为了方便描述，下文将用“缓存”代替“HTTP 缓存”</strong></p>
+<h2>缓存的分类</h2>
+<p>在我看来，无论按照什么场景或者维度来划分，HTTP缓存本质上就是两类：客户端缓存和服务端缓存。</p>
+<p>为什么这么说呢？因为在两台计算机之间使用HTTP协议通信时，在一条通信线路上，必定一端是客户端，一端是服务端。</p>
+<p>HTTP协议规定，请求从客户端发出，最后服务端响应。换言之，HTTP协议是能够明显区分哪一端是客户端，哪一段是服务端的。</p>
+<p>像 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ#%E5%90%84%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BC%93%E5%AD%98">MDN文章：HTTP 缓存 - HTTP | MDN</a> 中提到的私有缓存和共享缓存是从网络的拓扑结构层面来解释。</p>
+<p>至于网上大部分博文中提到的“强缓存”， “协商缓存”，我没有在任何文档中找到这两个关键词的定义，如果有知道的同学，欢迎留言。</p>
+<p>由于前端开发人员多与浏览器打交道，所以日常工作中大多时候会用 “浏览器缓存”来代替“客户端缓存”，这一点无伤大雅。</p>
+<h2>HTTP 的简单介绍</h2>
+<p>在具体解释HTTP首部字段对缓存的控制规则之前，简单介绍一些与 HTTP 协议有关的内容，作为后续内容的铺垫。</p>
+<h3>HTTP 协议</h3>
+<blockquote>
+<p>HTTP协议是 Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到客户端的传送协议。</p>
+</blockquote>
+<h3>HTTP 报文</h3>
+<p>HTTP 报文是HTTP协议传输的数据单元，即一次请求或者一次响应时，发送给对方的数据块。HTPP报文包含了将要发送的完整的数据信息。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/a1c4fb0278b91555593ca4111766ee21/bb051/2.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 34.810126582278485%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsTAAALEwEAmpwYAAABQklEQVQoz31QW8uCUBD0//8FK4iwB7OoEH1IehApumA3NDLQikAxjbILvdjELhjxPXwLw549nJmzM4LjOFitVozZbIbFYgHXdfnseR622y3oTRAEuN1uuF6v3Avc73c8Hg9kWcZdmE6nGI/HME0T3W4Xuq6D7gaDAebzOfb7PQsfj0ecTqdvD8MQURQhSRKkacpzHMcQ2u02JEmCKIoolUool8uo1+uoVqvo9/sscDgcmEBbvF4vnM9nPJ9PnkmMtqaZSjAMA6qqotPpQFEUtFotaJqGZrOJ4XCIy+XCYrQp2SbQ7Ps+x0GfkW0SfL/fEHq9Hos1Gg1UKhXUajW2Lssyx7Db7ZhMRNqOSFR5njN+iwWXyyVvMhqNOLvJZMKwLAubzeabIYEyKoh/hYo7Af9UYY9yXK/XsG2bbf6KFELF+QMkn/giAtxpzwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="57450782.png"
+        title="57450782.png"
+        src="/static/a1c4fb0278b91555593ca4111766ee21/f058b/2.png"
+        srcset="/static/a1c4fb0278b91555593ca4111766ee21/c26ae/2.png 158w,
+/static/a1c4fb0278b91555593ca4111766ee21/6bdcf/2.png 315w,
+/static/a1c4fb0278b91555593ca4111766ee21/f058b/2.png 630w,
+/static/a1c4fb0278b91555593ca4111766ee21/40601/2.png 945w,
+/static/a1c4fb0278b91555593ca4111766ee21/bb051/2.png 1212w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p>HTTP 报文分为<strong>请求报文</strong>和<strong>响应报文</strong>。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/d1a8fdbc16d69a472daa174b0f9c73f8/4d08a/3.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 34.810126582278485%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsTAAALEwEAmpwYAAABJ0lEQVQoz02R6a6CUAyEz/u/BD+MIXE3GlRccAV3g0oA8V3m5muCuT8mp03bmU6PW61WCoJA4/FYYRjqfD7rcrkYrter5eB+vxsej8cPz+dTr9dLt9tNs9lMp9NJbr1eGyFkkJIfj0dtNhuLkyTRdrvV4XAwYmq73c5yCMiJEWcJR7HX62mxWKjb7RopGAwGGg6Hmk6nFk8mE+tBKIoi4YxZCOM4/gk4iv1+35ohWC6Xtu18Pjfi/X5vjdjCXpZlhjzPVRSFPp+PyrK0OE1TOZjZADWscQtsciOG3u+3vfVQTUT+/X7tBVVVmaDDkud5arVa8n3/Z3U0GpkIFhFiU8QBFhHlpizAbLvdtr9w2Go0Gmo2m1bAPjcFxDXIO52Ooa797+Plzn9OwceVoWL1yAAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="2a108fe1.png"
+        title="2a108fe1.png"
+        src="/static/d1a8fdbc16d69a472daa174b0f9c73f8/f058b/3.png"
+        srcset="/static/d1a8fdbc16d69a472daa174b0f9c73f8/c26ae/3.png 158w,
+/static/d1a8fdbc16d69a472daa174b0f9c73f8/6bdcf/3.png 315w,
+/static/d1a8fdbc16d69a472daa174b0f9c73f8/f058b/3.png 630w,
+/static/d1a8fdbc16d69a472daa174b0f9c73f8/4d08a/3.png 709w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/9f360c29e6f47acdcf40fb50785b67ed/01267/4.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 57.59493670886076%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsTAAALEwEAmpwYAAABsElEQVQoz1WT16oCQRBE5/+fxRdFFHPOacWcEMwR86f05TT0ZX0oamemt6q6d9YNBgOZz+fS7/eVj8ej7Pd7ZXA4HOR8PsvlclHcbrcfPB4PWa/XMh6P5fl8iqtUKtLpdKTRaChjAIbDoZqwN51OZbPZ6IvGu91OjTFkvVqtdM/V63VpNptSKpWk2+3KbDZTsV6vJ5PJRBaLhSZfLpf6bGmv1+sP2DudTuLK5bKmy+VyKkhiEtICabbbrYI0wC9oLVv7KogAQu12WzzPk9FopMWv10uL7/e7MvNh7/1+y+fzke/3q8+IM2uMYJdKpSSfz2vLJMWAMZCQlo0ZhYER0D6zLRQK+n6xWNQzFwqFJBKJKJLJpKTTacEETiQSEo1GFfF4/N8YMCoz5xtUq1WdvaOYQzYoxAmwhzvs76DVauloGBGjYs1N4EaQ2oXDYYnFYpoAkBJggFitVlMxmESARBaCNUaIMwoXDAYlk8lodCvgZcDaWoJJA1gDkiFEOvtBXCAQ0ESk4Opks1ltFcaIdgFnjMLqqMEQYRLCfEDH4P1XB3DoTwPbmaWCAecEQgfBP8SO/uTn5RkVAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="20394b00.png"
+        title="20394b00.png"
+        src="/static/9f360c29e6f47acdcf40fb50785b67ed/f058b/4.png"
+        srcset="/static/9f360c29e6f47acdcf40fb50785b67ed/c26ae/4.png 158w,
+/static/9f360c29e6f47acdcf40fb50785b67ed/6bdcf/4.png 315w,
+/static/9f360c29e6f47acdcf40fb50785b67ed/f058b/4.png 630w,
+/static/9f360c29e6f47acdcf40fb50785b67ed/01267/4.png 713w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p>请求报文和响应报文中必定包含 HTTP 首部，为客户端和服务端分别处理请求和响应提供所需要的信息。首部字段类型按照实际用途分为四种：</p>
+<ol>
+<li>通用首部字段 (General Heaer Fields) - 请求报文和响应报文双方都会使用的首部</li>
+<li>请求首部字段 (Request Header Fields) - 发送请求报文时使用的首部</li>
+<li>响应首部字段 (Resposne Header Fields) - 返回响应报文时使用的首部</li>
+<li>实体首部字段 (Entity Header Fields) - 报文实体部分使用的首部</li>
+</ol>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/4676810d19234646bd9dc3cb6489543d/d67ca/5.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 53.16455696202532%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB0UlEQVQoz01Sh6pqMRDM//+FvYu9i4qCvaFib2BBRRTFrsxjFnJ5geHsSTa7szNRy+US8/kcw+EQk8kEi8UC3GN8vV7xeDzwer1wOBwwnU4xm83kvN1uo16vSz7vE6vVCqrZbKJSqSASiSAcDqNWq6Hb7aJYLOJ+v0OvzWaDcrmMRqOBXC4Hl8slSCaTYA2C95TH44HBYIDZbIbNZoPdbgf3vF4vTqcTPp/PX0E2YcFoNAqLxQKn0wmfzydMNREVCoUQDAYlwWQySUymfr8ft9sN7/dbwJEHg4GMzXFTqRTi8Tiq1arIoKFisZjQ5peFmEik0+m/kanh5XKRf60p/3e7ncTcez6fQkDRDKLX66Hf72M8HgsLxjSFFzj28XiUfYIGkCV104aQHQ1S2i2OToZMYgPqxY567fd7GY8a5vN5uN1uOBwOJBIJudNqteSrqBUNoX5Wq1WEpuOBQADn8xnf71cKcrxSqSQFWYT5LEjzaAhBYoqHZGc0GsVtmkJN2Yg6aY3+N4Vuat21Kfotq0KhACKTySCbzcqo7EQ2dFcv7TaLkzUN2m63YoY2i5orCq7fGhM6nY40YHHqxj3GfMw8W6/XGI1GwpAxF+//fj/BP7IT/+BdI/jvAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="7c478d42.png"
+        title="7c478d42.png"
+        src="/static/4676810d19234646bd9dc3cb6489543d/f058b/5.png"
+        srcset="/static/4676810d19234646bd9dc3cb6489543d/c26ae/5.png 158w,
+/static/4676810d19234646bd9dc3cb6489543d/6bdcf/5.png 315w,
+/static/4676810d19234646bd9dc3cb6489543d/f058b/5.png 630w,
+/static/4676810d19234646bd9dc3cb6489543d/d67ca/5.png 714w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p>开发者工具中的 Network选项中，可以查看请求的具体信息
+<span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/d5274665bfce38ddb61b1bdbd5993694/0eb6d/6.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 82.91139240506328%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAAAsTAAALEwEAmpwYAAABfElEQVQ4y52S627jIBCFef/325+b1ImN8RUbzG0AnyqkrRJ1t6oz0idGoBkd5gz786ZQNwNEK9C2HZqGo6k5Wi7AuUBVXVDXvORSLlhXBec8vA//hFVvZ1x5jWmUmCcJpTSsddg2W05jbOF+Z0r+v2al4ak+4684YZEr5lliWVZotWFdNUKgJ4giiOjb/SOs4QOGTsJsFjEmxFtRjIjxXnwUVnUeV2Eheg+jApAy9n1/GTZOhGVL2HRE9hG3uD28GqzuA4bWIkv79PCywnny8NcVoVYIXIF6gz3lb81/rbATDqZaQEKDOo3QakRpkS0hbQF7zIeaMje5r+9+Fu15f+LICNilCxiFRdK+qCo4QjKhcNQg1s4Jc++RRgMaDaJ0haRDmeVhUxo+YzoJqMsE1yp4aUGbBxkPsqEseFn4r/Nn2Lnz4K2BvS6gXpddfOSwQjFEeO6Qeo/s0see3I3Bgym/nuGyRpAi5E9cQt7iPdcRu0/HXP4Q9GMcWex3DvE1O6W7dQ4AAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="a4104786.png"
+        title="a4104786.png"
+        src="/static/d5274665bfce38ddb61b1bdbd5993694/f058b/6.png"
+        srcset="/static/d5274665bfce38ddb61b1bdbd5993694/c26ae/6.png 158w,
+/static/d5274665bfce38ddb61b1bdbd5993694/6bdcf/6.png 315w,
+/static/d5274665bfce38ddb61b1bdbd5993694/f058b/6.png 630w,
+/static/d5274665bfce38ddb61b1bdbd5993694/0eb6d/6.png 913w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<h2>缓存的工作机制</h2>
+<p>对于一条GET请求的基本缓存处理过程包括七个步骤。</p>
+<ol>
+<li>发送 – 缓存从网络中读取即将的请求报文</li>
+<li>解析 – 缓存对报文进行解析，提取出URL和各种首部</li>
+<li>查询 – 缓存查看是否有本地副本可用，如果没有，就获取一份副本，并保存在本地</li>
+<li>新鲜度检测 – 缓存查看已缓存副本是否足够新鲜，如果不是，就询问服务器是否有任何更新</li>
+<li>创建响应 – 缓存会用新的首部和已缓存主体来构建一条响应报文</li>
+<li>返回 – 服务器通过网络将响应发回给客户端</li>
+</ol>
+<p>这里的缓存可以是本地客户端缓存，也可以是代理缓存之类的缓存服务器。服务器可能是源服务器也可能是缓存服务器、客户端可以能是浏览器也可能是缓存服务器</p>
+<h3>新鲜度检测和服务器再验证</h3>
+<p>什么是新鲜度检测？要知道，不是所有的缓存副本都与服务器上的文档一致。毕竟，不同场景下，文档都有其变化的原则。比如说，一份报告可能每个月更新一次，在线报纸每天都有新的内容，而金融类的数据可能每过几秒钟就发生变化，如果缓存总是提供老的数据，反而变得毫无用处。</p>
+<p>文档副本在被缓存的一段时间内，都认为文档是“新鲜的”，缓存可以在不联系服务器的情况下，直接提供文档的副本，在客户端的体现为:<code class="language-text">from cache</code>。当缓存的保留的时间过长，超过了限值，就认为文档“过时了”。在使用这个文档之前，缓存需要与服务端确认，文档是否发生变化，而这就是服务端再验证。</p>
+<p>HTTP 提供称之为<code class="language-text">文档过期(document expiration)</code> 和 <code class="language-text">服务器再验证(server revalidation)</code>的机制。可以在不要求服务器记住哪些文档拥有缓存的情况下，还能够了保证缓存与服务器之间的充分一致，</p>
+<p>下图是一个GET请求的缓存流程图</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/9e5694846c71c77ee5ec10277f629443/668c6/7.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 59.49367088607595%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsTAAALEwEAmpwYAAAB3klEQVQoz52TUW8SQRSF99f6C3zwQRNN+qC8mTSxMYKJCab1oRJCTZP6UIxlweKCtVqgBYy1ICJQujsLM7Ozn9kFQkiMTb3JmZ25mT1z75kz1jRQPHWybHx8zYaTwZU+UYRhGOOmYU20JFHaIlHa5qG9yXjqrRDeBDFhPCqXSdeB6TheBkHA/0REagVeF1Faw317C1F8wGTQ4tIVKKWQUiHVAhop5XK9MlfoqIhwXqF72eeqncfI8d9PJsQYE+3HzBHOK2I+1+GsKytULuI0i+usM23l0P6A8dijvF3lIH2I/bKMO5jpKn86iMo6ovoE1f+CNJqzD232kwX2UwWapW9YZjJENrbw7PtMTtJo8QvXnVBIH5JPFsinbEa9MdoE6F4J4SSYHj1G96toDI1ii3cpm/xzm7Nie9ayL8H3xbWi+1dQd1r8qPXw3VlODAUXtS7nJx28gcAiDAkCHYtuTCTsqg2ib6RfFJXcEblHe2TWdjne+xrnqjvHbN7O8OpOlkr2M9bix+hWrzOy91vQOe3Ra/YRo9kDECPBeb3L99oF3lAsCadSxlCRPdSqXRY5gyF6WQEGZXR8vW+aRe4dJLn7/hm5lr0kXLT2TwQmNn0EPTd/pdvgxafdGOVOnT+bjIxtutvhswAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="65a807b1.png"
+        title="65a807b1.png"
+        src="/static/9e5694846c71c77ee5ec10277f629443/f058b/7.png"
+        srcset="/static/9e5694846c71c77ee5ec10277f629443/c26ae/7.png 158w,
+/static/9e5694846c71c77ee5ec10277f629443/6bdcf/7.png 315w,
+/static/9e5694846c71c77ee5ec10277f629443/f058b/7.png 630w,
+/static/9e5694846c71c77ee5ec10277f629443/40601/7.png 945w,
+/static/9e5694846c71c77ee5ec10277f629443/78612/7.png 1260w,
+/static/9e5694846c71c77ee5ec10277f629443/668c6/7.png 1692w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p>接下来解释该图中几个关键点的具体工作机制。</p>
+<h4>文档过期</h4>
+<p>通过通用首部 <code class="language-text">Cache-Control</code> 和 <code class="language-text">Expires</code>，HTTP 让服务器对每个文档附加一个“过期时间”，这些首部表示在多长的时间内可以将这些内容视为新鲜的。就像是给食物加上过期时间一样。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/40e0e068bfa048ccb14eda7fe7dcc6be/d9199/8.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 52.53164556962025%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAABV0lEQVQoz3WSiY6DMAxE+///uIGScCVAgSbcZFY2Wwqla8kyQfA8Y+cWhiGiKML9focQAl3X4RXee05QxTv8umzv/745xi2OY1ASNE1T5FqjaRosy/wGbBT4toU3Gt65c8MjkJRJKVnhSyk1CIIAj7rGNM9AEsOHAr4w8NN0cvAZO5BgSZqiKEvkec5VxjHqqgKaGn5dr6PYDlcgzVFJiR8hoJRCUZT4Fvs8D8Cr5ShiYCAEzzDNMrY6zzPGccQ4jZin6Svgq+WQZ6bYLi1EG4Nc53zeMuH6skwIvyycR9Uny3Vd88xIXZZlkErBOoeu6+Gcg7V2+5lAjwq+Ks/Ao0LaptYaxhhk+aaMqrUOwzBwdlSbBkhj4Nnud/KrZbrMtOEokjCmQFVVbD1OEp4pNYiUhM4yPNsWywfsopBgtFnaMFnr+57t9sPAZ3p+Wrvnuqz/XmoC/gIU/VGT10qXRgAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="9ef1d5bc.png"
+        title="9ef1d5bc.png"
+        src="/static/40e0e068bfa048ccb14eda7fe7dcc6be/f058b/8.png"
+        srcset="/static/40e0e068bfa048ccb14eda7fe7dcc6be/c26ae/8.png 158w,
+/static/40e0e068bfa048ccb14eda7fe7dcc6be/6bdcf/8.png 315w,
+/static/40e0e068bfa048ccb14eda7fe7dcc6be/f058b/8.png 630w,
+/static/40e0e068bfa048ccb14eda7fe7dcc6be/40601/8.png 945w,
+/static/40e0e068bfa048ccb14eda7fe7dcc6be/d9199/8.png 960w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p><code class="language-text">Expires</code> 和 <code class="language-text">Cache-Control: max-age</code> 所做的事情本质上都是过期日期。但前者使用的是绝对时间，定义的是过期的时间，超过这个时间，文档将被视为“过时了”。后者使用的是相对时间，定义的是缓存的使用时间，从第一次生成文档到文档不再新鲜，无法使用位置的最大合法生存时间，单位为秒。</p>
+<p>比如你在2019年3月1日买了一瓶牛奶，<code class="language-text">Expires</code> 告诉你在3月15日后过期，而<code class="language-text">Cache-Control:max-age</code> 告诉你是1209600秒 (14 * 24 * 60 * 60) 后过期。</p>
+<p><strong><code class="language-text">Expires</code> 是来自HTTP/1.0版本的首部，目前存在的意义主要是向下兼容。</strong></p>
+<h4>服务器再验证</h4>
+<p>当缓存的新鲜度不再，意味着到了核对的时间了，缓存需要询问服务器原始文档是否发生了变化。这个过程只有两种结果：</p>
+<ol>
+<li>内容发生了变化，缓存将会获取一份新的文档副本，代替原来的副本，然后文档发给客户端</li>
+<li>内容没有发生变化，缓存获取新的首部，首部中包含新的过期时间，然后更新缓存中的首部</li>
+</ol>
+<p>这种机制的好处在于：按需校验，在保证缓存自动更新的前提下还能够节约服务器资源。</p>
+<p>HTTP提供了一些特殊的条件首部，当一个GET请求在请求首部中带上条件首部时，只有当条件为True时，服务器才会返回对象。</p>
+<h5>If-Modified-Since: [Date]</h5>
+<p>如果再指定日期后文档被修改了，条件判定为 True，请求成功后，新的文档将会被缓存，新首部会包含一个新的过期日期。反之响应报文的状态码 <code class="language-text">304 Not Mofified</code>，不返回文档的主体。</p>
+<p>与响应首部中的<code class="language-text">Last-Modified</code>配合使用。文档请求成功返回时，服务器将文档的的最后修改日期以<code class="language-text">Last-Modified</code>加在响应报文中。当缓存进行验证时，将用这个值作为<code class="language-text">If-Modified-Since</code>首部的字段值：</p>
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">If-Modified-Since: &lt;cached last-modified date></code></pre></div>
+<p>如果此时文档内容被修改，修改日期就会有所不同，条件判定为True。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/9a46e2fe4fb20e4d4d39107fc064f5ad/913a1/9.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 87.9746835443038%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVQ4y4WTV2tyQRCG/c0SzL8RDCh6I4LeJHhhIgYRC2KLJabZa6KxxDbhGVhZNXzfwngO65nZt63jcDgIxdput7LZbOSvZb6za7/fa9l7Dntgs9mUfD4v7+/v0u/3ZTAYaH1/f8vPz48eaMr02AeyTgZ2Oh0dysC3tzetRqMh9XpdSqWSFAoFSaVSkkgkJJlMyuvrq+RyOVmtVsehDjNsPB7rAD6az+eyXC5lMplIr9fTQxiYTqfl4eFB7u7uJBwJi9frFZfLpSxY0Hfww6LR5/NpeTwerVAopM3xeFyl4LDZbCamJxaLidPp1N7jQNuQaDQq2WxW1uu1FItFqdVqWtVqVelCHzToy+CPjw+5v79XRkfKtqD26na7WsPhUAeAAo2NLOhqBl2YYuzf7XaK1MBHR5pAg9Ofn58yGo0UJXtEjB47Oicut9tteXl5ka+vL3WOgj6HmKZzROc5PaEMpaenJymXy/qEFvpBE70oHEdLaC8WC5lOp4ryIjb82Wq1tNgDFbTQDmOIDK6Gw2Hx+/1yc3MjgUBArq+vVeOL2EA3EolIMBjUD3niOgEmMqCCAYhMkDng6urq79hwtTj59vZWhz8+Pkomk9G4QBvkmEHYMQaa/Od2u/VS/Dc2lUpFdTRagpBhuI0U5m7/GRuzYZzkdHOXMQJ0PE02YcB9twN9YYr9B4Ofn58VJY2g5J09XCYFvNsDT3Job5p3XEcbbgramXcOIDKgx6B/DjzX09wecxt4op2t3zmgXxZqRkEIqL+jAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="209f1f80.png"
+        title="209f1f80.png"
+        src="/static/9a46e2fe4fb20e4d4d39107fc064f5ad/f058b/9.png"
+        srcset="/static/9a46e2fe4fb20e4d4d39107fc064f5ad/c26ae/9.png 158w,
+/static/9a46e2fe4fb20e4d4d39107fc064f5ad/6bdcf/9.png 315w,
+/static/9a46e2fe4fb20e4d4d39107fc064f5ad/f058b/9.png 630w,
+/static/9a46e2fe4fb20e4d4d39107fc064f5ad/40601/9.png 945w,
+/static/9a46e2fe4fb20e4d4d39107fc064f5ad/78612/9.png 1260w,
+/static/9a46e2fe4fb20e4d4d39107fc064f5ad/913a1/9.png 1476w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p>用 Node.js 来简单实现这个过程：</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> url <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"url"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"fs"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"path"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> mimeList <span class="token operator">=</span> <span class="token punctuation">{</span>
+  css<span class="token operator">:</span> <span class="token string">"text/css"</span><span class="token punctuation">,</span>
+  gif<span class="token operator">:</span> <span class="token string">"image/gif"</span><span class="token punctuation">,</span>
+  html<span class="token operator">:</span> <span class="token string">"text/html"</span><span class="token punctuation">,</span>
+  ico<span class="token operator">:</span> <span class="token string">"image/x-icon"</span><span class="token punctuation">,</span>
+  jpeg<span class="token operator">:</span> <span class="token string">"image/jpeg"</span><span class="token punctuation">,</span>
+  jpg<span class="token operator">:</span> <span class="token string">"image/jpeg"</span><span class="token punctuation">,</span>
+  js<span class="token operator">:</span> <span class="token string">"text/javascript"</span><span class="token punctuation">,</span>
+  json<span class="token operator">:</span> <span class="token string">"application/json"</span><span class="token punctuation">,</span>
+  pdf<span class="token operator">:</span> <span class="token string">"application/pdf"</span><span class="token punctuation">,</span>
+  png<span class="token operator">:</span> <span class="token string">"image/png"</span><span class="token punctuation">,</span>
+  svg<span class="token operator">:</span> <span class="token string">"image/svg+xml"</span><span class="token punctuation">,</span>
+  swf<span class="token operator">:</span> <span class="token string">"application/x-shockwave-flash"</span><span class="token punctuation">,</span>
+  tiff<span class="token operator">:</span> <span class="token string">"image/tiff"</span><span class="token punctuation">,</span>
+  txt<span class="token operator">:</span> <span class="token string">"text/plain"</span><span class="token punctuation">,</span>
+  wav<span class="token operator">:</span> <span class="token string">"audio/x-wav"</span><span class="token punctuation">,</span>
+  wma<span class="token operator">:</span> <span class="token string">"audio/x-ms-wma"</span><span class="token punctuation">,</span>
+  wmv<span class="token operator">:</span> <span class="token string">"video/x-ms-wmv"</span><span class="token punctuation">,</span>
+  xml<span class="token operator">:</span> <span class="token string">"text/xml"</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> Expires <span class="token operator">=</span> <span class="token punctuation">{</span>
+  maxAge<span class="token operator">:</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">24</span> <span class="token operator">*</span> <span class="token number">365</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> server <span class="token operator">=</span> http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> pathname <span class="token operator">=</span> url<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>url<span class="token punctuation">)</span><span class="token punctuation">.</span>pathname<span class="token punctuation">;</span> <span class="token comment">//解析路径</span>
+  <span class="token keyword">const</span> resourcePath <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname <span class="token punctuation">,</span> pathname<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> suffix <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">extname</span><span class="token punctuation">(</span>pathname<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//获取后缀</span>
+  <span class="token keyword">const</span> contentType <span class="token operator">=</span> mimeList<span class="token punctuation">[</span>suffix<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span>resourcePath<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//判断资源是否存在，存在则读取</span>
+    fs<span class="token punctuation">.</span><span class="token function">stat</span><span class="token punctuation">(</span>resourcePath<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> stat</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+      <span class="token comment">// stat.mtime 返回 文件最后修改的时间</span>
+      <span class="token keyword">const</span> lastModified <span class="token operator">=</span> stat<span class="token punctuation">.</span>mtime<span class="token punctuation">.</span><span class="token function">toUTCString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> ifModifiedSince <span class="token operator">=</span> <span class="token string">"If-Modified-Since"</span><span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> expires <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      res<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Last-Modified"</span><span class="token punctuation">,</span> lastModified<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      res<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Content-Type"</span><span class="token punctuation">,</span> contentType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      res<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Expires"</span><span class="token punctuation">,</span> expires<span class="token punctuation">.</span><span class="token function">toUTCString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      res<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Cache-Control"</span><span class="token punctuation">,</span> <span class="token string">"max-age="</span> <span class="token operator">+</span> Expires<span class="token punctuation">.</span>maxAge<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      expires<span class="token punctuation">.</span><span class="token function">setTime</span><span class="token punctuation">(</span>expires<span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> Expires<span class="token punctuation">.</span>maxAge <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment">// 服务端的lastModified 与请求中携带的 “If-Modified-Since”的字段值对比</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>req<span class="token punctuation">.</span>headers<span class="token punctuation">[</span>ifModifiedSince<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> lastModified <span class="token operator">==</span> req<span class="token punctuation">.</span>headers<span class="token punctuation">[</span>ifModifiedSince<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//实现304逻辑</span>
+        res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">304</span><span class="token punctuation">,</span> <span class="token string">"Not Modified"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// 注意：此处没有返回资源</span>
+        res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> resource <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span>resourcePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">"Ok"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resource<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token string">"Content-Type"</span><span class="token operator">:</span> contentType <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"No Found"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">8080</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Server Listen: http://localhost:8080"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<ol>
+<li>在第一次请求时，因为本地没有缓存，node server 返回状态码 200和实体文件，响应首部增加 <code class="language-text">Last-Modified</code></li>
+<li>command+R 刷新页面(此时浏览器会给请求加上一个Cache-Control: max-age=0)。在第二次请求时，请求报文增加 <code class="language-text">If-Modified-Since</code>，值为第一次请求时返回的<code class="language-text">Last-Modified</code>。因为文件的最后修改时间没有发生变化，server 返回 304。</li>
+<li>重新编辑资源文件，再次刷新访问，请求报文依旧增加 <code class="language-text">If-Modified-Since</code>，值为第一次请求时返回的 <code class="language-text">Last-Modified</code>。此时 server 判定缓存失效，返回状态码 200和资源内容</li>
+</ol>
+<h5>If-None-Match: [ETag]</h5>
+<p>有些情况下，仅使用最后修改时间来做验证是不够的：</p>
+<ul>
+<li>有时候文档被重写，内容没有变化，但是修改时间变化</li>
+<li>有时候文档修改的内容不重要，对使用也没有影响</li>
+<li>有的服务器无法准确判断最后修改时间</li>
+<li>有的场景下文档的数据需要精确亚秒级别，比如实时监控。而 Last-Modified 只能精确到秒</li>
+</ul>
+<p>为了解决这个问题，引入了ETag(实体标签)作为版本标识符。ETag 是根据资源本身的特征经过计算得到的一个值，用来标识一个资源。并不像 Last-Modified 那样直接依赖修改时间而是依赖资源，所以要更加可靠和灵活。ETag在响应返回的时候附加在报文中，当文档发生了修改之后，可以修改对应的ETag来表名这是一个新的版本。缓存可以通过<code class="language-text">If-None-Match</code>的校验结果来判断使用缓存还是重新获取文档。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/3af287e681685457d124639ed4f23eef/1134b/10.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 34.177215189873415%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsTAAALEwEAmpwYAAABFElEQVQoz22R3aqCUBCFe/9X8N4X6E666KKgiwxEDAWxtChD0dLS8m8d1sDuHPEMDLNxO2u+tWc2DAMYbdsiiiLEcYymafB+vyWrqpK7/4K9ql/VmTpQxPd9OI4D13URBAEOhwNutxuKohgJMPu+Hwmr+hUkzeVyESJ+I1We5zidTtjv99jtdlgul5jP59B1HZqmiZssy/D5fH4F1YFCTFItFgtsNhtJ0zRh27bQH49HnM9noeag+/0uSXcTQtKkaSo/r1YrGIYhdb1eY7vdwrIshGGIsizFTdd1QsghdV1PBTnl+Xx+7dMmBUiSJInU6/UqScrH44HX6yUg6j1Hlv8GJ5KU78NGLoVVWeSd53mTjXPLPzZgEkFFo+t2AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="054048af.png"
+        title="054048af.png"
+        src="/static/3af287e681685457d124639ed4f23eef/f058b/10.png"
+        srcset="/static/3af287e681685457d124639ed4f23eef/c26ae/10.png 158w,
+/static/3af287e681685457d124639ed4f23eef/6bdcf/10.png 315w,
+/static/3af287e681685457d124639ed4f23eef/f058b/10.png 630w,
+/static/3af287e681685457d124639ed4f23eef/40601/10.png 945w,
+/static/3af287e681685457d124639ed4f23eef/78612/10.png 1260w,
+/static/3af287e681685457d124639ed4f23eef/1134b/10.png 1470w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p>ETag的生成规则没有严格规定包括，文档内容的hash值，对最后修改时间的hash值，甚至是约定的版本号。作为服务器再验证机制中的一环，有强弱之分</p>
+<p>强校验的ETag匹配要求两个资源内容的每个字节需完全相同，包括所有其他实体字段（如Content-Language）不发生变化。一个强校验ETag校验符的表示形式：“22FAA065-2664-4197-9C5E-C92EA03D0A16”。</p>
+<p>弱校验的ETag匹配要求两个资源在语义上相等，不需要每个字节相同。一个弱校验ETag校验符的表现形式：w/”22FAA065-2664-4197-9C5E-C92EA03D0A16”。</p>
+<p>同样用Node.js 来简单实现：</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> server <span class="token operator">=</span> http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> pathname <span class="token operator">=</span> url<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>url<span class="token punctuation">)</span><span class="token punctuation">.</span>pathname<span class="token punctuation">;</span> <span class="token comment">//解析路径</span>
+  <span class="token keyword">const</span> resourcePath <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> pathname<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> suffix <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">extname</span><span class="token punctuation">(</span>pathname<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//获取后缀</span>
+  <span class="token keyword">const</span> contentType <span class="token operator">=</span> mimeList<span class="token punctuation">[</span>suffix<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span>resourcePath<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//判断资源是否存在，存在则读取</span>
+    fs<span class="token punctuation">.</span><span class="token function">stat</span><span class="token punctuation">(</span>resourcePath<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> stat</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> resource <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span>resourcePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">let</span> hash <span class="token operator">=</span> crypto<span class="token punctuation">.</span><span class="token function">createHash</span><span class="token punctuation">(</span><span class="token string">"sha1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">let</span> tag <span class="token operator">=</span> hash<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>resource<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">digest</span><span class="token punctuation">(</span><span class="token string">"base64"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>tag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      res<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">'ETag'</span><span class="token punctuation">,</span> tag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>req<span class="token punctuation">.</span>headers<span class="token punctuation">[</span><span class="token string">"if-none-match"</span><span class="token punctuation">]</span> <span class="token operator">===</span> tag<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">304</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span>resource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// res.writeHead(200, "Ok");</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token string">"Content-Type"</span><span class="token operator">:</span> contentType <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"No Found"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">8080</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Server Listen: http://localhost:8080"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<ol>
+<li>在第一次请求时，因为本地没有缓存，node server 返回状态码 200和实体文件，响应首部增加 <code class="language-text">ETag</code></li>
+<li>command+R 刷新页面(此时浏览器会给请求加上一个Cache-Control: max-age=0)。在第二次请求时，请求报文增加 <code class="language-text">If-None-Match</code>，值为第一次请求时返回的<code class="language-text">ETag</code>。因为文件的内容没有发生变化，server 返回 304。</li>
+<li>重新编辑资源文件，再次刷新访问，请求报文依旧增加 <code class="language-text">ETag</code>，值为第一次请求时返回的 <code class="language-text">ETag</code>。此时server获取到的ETag值已经发生了变化，判定缓存失效，返回状态码 200和资源内容</li>
+</ol>
+<h5>If-Unmodified-Since: Date</h5>
+<p>类似于If-Modified-Since，意义相反。区别是当服务器资源条件不满足时，不是返回 304 Not Modified，而是返回 412 Precondition Failed。</p>
+<h5>If-Match: ETag</h5>
+<p>和If-None-Match 相反</p>
+<p>说了这么多，再回到之前 GET 请求的缓存流程，结合刚才的解释，可以重新绘制一个流程图：</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/c7af3968afa863754291287db3746718/6cb28/11.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 64.55696202531645%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAAsTAAALEwEAmpwYAAACFUlEQVQ4y52T7UsUURTG/WfrL+hbXwqKosAvgoR/QAVqQkKEmpRZuqaZ0Qq+rW+o67obuzN7Z+499+UXc2fSdP3UgQMz5555eO7zPDN0ml4wsjrBy/os1luKCiH8Vxc11JWc93s1Fo/ruGp4vQIEf8tscLcAHUI1oT4GjSnyLMU6jw8e5z3WOawHB1gfcM7H8zgLxOdy5nDOlQwlT0j23qHPVwnBY63D5IJoi/cOl10gnU28KIwxeCc41cL2DvBWI2Kw1iJiK8BmjbT2EPV9GKeOOdxsMv1khqXXP/C6iVp7RjJ/h3zrFUbnyPka/W+P6X2+R74zjuQ9pCAhUgLiLdJtIOlp1MZZR5bkGGXiglG/0d0jQmWYN0kETRuzSHpWMvYesRXDuFT1beUkR6etKLgvPjxbQq09RdUeYHbHMaqDERvluAQUY9A6v4qML+GdapJvDNP/dBe9O0GWqWhGrrpkaTsa4QqzCgO9uwIsDqwdzGDBu986or2zgsvTMi4EtLFocdW+RytDr51ita2u7Ev7rwH6Mmcrb34x9Wiew59n8b1wU0Twzl2Guf5hm+nnc+ws7w8CDmhoLFma4e0VwM3a+3rIwotljtdPqitXLv0V/t8OBMTZS+bWWC4OOrT2O4guo7KxscXk5Bzb2wcVwxAiYPwzbnaVsULjAj7p9JkbXWRmZIFuO4mAbxtfuL88xseTdf4A1XTkpNKbS54AAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="704be86d.png"
+        title="704be86d.png"
+        src="/static/c7af3968afa863754291287db3746718/f058b/11.png"
+        srcset="/static/c7af3968afa863754291287db3746718/c26ae/11.png 158w,
+/static/c7af3968afa863754291287db3746718/6bdcf/11.png 315w,
+/static/c7af3968afa863754291287db3746718/f058b/11.png 630w,
+/static/c7af3968afa863754291287db3746718/40601/11.png 945w,
+/static/c7af3968afa863754291287db3746718/78612/11.png 1260w,
+/static/c7af3968afa863754291287db3746718/6cb28/11.png 2430w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<h3>与缓存相关的首部</h3>
+<p>总结一下目前涉及到的一些与缓存相关的首部字段，方便大家理解和体会：</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/12989c5f854e258b1a9d8cbc9bfaada2/71ba4/12.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 55.06329113924051%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAABuklEQVQoz22TaarcMBCEfd+QG4TcJAfIz0B+BXKHECZhBmbxMuNVXiVblmWpQrefIW8YgZCNrdLXVa0AALz3L+fz0FpjsRZSSmRZhqqqIIRAURao6xrOOQT7xlcC1losy8LrOE1o2xZSKhY7Ho+I4xi38IY4iVlYzzOCZzE1TWj6HrMxMMZgmiZeh2FA07bouh5FWeJ8PiOKIuR5zoftYyP0Hm510HpGVlU4Xi5Q44TVWqzOMeE8z8iLAnGS4PF44BaG/Nx2HZNTuZvg7o8xWNf1XclER76RGG2iSaTjuFHTNzqMxPYqA6Lz1kIT0bqiEALnMIRUIyohcL1emSzNMhz+HPidhJ7HHmSAL1/hP3yC+/gZ7nCC8o69IoP7fkBZlqjrBuM4svGULBG+Gpvgr7/w339i/vYDJi2gV4t+GLg9KGESuj/unGxyT7hkmkpJdF0HpRT6vuf1nYcjgMV7lELgEkWctjEL/0wtEoYh0jRlwrqp0TQNJ8x9WGx9yISe0nEORs9sPvlIhpPR5q11hKh4E1FQUERN82XJ/9+KZbFIshy/TycOhUoSomYq6jkiHKRkK8xbVzzfrH+DQE24lFaLoAAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="24cb815b.png"
+        title="24cb815b.png"
+        src="/static/12989c5f854e258b1a9d8cbc9bfaada2/f058b/12.png"
+        srcset="/static/12989c5f854e258b1a9d8cbc9bfaada2/c26ae/12.png 158w,
+/static/12989c5f854e258b1a9d8cbc9bfaada2/6bdcf/12.png 315w,
+/static/12989c5f854e258b1a9d8cbc9bfaada2/f058b/12.png 630w,
+/static/12989c5f854e258b1a9d8cbc9bfaada2/40601/12.png 945w,
+/static/12989c5f854e258b1a9d8cbc9bfaada2/78612/12.png 1260w,
+/static/12989c5f854e258b1a9d8cbc9bfaada2/71ba4/12.png 1870w"
+        sizes="(max-width: 630px) 100vw, 630px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p>内容有些许枯燥，但还是希望能够帮助大家理解</p>
+<p><strong>参考资料</strong></p>
+<ol>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ#%E5%90%84%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BC%93%E5%AD%98">HTTP 缓存 - HTTP | MDN</a></li>
+<li><a href="https://blog.fundebug.com/2019/01/08/browser-cache-mechanism/">浏览器缓存机制 | Fundebug博客</a></li>
+<li><a href="https://swiftcachelite.swiftserve.com/different-types-of-caching-and-their-differences/">Different Types of Caching and Their Differences - SwiftCache Lite</a></li>
+<li><a href="https://stackoverflow.com/questions/49547/how-to-control-web-page-caching-across-all-browsers">http - How to control web page caching, across all browsers? - Stack Overflow</a></li>
+<li><a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching">HTTP Caching  |  Web Fundamentals  |  Google Developers</a></li>
+<li><a href="https://www.wikiwand.com/en/HTTP_ETag">HTTP ETag - Wikiwand</a></li>
+</ol></section></article><nav class="pagination"><a class="prev" rel="prev" href="/blogs/从getBoundingClientRect到Intersection Observer/">← <!-- -->从getBoundingClientRect到Intersection Observer</a><a class="next" rel="next" href="/blogs/2019-01-26-巧用-webpack-loader-实现项目的定制化/">巧用 webpack loader 实现项目的定制化<!-- --> →</a></nav></section></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
+  
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'UA-50406624-2', 'auto', {});
+      
+      
+      
+      
+      
+      }</script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blogs/2019-03-09-浅谈-HTTP-缓存/";window.___webpackCompilationHash="e3ab2eb941621e1bec58";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-67664a8ccc6c9f02b880.js"],"app":["/app-11714ea12522d77ace84.js"],"component---src-pages-404-js":["/component---src-pages-404-js-496ea80c391da9d7aa7a.js"],"component---src-pages-about-tsx":["/component---src-pages-about-tsx-c5325dd7b1ccc88a2f2f.js"],"component---src-pages-archives-tsx":["/component---src-pages-archives-tsx-2f215b4ec97f44f39dbe.js"],"component---src-pages-categories-tsx":["/component---src-pages-categories-tsx-0b3a853bed39b99b2c8a.js"],"component---src-pages-index-js":["/component---src-pages-index-js-fb82b2e7f3af4cbc7524.js"],"component---src-pages-using-typescript-tsx":["/component---src-pages-using-typescript-tsx-5626664c8a8e66696c50.js"],"component---src-templates-blog-list-js":["/component---src-templates-blog-list-js-15d1c761a17aabce716b.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-8913e7153bf91b18d03b.js"],"component---src-templates-categories-js":["/component---src-templates-categories-js-44bfbf405e382c059b5b.js"]};/*]]>*/</script><script src="/polyfill-67664a8ccc6c9f02b880.js" nomodule=""></script><script src="/component---src-templates-blog-post-js-8913e7153bf91b18d03b.js" async=""></script><script src="/0b98594fcddcff10f8b5f74aec797a56f6f99e07-3fb3a7c25cb9f18b58ba.js" async=""></script><script src="/app-11714ea12522d77ace84.js" async=""></script><script src="/framework-b9923b3cceb493977198.js" async=""></script><script src="/webpack-runtime-56976d73dd51c672c28b.js" async=""></script></body></html>
